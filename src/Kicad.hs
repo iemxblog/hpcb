@@ -4,10 +4,20 @@ module Kicad (
 ) where
 import Data.List
 
--- | 
+-- | Item type used to represent S-Expression of Kicad format.
+-- Example : 
+--
+-- (via (at 152 98))
+--
+-- Would be create like this with our type : 
+--
+-- @
+-- Item "via" [ParamItem $ Item "at" [ParamInt 152, ParamInt 98]]
+-- @
 data Item = 
     Item String [Parameter]
 
+-- | Parameters in a S-Expression. See 'Item'.
 data Parameter = 
     ParamString String
     | ParamFloat Float
@@ -22,3 +32,6 @@ instance Show Parameter where
     show (ParamFloat f) = show f
     show (ParamInt i) = show i
     show (ParamItem i) = show i
+
+class Itemizable a where
+    itemize :: a -> Item
