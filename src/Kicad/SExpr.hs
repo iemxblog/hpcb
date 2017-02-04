@@ -1,24 +1,26 @@
 module Kicad.SExpr (
     Item(..)
     , Parameter(..)
+    , Itemizable(..)
 ) where
 import Data.List
+import Numeric
 
 -- | Item type used to represent S-Expression of Kicad format.
--- Example : 
+-- Example :
 --
 -- (via (at 152 98))
 --
--- Would be create like this with our type : 
+-- Would be create like this with our type :
 --
 -- @
 -- Item "via" [ParamItem $ Item "at" [ParamInt 152, ParamInt 98]]
 -- @
-data Item = 
+data Item =
     Item String [Parameter]
 
 -- | Parameters in a S-Expression. See 'Item'.
-data Parameter = 
+data Parameter =
     ParamString String
     | ParamFloat Float
     | ParamInt Int
@@ -29,7 +31,7 @@ instance Show Item where
 
 instance Show Parameter where
     show (ParamString s) = show s
-    show (ParamFloat f) = show f
+    show (ParamFloat f) = showFFloat Nothing f ""
     show (ParamInt i) = show i
     show (ParamItem i) = show i
 
