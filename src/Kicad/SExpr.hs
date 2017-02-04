@@ -27,7 +27,7 @@ data Parameter =
     | ParamItem Item
 
 instance Show Item where
-    show (Item s xs) = "(" ++ s ++ " " ++ (concat . intersperse " " . map show) xs ++ ")"
+    show (Item s xs) = "(" ++ s ++ " " ++ (unwords . map show) xs ++ ")"
 
 instance Show Parameter where
     show (ParamString s) = show s
