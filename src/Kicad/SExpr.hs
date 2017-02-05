@@ -11,7 +11,7 @@ import Numeric
 --
 -- (via (at 152 98))
 --
--- Would be create like this with our type :
+-- Would be created like this with our type :
 --
 -- @
 -- Item "via" [ParamItem $ Item "at" [ParamInt 152, ParamInt 98]]
