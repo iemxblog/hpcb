@@ -2,7 +2,10 @@ module Kicad.Element
 (
     --Module(..)
     V2(..)
-    , Position(..)
+    , Layer(..)
+    , FpText(..)
+    , Effects(..)
+    , At(..)
     , Size(..)
 ) where
 
@@ -19,7 +22,7 @@ data Net = Net Int String
 data FpText = FpText
   String      -- ^ Name of the text
   String      -- ^ Content of the text
-  Position    -- ^ Position of the text
+  At          -- ^ Position of the text
   Layer       -- ^ Layer where the text is
   Effects     -- ^ Effects (font, justification, etc.)
 
@@ -54,12 +57,12 @@ data V2 a = V2 a a
 -- | Position :
 -- V2 Float : Coordinates
 -- Maybe Float : Orientation
-data Position = Position (V2 Float) (Maybe Float)
+data At = At (V2 Float) (Maybe Float)
 
-instance Itemizable Position where
-    itemize (Position (V2 x y) (Just 0.0))  = Item "at" [ParamFloat x, ParamFloat y]
-    itemize (Position (V2 x y) (Just o))  = Item "position" [ParamFloat x, ParamFloat y, ParamFloat o]
-    itemize (Position (V2 x y) Nothing)  = Item "position" [ParamFloat x, ParamFloat y]
+instance Itemizable At where
+    itemize (At (V2 x y) (Just 0.0))  = Item "at" [ParamFloat x, ParamFloat y]
+    itemize (At (V2 x y) (Just o))  = Item "at" [ParamFloat x, ParamFloat y, ParamFloat o]
+    itemize (At (V2 x y) Nothing)  = Item "at" [ParamFloat x, ParamFloat y]
 
 newtype Size = Size (V2 Float)
 
