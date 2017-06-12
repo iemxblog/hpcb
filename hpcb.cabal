@@ -1,6 +1,6 @@
 name:                hpcb
 version:             0.1.0.0
-synopsis:            PCB creation using a Haskell DSL (domain specific language) 
+synopsis:            PCB creation using a Haskell DSL (domain specific language)
 description:         Please see README.md
 homepage:            https://github.com/githubuser/hpcb#readme
 license:             BSD3

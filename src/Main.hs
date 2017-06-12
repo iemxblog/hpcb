@@ -1,5 +1,7 @@
 module Main where
 
+import Kicad.SExpr
+
 main :: IO ()
 main = do
-  putStrLn "hello world"
+  print $ Item "at" [ParamInt 2, ParamInt 3]
