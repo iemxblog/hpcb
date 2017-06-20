@@ -1,6 +1,5 @@
 module Kicad.SExpr (
     Item(..)
-    , Parameter(..)
     , Itemizable(..)
 ) where
 import Data.List
@@ -17,23 +16,16 @@ import Numeric
 -- Item "via" [ParamItem $ Item "at" [ParamInt 152, ParamInt 98]]
 -- @
 data Item =
-    Item String [Parameter]
-
--- | Parameters in a S-Expression. See 'Item'.
-data Parameter =
-    ParamString String
-    | ParamFloat Float
-    | ParamInt Int
-    | ParamItem Item
+    Item String [Item]
+    | PString String
+    | PFloat Float
+    | PInt Int
 
 instance Show Item where
     show (Item s xs) = "(" ++ s ++ " " ++ (unwords . map show) xs ++ ")"
-
-instance Show Parameter where
-    show (ParamString s) = show s
-    show (ParamFloat f) = showFFloat Nothing f ""
-    show (ParamInt i) = show i
-    show (ParamItem i) = show i
+    show (PString s) = show s
+    show (PFloat f) = showFFloat Nothing f ""
+    show (PInt i) = show i
 
 class Itemizable a where
     itemize :: a -> Item

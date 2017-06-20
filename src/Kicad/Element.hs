@@ -14,8 +14,8 @@ import Kicad.SExpr
 data Layer = Layer String | Layers [String]
 
 instance Itemizable Layer where
-  itemize (Layer s) = Item "layer" [ParamString s]
-  itemize (Layers xs) = Item "layers" $ map ParamString xs
+  itemize (Layer s) = Item "layer" [PString s]
+  itemize (Layers xs) = Item "layers" $ map PString xs
 
 data Net = Net Int String
 
@@ -29,11 +29,11 @@ data FpText = FpText
 instance Itemizable FpText where
     itemize (FpText name text pos layer effects) =
       Item "fptext" [
-        ParamString name,
-        ParamString text,
-        ParamItem (itemize pos),
-        ParamItem (itemize layer),
-        ParamItem (itemize effects)
+        PString name,
+        PString text,
+        itemize pos,
+        itemize layer,
+        itemize effects
         ]
 
 data Effects = StandardEffects
@@ -41,10 +41,10 @@ data Effects = StandardEffects
 instance Itemizable Effects where
   itemize StandardEffects =
       Item "effects" [
-        ParamItem (Item "font" [
-          ParamItem (Item "size" [ParamInt 1, ParamInt 1]),
-          ParamItem (Item "thickness" [ParamFloat 0.15])
-        ] )
+        Item "font" [
+          Item "size" [PInt 1, PInt 1],
+          Item "thickness" [PFloat 0.15]
+        ]
       ]
 
 {-}
@@ -60,11 +60,11 @@ data V2 a = V2 a a
 data At = At (V2 Float) (Maybe Float)
 
 instance Itemizable At where
-    itemize (At (V2 x y) (Just 0.0))  = Item "at" [ParamFloat x, ParamFloat y]
-    itemize (At (V2 x y) (Just o))  = Item "at" [ParamFloat x, ParamFloat y, ParamFloat o]
-    itemize (At (V2 x y) Nothing)  = Item "at" [ParamFloat x, ParamFloat y]
+    itemize (At (V2 x y) (Just 0.0))  = Item "at" [PFloat x, PFloat y]
+    itemize (At (V2 x y) (Just o))  = Item "at" [PFloat x, PFloat y, PFloat o]
+    itemize (At (V2 x y) Nothing)  = Item "at" [PFloat x, PFloat y]
 
 newtype Size = Size (V2 Float)
 
 instance Itemizable Size where
-    itemize (Size (V2 x y))  = Item "size" [ParamFloat x, ParamFloat y]
+    itemize (Size (V2 x y))  = Item "size" [PFloat x, PFloat y]
