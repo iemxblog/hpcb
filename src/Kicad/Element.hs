@@ -1,8 +1,13 @@
+{-# LANGUAGE FlexibleInstances #-}
 module Kicad.Element
 (
     --Module(..)
     V2(..)
     , Layer(..)
+    , topSide
+    , bottomSide
+    , copperLayers
+    , maskLayers
     , Net(..)
     , FpText(..)
     , Effects(..)
@@ -20,11 +25,68 @@ module Kicad.Element
 
 import Kicad.SExpr
 
-data Layer = Layer String | Layers [String]
+data Layer =
+  FCu
+  | BCu
+  | FAdhes
+  | BAdhes
+  | FPaste
+  | BPaste
+  | FSilkS
+  | BSilkS
+  | FMask
+  | BMask
+  | DwgsUser
+  | CmtsUser
+  | Eco1User
+  | Eco2User
+  | EdgeCuts
+  | Margin
+  | FCrtYd
+  | BCrtYd
+  | FFab
+  | BFab
+
+-- | Layer management instance. We put an s wheen there a several layers.
+-- This instance is why we need FlexibleInstances.
+instance Itemizable [Layer] where
+  itemize [] = error "Empty list of layers"
+  itemize [l] = Item "layer" [itemize l]
+  itemize ls = Item "layers" $ map itemize ls
 
 instance Itemizable Layer where
-  itemize (Layer s) = Item "layer" [PString s]
-  itemize (Layers xs) = Item "layers" $ map PString xs
+  itemize FCu = Item "layer" [PString "F.Cu"]
+  itemize BCu = Item "layer" [PString "B.Cu"]
+  itemize FAdhes = Item "layer" [PString "F.Adhes"]
+  itemize BAdhes = Item "layer" [PString "B.Adhes"]
+  itemize FPaste = Item "layer" [PString "F.Paste"]
+  itemize BPaste = Item "layer" [PString "B.Paste"]
+  itemize FSilkS = Item "layer" [PString "F.SilkS"]
+  itemize BSilkS = Item "layer" [PString "B.Silks"]
+  itemize FMask = Item "layer" [PString "F.Mask"]
+  itemize BMask = Item "layer" [PString "B.Mask"]
+  itemize DwgsUser = Item "layer" [PString "Dwgs.User"]
+  itemize CmtsUser = Item "layer" [PString "Cmts.User"]
+  itemize Eco1User = Item "layer" [PString "Eco1.User"]
+  itemize Eco2User = Item "layer" [PString "Eco2.User"]
+  itemize EdgeCuts = Item "layer" [PString "Edge.Cuts"]
+  itemize Margin = Item "layer" [PString "Margin"]
+  itemize FCrtYd = Item "layer" [PString "F.CrtYd"]
+  itemize BCrtYd = Item "layer" [PString "B.CrtYd"]
+  itemize FFab = Item "layer" [PString "F.Fab"]
+  itemize BFab = Item "layer" [PString "B.Fab"]
+
+topSide :: [Layer]
+topSide =  [FCu, FAdhes, FPaste, FSilkS, FMask, FCrtYd, FFab]
+
+bottomSide :: [Layer]
+bottomSide = [BCu, BAdhes, BPaste, BSilkS, BMask, BCrtYd, BFab]
+
+copperLayers :: [Layer]
+copperLayers = [FCu, BCu]
+
+maskLayers :: [Layer]
+maskLayers = [FMask, BMask]
 
 data Net = Net Int String
 instance Itemizable Net where
@@ -109,7 +171,7 @@ data Pad = Pad
   Position
   Size
   PadDrill
-  Layer
+  [Layer]
   Net
 
 data PadType = ThroughHole | SMD
@@ -128,8 +190,8 @@ instance Itemizable PadDrill where
   itemize (PadDrill f) = Item "drill" [PFloat f]
 
 instance Itemizable Pad where
-  itemize (Pad number padType shape pos size drill layer net) =
-    Item "Pad" [PInt number, itemize padType, itemize shape, itemize pos, itemize size, itemize drill, itemize layer, itemize net]
+  itemize (Pad number padType shape pos size drill layers net) =
+    Item "Pad" [PInt number, itemize padType, itemize shape, itemize pos, itemize size, itemize drill, itemize layers, itemize net]
 
 data Graphic = FpLine
   (V2 Float)  -- ^ Line start
