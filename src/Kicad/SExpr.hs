@@ -13,7 +13,7 @@ import Numeric
 -- Would be created like this with our type :
 --
 -- @
--- Item "via" [ParamItem $ Item "at" [ParamInt 152, ParamInt 98]]
+-- Item "via" [Item "at" [PInt 152, PInt 98]]
 -- @
 data Item =
     Item String [Item]
