@@ -47,12 +47,35 @@ data Layer =
   | FFab
   | BFab
 
+instance Show Layer where
+  show FCu = "F.Cu"
+  show BCu = "B.Cu"
+  show FAdhes = "F.Adhes"
+  show BAdhes = "B.Adhes"
+  show FPaste = "F.Paste"
+  show BPaste = "B.Paste"
+  show FSilkS = "F.SilkS"
+  show BSilkS = "B.Silks"
+  show FMask = "F.Mask"
+  show BMask = "B.Mask"
+  show DwgsUser = "Dwgs.User"
+  show CmtsUser = "Cmts.User"
+  show Eco1User = "Eco1.User"
+  show Eco2User = "Eco2.User"
+  show EdgeCuts = "Edge.Cuts"
+  show Margin = "Margin"
+  show FCrtYd = "F.CrtYd"
+  show BCrtYd = "B.CrtYd"
+  show FFab = "F.Fab"
+  show BFab = "B.Fab"
+
 -- | Layer management instance. We put an s wheen there a several layers.
 -- This instance is why we need FlexibleInstances.
 instance Itemizable [Layer] where
   itemize [] = error "Empty list of layers"
   itemize [l] = Item "layer" [itemize l]
-  itemize ls = Item "layers" $ map itemize ls
+  itemize ls = Item "layers" $ map (PString . show) ls
+
 
 instance Itemizable Layer where
   itemize FCu = Item "layer" [PString "F.Cu"]
