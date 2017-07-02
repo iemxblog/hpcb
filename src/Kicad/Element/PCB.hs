@@ -2,11 +2,11 @@ module Kicad.Element.PCB(
   PCB
 ) where
 
-import Kicad.Element.Module
+import Kicad.Element.Footprint
 import Kicad.Element.Graphic
 import Kicad.Element.Segment
 
-data PCB = PCB [Module] [Graphic] [Segment]
+data PCB = PCB [Footprint] [Graphic] [Segment]
 
 instance Monoid PCB where
   mempty = PCB [] [] []
