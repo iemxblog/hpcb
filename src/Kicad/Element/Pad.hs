@@ -10,15 +10,7 @@ import Kicad.Element.Base
 import Kicad.Element.Layer
 import Kicad.Element.Net
 
-data Pad = Pad
-  Int       -- ^ Pin number
-  PadType   -- ^ Through hole or SMD
-  PadShape
-  Position
-  Size
-  PadDrill
-  [Layer]
-  Net
+data Pad = Pad Int PadType PadShape Position Size PadDrill [Layer] Net  -- ^ Int : Pin number
 
 data PadType = ThroughHole | SMD
 instance Itemizable PadType where

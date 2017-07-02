@@ -8,15 +8,7 @@ import Kicad.Element.Layer
 import Kicad.Element.FpGraphic
 import Kicad.Element.Pad
 
-data Module = Module
-  String    -- ^ Module Name
-  Layer     -- ^ Module layer
-  TEdit     -- ^ Last edition time stamp
-  TStamp    -- ^ Time stamp from the schematic
-  Position  -- ^ Module position
-  [FpText]
-  [FpLine]
-  [Pad]
+data Module = Module String Layer TEdit TStamp Position [FpGraphic] [Pad] -- ^ Name, layer, last edition time stamp, time stamp from the schematic, module position, ...
 
 instance Itemizable Module where
   itemize (Module n l te ts pos texts graphics pads) =
