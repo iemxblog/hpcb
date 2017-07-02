@@ -1,5 +1,5 @@
 module Kicad.Element.Graphic (
-
+  Graphic
 ) where
 
 import Kicad.SExpr
