@@ -6,7 +6,7 @@ import Kicad.SExpr
 import Kicad.Element.Base
 import Kicad.Element.Layer
 import Kicad.Element.FpText
-import Kicad.Element.Graphic
+import Kicad.Element.FpLine
 import Kicad.Element.Pad
 
 data Module = Module
@@ -16,7 +16,7 @@ data Module = Module
   TStamp    -- ^ Time stamp from the schematic
   Position  -- ^ Module position
   [FpText]
-  [Graphic]
+  [FpLine]
   [Pad]
 
 instance Itemizable Module where
