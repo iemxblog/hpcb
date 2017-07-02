@@ -6,7 +6,8 @@ module Kicad.Element
   module Kicad.Element.Layer,
   module Kicad.Element.Module,
   module Kicad.Element.Net,
-  module Kicad.Element.Pad
+  module Kicad.Element.Pad,
+  module Kicad.Element.PCB
 ) where
 
 import Kicad.Element.Base
@@ -16,3 +17,4 @@ import Kicad.Element.Layer
 import Kicad.Element.Module
 import Kicad.Element.Net
 import Kicad.Element.Pad
+import Kicad.Element.PCB
