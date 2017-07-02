@@ -17,7 +17,16 @@ instance Itemizable FpGraphic where
     Item "fp_line" [
       Item "start" [PFloat xs, PFloat ys] ,
       Item "end" [PFloat xe, PFloat ye],
-      itemize l, PFloat w
+      itemize l,
+      Item "width" [PFloat w]
+    ]
+
+  itemize (FpCircle (V2 xc yc) (V2 xe ye) l w) =
+    Item "fp_circle" [
+      Item "center" [PFloat xc, PFloat yc],
+      Item "end" [PFloat xe, PFloat ye],
+      itemize l,
+      Item "width" [PFloat w]
     ]
 
   itemize (FpText name text pos layer effects) =
@@ -27,4 +36,4 @@ instance Itemizable FpGraphic where
       itemize pos,
       itemize layer,
       itemize effects
-      ]
+    ]
