@@ -5,8 +5,7 @@ module Kicad.Element.Module(
 import Kicad.SExpr
 import Kicad.Element.Base
 import Kicad.Element.Layer
-import Kicad.Element.FpText
-import Kicad.Element.FpLine
+import Kicad.Element.FpGraphic
 import Kicad.Element.Pad
 
 data Module = Module
