@@ -20,8 +20,8 @@ data Position = At (V2 Float) (Maybe Float)
 
 type Transformation = Position -> Position
 
-translation :: Float -> Float -> Transformation
-translation x y (At (V2 xp yp) a) = At (V2(xp+x) (yp+y)) a
+translation :: V2 Float -> Transformation
+translation (V2 x y) (At (V2 xp yp) a) = At (V2(xp+x) (yp+y)) a
 
 rotation :: Float -> Transformation
 rotation a (At (V2 x y) Nothing) = At (V2 x y) (Just a)
