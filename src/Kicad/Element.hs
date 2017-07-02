@@ -1,6 +1,7 @@
 module Kicad.Element
 (
   module Kicad.Element.Base,
+  module Kicad.Element.Effects,
   module Kicad.Element.FpGraphic,
   module Kicad.Element.Layer,
   module Kicad.Element.Module,
@@ -9,6 +10,7 @@ module Kicad.Element
 ) where
 
 import Kicad.Element.Base
+import Kicad.Element.Effects
 import Kicad.Element.FpGraphic
 import Kicad.Element.Layer
 import Kicad.Element.Module
