@@ -1,12 +1,15 @@
 module Kicad.Element.Base(
   V2(..),
   Position(..),
+  origin,
   Transformation,
   translation,
   rotation,
   Size(..),
   TEdit(..),
-  TStamp(..)
+  dummyTEdit,
+  TStamp(..),
+  dummyTStamp
 ) where
 
 import Kicad.SExpr
@@ -17,6 +20,9 @@ data V2 a = V2 a a
 -- V2 Float : Coordinates
 -- Maybe Float : Orientation
 data Position = At (V2 Float) (Maybe Float)
+
+origin :: Position
+origin = At (V2 0 0) Nothing
 
 type Transformation = Position -> Position
 
@@ -41,6 +47,10 @@ newtype TEdit = TEdit String
 instance Itemizable TEdit where
   itemize (TEdit s)= Item "tedit" [PString s]
 
+dummyTEdit = TEdit "5893982A"
+
 newtype TStamp = TStamp String
 instance Itemizable TStamp where
   itemize (TStamp s)= Item "tstamp" [PString s]
+
+dummyTStamp = TStamp "5893982A"
