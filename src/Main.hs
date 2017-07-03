@@ -12,7 +12,7 @@ main = do
       (At (V2 66.04 33.3502) Nothing)
       [ FpText "reference" "R1" (At (V2 0 0.127) Nothing) FSilkS StandardEffects,
         FpText "value" "330k" (At (V2 0 0.127) Nothing) FSilkS StandardEffects,
-        FpLine (V2 (-3.81) 0) (V2 (-3.302) 0) FSilkS 0.2032]
-      [ Pad 1 ThroughHole Circle (At (V2 3.81 0) Nothing) (Size (V2 1.397 1.397)) (PadDrill 0.812799) (copperLayers ++ maskLayers ++ [FSilkS]) (Net 1 "/SIGNAL"),
+        FpLine (V2 (-3.81) 0) (V2 (-3.302) 0) FSilkS 0.2032,
+        Pad 1 ThroughHole Circle (At (V2 3.81 0) Nothing) (Size (V2 1.397 1.397)) (PadDrill 0.812799) (copperLayers ++ maskLayers ++ [FSilkS]) (Net 1 "/SIGNAL"),
         Pad 2 ThroughHole Circle (At (V2 3.81 0) Nothing) (Size (V2 1.397 1.397)) (PadDrill 0.812799) (copperLayers  ++ maskLayers ++ [FSilkS]) (Net 2 "GND")
       ]
