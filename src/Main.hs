@@ -7,7 +7,7 @@ main :: IO ()
 main = do
   print $ itemize (At (V2 3 4) Nothing)
   print $ itemize (FpText "reference" "R1" (At (V2 0 (-2.3)) (Just 45)) FSilkS StandardEffects)
-  putStr $ prettyPrint True 0 $ itemize $
+  putStr $ prettyPrint $ itemize $
     Footprint "R3" FCu (TEdit "4E4C0E65") (TStamp "5127A136")
       (At (V2 66.04 33.3502) Nothing)
       [ FpText "reference" "R1" (At (V2 0 0.127) Nothing) FSilkS StandardEffects,

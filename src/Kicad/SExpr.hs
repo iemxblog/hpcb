@@ -39,9 +39,12 @@ indent False n s = s
 noIndent :: [String]
 noIndent = ["at", "drill", "size", "net", "layer", "start", "end", "effects", "layer", "layers", "width"]
 
-prettyPrint :: Bool -> Int -> Item -> String
-prettyPrint b n (PString s) = indent b n s
-prettyPrint b n (PFloat f) = indent b n $ showFFloat Nothing f ""
-prettyPrint b n (PInt i) = indent b n $ show i
-prettyPrint b n (Item s xs) | s `elem` noIndent = indent b n $ "(" ++ s ++ " " ++ unwords (map (prettyPrint False n) xs) ++ ")"
-  | otherwise = indent b n ("(" ++ s ++ " ") ++ concatMap (prettyPrint b (n+1)) xs ++ indent b n ")"
+prettyPrint' :: Bool -> Int -> Item -> String
+prettyPrint' b n (PString s) = indent b n s
+prettyPrint' b n (PFloat f) = indent b n $ showFFloat Nothing f ""
+prettyPrint' b n (PInt i) = indent b n $ show i
+prettyPrint' b n (Item s xs) | s `elem` noIndent = indent b n $ "(" ++ s ++ " " ++ unwords (map (prettyPrint' False n) xs) ++ ")"
+  | otherwise = indent b n ("(" ++ s ++ " ") ++ concatMap (prettyPrint' b (n+1)) xs ++ indent b n ")"
+
+prettyPrint :: Item -> String
+prettyPrint = prettyPrint' True 0
