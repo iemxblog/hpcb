@@ -30,7 +30,5 @@ main = do
               <> fpText "value" "330k" StandardEffects
               <> fpLine (V2 (-3.81) 0) (V2 (-3.302) 0) 0.2032
             )
-            <> layer FCu (
-              translate (V2 3.81 0) (pad 1 ThroughHole Circle (Size (V2 1.397 1.397)) (PadDrill 0.812799) (Net 1 "/SIGNAL"))
-              <> translate (V2 3.81 0) (pad 1 ThroughHole Circle (Size (V2 1.397 1.397)) (PadDrill 0.812799) (Net 2 "GND"))
-            )
+            <> translate (V2 3.81 0) (pad 1 ThroughHole Circle (Size (V2 1.397 1.397)) (PadDrill 0.812799) (Net 1 "/SIGNAL"))
+            <> translate (V2 3.81 0) (pad 1 ThroughHole Circle (Size (V2 1.397 1.397)) (PadDrill 0.812799) (Net 2 "GND"))
