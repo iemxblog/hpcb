@@ -2,6 +2,8 @@ module Main where
 
 import Kicad.SExpr
 import Kicad.Element
+import Kicad.Circuit
+import Data.Monoid
 
 main :: IO ()
 main = do
@@ -16,3 +18,17 @@ main = do
         Pad 1 ThroughHole Circle (At (V2 3.81 0) Nothing) (Size (V2 1.397 1.397)) (PadDrill 0.812799) (copperLayers ++ maskLayers ++ [FSilkS]) (Net 1 "/SIGNAL"),
         Pad 2 ThroughHole Circle (At (V2 3.81 0) Nothing) (Size (V2 1.397 1.397)) (PadDrill 0.812799) (copperLayers  ++ maskLayers ++ [FSilkS]) (Net 2 "GND")
       ]
+  putStr $ prettyPrint $ itemize $ runCircuit $
+    translate (V2 66.04 33.3502) $
+      layer FCu $
+        footprint "R1" $
+          translate (V2 0 0.127) $
+            layer FSilkS (
+              fpText "reference" "R1" StandardEffects
+              <> fpText "value" "330k" StandardEffects
+              <> fpLine (V2 (-3.81) 0) (V2 (-3.302) 0) 0.2032
+            )
+            <> layer FCu (
+              translate (V2 3.81 0) (pad 1 ThroughHole Circle (Size (V2 1.397 1.397)) (PadDrill 0.812799) (Net 1 "/SIGNAL"))
+              <> translate (V2 3.81 0) (pad 1 ThroughHole Circle (Size (V2 1.397 1.397)) (PadDrill 0.812799) (Net 2 "GND"))
+            )
