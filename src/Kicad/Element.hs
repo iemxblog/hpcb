@@ -1,5 +1,6 @@
 module Kicad.Element
 (
+  module Kicad.Element.Action,
   module Kicad.Element.Base,
   module Kicad.Element.Effects,
   module Kicad.Element.FpElement,
@@ -9,6 +10,7 @@ module Kicad.Element
   module Kicad.Element.PCB
 ) where
 
+import Kicad.Element.Action
 import Kicad.Element.Base
 import Kicad.Element.Effects
 import Kicad.Element.FpElement

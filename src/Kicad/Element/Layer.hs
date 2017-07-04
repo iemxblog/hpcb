@@ -4,7 +4,9 @@ module Kicad.Element.Layer(
   topSideLayers,
   bottomSideLayers,
   copperLayers,
-  maskLayers
+  maskLayers,
+  defaultLayer,
+  padDefaultLayers
 ) where
 
 import Kicad.SExpr
@@ -94,3 +96,9 @@ copperLayers = [FCu, BCu]
 
 maskLayers :: [Layer]
 maskLayers = [FMask, BMask]
+
+defaultLayer :: Layer
+defaultLayer = FCu
+
+padDefaultLayers :: [Layer]
+padDefaultLayers = copperLayers ++ maskLayers ++ [FSilkS]
