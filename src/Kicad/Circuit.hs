@@ -44,4 +44,4 @@ pad ::  Int           -- ^ Pin number
         -> PadDrill
         -> Net
         -> FpContent
-pad n t sh si d pnet = FpContent [Pad n t sh origin si d padDefaultLayers pnet] -- Only single layer is supported now, multiple layers will have to be implemented soon
+pad n t sh si d pnet = FpContent [Pad n t sh origin si d padDefaultLayers pnet]
