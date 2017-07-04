@@ -32,3 +32,4 @@ instance Monoid FpContent where
 
 instance ChangeableLayer FpContent where
   layer l (FpContent fpc) = FpContent (map (layer l) fpc)
+  layers ls (FpContent fpc) = FpContent (map (layers ls) fpc)

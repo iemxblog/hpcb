@@ -74,18 +74,16 @@ instance Transformable FpElement where
 
 instance ChangeableLayer FpElement where
   layer l (FpLine s e _ w) = FpLine s e l w
-  --layers _ FpLine{} = error "A fp_line cannot have multiple layers"
-
   layer l (FpCircle c e _ w) = FpCircle c e l w
-  --layers _ FpCircle{} = error "A fp_circle cannot have multiple layers"
-
   layer l (FpText n t pos _ e) = FpText n t pos l e
-  --layers _ FpText{} = error "A fp_text cannot have multiple layers"
-
   layer l (Pad number padType shape pos size drill _ net) =
     Pad number padType shape pos size drill [l] net
-  --layers ls (Pad number padType shape pos size drill _ net) =
-  --    Pad number padType shape pos size drill ls net
+
+  layers _ FpLine{} = error "A fp_line cannot have multiple layers"
+  layers _ FpCircle{} = error "A fp_circle cannot have multiple layers"
+  layers _ FpText{} = error "A fp_text cannot have multiple layers"
+  layers ls (Pad number padType shape pos size drill _ net) =
+    Pad number padType shape pos size drill ls net
 
 
 data PadType = ThroughHole | SMD

@@ -17,4 +17,4 @@ class Transformable a where
 
 class ChangeableLayer a where
   layer :: Layer -> a -> a
-  --layers :: [Layer] -> a -> a
+  layers :: [Layer] -> a -> a
