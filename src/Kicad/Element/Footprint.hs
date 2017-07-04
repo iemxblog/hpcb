@@ -20,6 +20,7 @@ instance Transformable Footprint where
 
 instance ChangeableLayer Footprint where
   layer l (Footprint s _ te ts pos fpc) = Footprint s l te ts pos fpc
+  layers _ Footprint{} = error "A footprint can have multiple layers"
 
 newtype FpContent = FpContent [FpElement]
 
