@@ -7,7 +7,7 @@ module Kicad.Data
   module Kicad.Data.Layer,
   module Kicad.Data.Footprint,
   module Kicad.Data.Net,
-  module Kicad.Data.PCB
+  module Kicad.Data.Circuit
 ) where
 
 import Kicad.Data.Action
@@ -17,4 +17,4 @@ import Kicad.Data.FpElement
 import Kicad.Data.Layer
 import Kicad.Data.Footprint
 import Kicad.Data.Net
-import Kicad.Data.PCB
+import Kicad.Data.Circuit

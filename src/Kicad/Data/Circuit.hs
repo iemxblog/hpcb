@@ -1,4 +1,4 @@
-module Kicad.Data.PCB(
+module Kicad.Data.Circuit(
   PCB
 ) where
 
