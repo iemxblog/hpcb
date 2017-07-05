@@ -37,7 +37,7 @@ indent True n s = replicate (4*n) ' ' ++ s ++ "\n"
 indent False _ s = s
 
 noIndent :: [String]
-noIndent = ["at", "drill", "size", "net", "layer", "start", "end", "effects", "layer", "layers", "width", "tedit", "tstamp"]
+noIndent = ["at", "drill", "size", "net", "layer", "start", "end", "effects", "layer", "layers", "width", "tedit", "tstamp", "fp_line"]
 
 prettyPrint' :: Bool -> Int -> Item -> String
 prettyPrint' b n (PString s) = indent b n s
