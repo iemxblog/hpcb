@@ -1,6 +1,8 @@
 module Hpcb.Functions (
+  (#),
   footprint,
   fpLine,
+  fpRectangle,
   fpCircle,
   fpText,
   pad
@@ -13,6 +15,10 @@ import Hpcb.Data.Footprint
 import Hpcb.Data.FpElement
 import Hpcb.Data.Effects
 import Hpcb.Data.Net
+import Data.Monoid
+
+infixl 8 #
+x # f = f x
 
 footprint ::   String    -- ^ Name
             -> FpContent
@@ -24,6 +30,16 @@ fpLine ::   V2 Float    -- ^ Start
             -> Float    -- ^ Width
             -> FpContent
 fpLine s e w = FpContent [FpLine s e defaultLayer w]
+
+fpRectangle ::  Float     -- ^ Width
+                -> Float  -- ^ Height
+                -> Float  -- ^ Line width
+                -> FpContent
+fpRectangle w h lw =
+  fpLine (V2 (-w/2) (h/2)) (V2 (-w/2) (-h/2)) lw
+  <> fpLine (V2 (w/2) (h/2)) (V2 (-w/2) (h/2)) lw
+  <> fpLine (V2 (w/2) (-h/2)) (V2 (w/2) (h/2)) lw
+  <> fpLine (V2 (-w/2) (-h/2)) (V2 (w/2) (-h/2)) lw
 
 fpCircle :: V2 Float    -- ^ Center
             -> V2 Float -- ^ End
