@@ -1,4 +1,4 @@
-module Kicad.Circuit (
+module Kicad.Functions (
   footprint,
   fpLine,
   fpCircle,

@@ -2,7 +2,7 @@ module Main where
 
 import Kicad.SExpr
 import Kicad.Data
-import Kicad.Circuit
+import Kicad.Functions
 import Data.Monoid
 
 main :: IO ()
