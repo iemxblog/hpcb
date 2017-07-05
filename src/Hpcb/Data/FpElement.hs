@@ -1,8 +1,7 @@
 module Hpcb.Data.FpElement (
   FpElement(..),
   PadType(..),
-  PadShape(..),
-  PadDrill(..)
+  PadShape(..)
 ) where
 
 import Hpcb.SExpr
@@ -16,7 +15,7 @@ data FpElement =
   FpLine (V2 Float) (V2 Float) Layer Float -- ^ line start, line end, layer, line width
   | FpCircle (V2 Float) (V2 Float) Layer Float -- ^ center, end, layer, width
   | FpText String String Position Layer Effects -- ^ name, content, position, layer, effects (font, justification , etc.)
-  | Pad Int PadType PadShape Position Size PadDrill [Layer] Net  -- ^ Int : Pin number
+  | Pad Int PadType PadShape Position (V2 Float) Float [Layer] Net  -- ^ Int : Pin number, type, shape, position, size, drill, layers, net
 
 instance Itemizable FpElement where
   itemize (FpLine (V2 xs ys) (V2 xe ye) l w) =
@@ -44,14 +43,14 @@ instance Itemizable FpElement where
       itemize effects
     ]
 
-  itemize (Pad number padType shape pos size drill layers net) =
+  itemize (Pad number padType shape pos (V2 sizeX sizeY) drill layers net) =
     Item "Pad" [
       PInt number,
       itemize padType,
       itemize shape,
       itemize pos,
-      itemize size,
-      itemize drill,
+      Item "size" [PFloat sizeX, PFloat sizeY],
+      Item "drill" [PFloat drill],
       itemize layers,
       itemize net
     ]
@@ -96,7 +95,3 @@ instance Itemizable PadShape where
   itemize Circle = PString "circle"
   itemize Rect = PString "rect"
   itemize Oval = PString "oval"
-
-newtype PadDrill = PadDrill Float
-instance Itemizable PadDrill where
-  itemize (PadDrill f) = Item "drill" [PFloat f]

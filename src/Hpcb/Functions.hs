@@ -56,8 +56,8 @@ fpText n c e = FpContent [FpText n c origin defaultLayer e]
 pad ::  Int           -- ^ Pin number
         -> PadType
         -> PadShape
-        -> Size
-        -> PadDrill
+        -> V2 Float   -- ^ Size
+        -> Float      -- ^ Drill
         -> Net
         -> FpContent
 pad n t sh si d pnet = FpContent [Pad n t sh origin si d padDefaultLayers pnet]

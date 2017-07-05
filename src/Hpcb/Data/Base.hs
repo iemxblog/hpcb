@@ -5,7 +5,6 @@ module Hpcb.Data.Base(
   Transformation,
   translation,
   rotation,
-  Size(..),
   TEdit(..),
   dummyTEdit,
   TStamp(..),
@@ -37,11 +36,6 @@ instance Itemizable Position where
     itemize (At (V2 x y) (Just 0.0))  = Item "at" [PFloat x, PFloat y]
     itemize (At (V2 x y) (Just o))  = Item "at" [PFloat x, PFloat y, PFloat o]
     itemize (At (V2 x y) Nothing)  = Item "at" [PFloat x, PFloat y]
-
-newtype Size = Size (V2 Float)
-
-instance Itemizable Size where
-    itemize (Size (V2 x y))  = Item "size" [PFloat x, PFloat y]
 
 newtype TEdit = TEdit String
 instance Itemizable TEdit where
