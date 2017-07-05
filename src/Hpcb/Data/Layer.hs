@@ -41,7 +41,7 @@ instance Show Layer where
   show FPaste = "F.Paste"
   show BPaste = "B.Paste"
   show FSilkS = "F.SilkS"
-  show BSilkS = "B.Silks"
+  show BSilkS = "B.SilkS"
   show FMask = "F.Mask"
   show BMask = "B.Mask"
   show DwgsUser = "Dwgs.User"
