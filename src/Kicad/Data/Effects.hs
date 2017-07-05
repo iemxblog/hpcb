@@ -1,4 +1,4 @@
-module Kicad.Element.Effects (
+module Kicad.Data.Effects (
   Effects(..)
 ) where
 

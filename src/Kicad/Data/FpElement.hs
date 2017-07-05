@@ -1,4 +1,4 @@
-module Kicad.Element.FpElement (
+module Kicad.Data.FpElement (
   FpElement(..),
   PadType(..),
   PadShape(..),
@@ -6,11 +6,11 @@ module Kicad.Element.FpElement (
 ) where
 
 import Kicad.SExpr
-import Kicad.Element.Action
-import Kicad.Element.Base
-import Kicad.Element.Layer
-import Kicad.Element.Effects
-import Kicad.Element.Net
+import Kicad.Data.Action
+import Kicad.Data.Base
+import Kicad.Data.Layer
+import Kicad.Data.Effects
+import Kicad.Data.Net
 
 data FpElement =
   FpLine (V2 Float) (V2 Float) Layer Float -- ^ line start, line end, layer, line width

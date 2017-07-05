@@ -1,10 +1,10 @@
-module Kicad.Element.PCB(
+module Kicad.Data.PCB(
   PCB
 ) where
 
-import Kicad.Element.Footprint
-import Kicad.Element.Graphic
-import Kicad.Element.Segment
+import Kicad.Data.Footprint
+import Kicad.Data.Graphic
+import Kicad.Data.Segment
 
 data PCB = PCB [Footprint] [Graphic] [Segment]
 

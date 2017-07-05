@@ -1,11 +1,11 @@
-module Kicad.Element.Segment (
+module Kicad.Data.Segment (
   Segment(..)
 ) where
 
 import Kicad.SExpr
-import Kicad.Element.Base
-import Kicad.Element.Layer
-import Kicad.Element.Net
+import Kicad.Data.Base
+import Kicad.Data.Layer
+import Kicad.Data.Net
 
 data Segment = Segment (V2 Float) (V2 Float) Float Layer Net  -- ^ start, end, width, layer, net
 

@@ -7,12 +7,12 @@ module Kicad.Circuit (
 ) where
 
 import Kicad.SExpr
-import Kicad.Element.Base
-import Kicad.Element.Layer
-import Kicad.Element.Footprint
-import Kicad.Element.FpElement
-import Kicad.Element.Effects
-import Kicad.Element.Net
+import Kicad.Data.Base
+import Kicad.Data.Layer
+import Kicad.Data.Footprint
+import Kicad.Data.FpElement
+import Kicad.Data.Effects
+import Kicad.Data.Net
 
 footprint ::   String    -- ^ Name
             -> FpContent

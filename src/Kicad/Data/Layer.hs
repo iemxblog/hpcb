@@ -1,5 +1,5 @@
 {-# LANGUAGE FlexibleInstances #-}
-module Kicad.Element.Layer(
+module Kicad.Data.Layer(
   Layer(..),
   topSideLayers,
   bottomSideLayers,

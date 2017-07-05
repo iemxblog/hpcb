@@ -1,9 +1,9 @@
 module Kicad (
     module Kicad.SExpr
-    , module Kicad.Element
+    , module Kicad.Data
     , module Kicad.Circuit
 ) where
 
 import Kicad.SExpr
-import Kicad.Element
+import Kicad.Data
 import Kicad.Circuit

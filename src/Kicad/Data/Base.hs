@@ -1,4 +1,4 @@
-module Kicad.Element.Base(
+module Kicad.Data.Base(
   V2(..),
   Position(..),
   origin,

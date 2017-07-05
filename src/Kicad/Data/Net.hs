@@ -1,4 +1,4 @@
-module Kicad.Element.Net (
+module Kicad.Data.Net (
   Net(..)
 ) where
 

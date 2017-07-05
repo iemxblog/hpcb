@@ -1,7 +1,7 @@
 module Main where
 
 import Kicad.SExpr
-import Kicad.Element
+import Kicad.Data
 import Kicad.Circuit
 import Data.Monoid
 
