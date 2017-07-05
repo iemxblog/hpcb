@@ -27,3 +27,14 @@ executable hpcb
   default-language:    Haskell2010
   build-depends:
     base >= 4.7 && < 5
+
+test-suite tests
+  hs-source-dirs: src tests
+  ghc-options: -Wall
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  build-depends:
+    base,
+    hpcb,
+    hspec
+  default-language: Haskell2010
