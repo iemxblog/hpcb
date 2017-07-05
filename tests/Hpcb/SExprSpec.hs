@@ -34,5 +34,5 @@ spec =  describe "S-Expression" $ do
                       ]
                     ]
                   ]
-                ) `shouldBe` "(module \n" ++ idt 1 ++ "R3\n" ++ idt 1 ++ "(layer F.Cu)\n" ++ idt 1 ++ "(tedit 4E4C0E65)\n" ++ idt 1 ++ "(tstamp 5127A136)\n" ++ idt 1 ++ "(at 66.04 33.3502)\n" ++ idt 1 ++ "(fp_text \n" ++ idt 2 ++ "reference\n" ++ idt 2 ++ "R1\n" ++ idt 2 ++ "(at 0.0 0.127)\n" ++ idt 2 ++ "(layer F.SilkS)\n" ++ idt 2 ++ "(effects (font (size 1 1)(thickness 0.15)))\n" ++ idt 1 ++ ")\n)\n"
+                ) `shouldBe` "(module \n" ++ idt 1 ++ "R3\n" ++ idt 1 ++ "(layer F.Cu)\n" ++ idt 1 ++ "(tedit 4E4C0E65)\n" ++ idt 1 ++ "(tstamp 5127A136)\n" ++ idt 1 ++ "(at 66.04 33.3502)\n" ++ idt 1 ++ "(fp_text \n" ++ idt 2 ++ "reference\n" ++ idt 2 ++ "R1\n" ++ idt 2 ++ "(at 0.0 0.127)\n" ++ idt 2 ++ "(layer F.SilkS)\n" ++ idt 2 ++ "(effects (font (size 1 1) (thickness 0.15)))\n" ++ idt 1 ++ ")\n)\n"
                 where idt n = replicate (4*n) ' '
