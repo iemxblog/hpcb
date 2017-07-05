@@ -1,4 +1,4 @@
-module Kicad.Data.Base(
+module Hpcb.Data.Base(
   V2(..),
   Position(..),
   origin,
@@ -12,7 +12,7 @@ module Kicad.Data.Base(
   dummyTStamp
 ) where
 
-import Kicad.SExpr
+import Hpcb.SExpr
 
 data V2 a = V2 a a
 

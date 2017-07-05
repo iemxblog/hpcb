@@ -1,10 +1,10 @@
-module Kicad.Data.Action (
+module Hpcb.Data.Action (
   Transformable(..),
   ChangeableLayer(..)
 ) where
 
-import Kicad.Data.Base
-import Kicad.Data.Layer
+import Hpcb.Data.Base
+import Hpcb.Data.Layer
 
 class Transformable a where
   transform :: (Position -> Position) -> a -> a

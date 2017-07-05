@@ -1,5 +1,5 @@
 {-# LANGUAGE FlexibleInstances #-}
-module Kicad.Data.Layer(
+module Hpcb.Data.Layer(
   Layer(..),
   topSideLayers,
   bottomSideLayers,
@@ -9,7 +9,7 @@ module Kicad.Data.Layer(
   padDefaultLayers
 ) where
 
-import Kicad.SExpr
+import Hpcb.SExpr
 
 data Layer =
   FCu

@@ -1,8 +1,8 @@
-module Kicad.Data.Effects (
+module Hpcb.Data.Effects (
   Effects(..)
 ) where
 
-import Kicad.SExpr
+import Hpcb.SExpr
 
 -- | Effects are not implemented yet
 -- There is just a single constructor to provide one effect

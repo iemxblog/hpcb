@@ -1,16 +1,16 @@
-module Kicad.Data.FpElement (
+module Hpcb.Data.FpElement (
   FpElement(..),
   PadType(..),
   PadShape(..),
   PadDrill(..)
 ) where
 
-import Kicad.SExpr
-import Kicad.Data.Action
-import Kicad.Data.Base
-import Kicad.Data.Layer
-import Kicad.Data.Effects
-import Kicad.Data.Net
+import Hpcb.SExpr
+import Hpcb.Data.Action
+import Hpcb.Data.Base
+import Hpcb.Data.Layer
+import Hpcb.Data.Effects
+import Hpcb.Data.Net
 
 data FpElement =
   FpLine (V2 Float) (V2 Float) Layer Float -- ^ line start, line end, layer, line width

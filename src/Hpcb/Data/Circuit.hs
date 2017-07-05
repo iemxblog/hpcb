@@ -1,10 +1,10 @@
-module Kicad.Data.Circuit(
+module Hpcb.Data.Circuit(
   PCB
 ) where
 
-import Kicad.Data.Footprint
-import Kicad.Data.Graphic
-import Kicad.Data.Segment
+import Hpcb.Data.Footprint
+import Hpcb.Data.Graphic
+import Hpcb.Data.Segment
 
 data PCB = PCB [Footprint] [Graphic] [Segment]
 

@@ -1,4 +1,4 @@
-module Kicad.SExpr (
+module Hpcb.SExpr (
     Item(..)
     , Itemizable(..)
     , prettyPrint

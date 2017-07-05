@@ -1,13 +1,13 @@
-module Kicad.Data.Footprint(
+module Hpcb.Data.Footprint(
   Footprint(..),
   FpContent(..)
 ) where
 
-import Kicad.SExpr
-import Kicad.Data.Base
-import Kicad.Data.Layer
-import Kicad.Data.FpElement
-import Kicad.Data.Action
+import Hpcb.SExpr
+import Hpcb.Data.Base
+import Hpcb.Data.Layer
+import Hpcb.Data.FpElement
+import Hpcb.Data.Action
 
 data Footprint = Footprint String Layer TEdit TStamp Position FpContent -- ^ Name, layer, last edition time stamp, time stamp from the schematic, module position, ...
 

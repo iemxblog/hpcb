@@ -1,8 +1,8 @@
 module Main where
 
-import Kicad.SExpr
-import Kicad.Data
-import Kicad.Functions
+import Hpcb.SExpr
+import Hpcb.Data
+import Hpcb.Functions
 import Data.Monoid
 
 main :: IO ()

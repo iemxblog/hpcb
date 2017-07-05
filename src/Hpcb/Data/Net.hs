@@ -1,8 +1,8 @@
-module Kicad.Data.Net (
+module Hpcb.Data.Net (
   Net(..)
 ) where
 
-import Kicad.SExpr
+import Hpcb.SExpr
 
 data Net = Net Int String
 instance Itemizable Net where

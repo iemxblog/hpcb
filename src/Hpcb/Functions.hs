@@ -1,4 +1,4 @@
-module Kicad.Functions (
+module Hpcb.Functions (
   footprint,
   fpLine,
   fpCircle,
@@ -6,13 +6,13 @@ module Kicad.Functions (
   pad
 ) where
 
-import Kicad.SExpr
-import Kicad.Data.Base
-import Kicad.Data.Layer
-import Kicad.Data.Footprint
-import Kicad.Data.FpElement
-import Kicad.Data.Effects
-import Kicad.Data.Net
+import Hpcb.SExpr
+import Hpcb.Data.Base
+import Hpcb.Data.Layer
+import Hpcb.Data.Footprint
+import Hpcb.Data.FpElement
+import Hpcb.Data.Effects
+import Hpcb.Data.Net
 
 footprint ::   String    -- ^ Name
             -> FpContent

@@ -1,11 +1,11 @@
-module Kicad.Data.Graphic (
+module Hpcb.Data.Graphic (
   Graphic
 ) where
 
-import Kicad.SExpr
-import Kicad.Data.Base
-import Kicad.Data.Layer
-import Kicad.Data.Effects
+import Hpcb.SExpr
+import Hpcb.Data.Base
+import Hpcb.Data.Layer
+import Hpcb.Data.Effects
 
 data Graphic =
   GrLine (V2 Float) (V2 Float) Float Layer Float  -- ^ start, end, angle, layer, width
