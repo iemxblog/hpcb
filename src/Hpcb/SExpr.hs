@@ -3,7 +3,7 @@ module Hpcb.SExpr (
     , Itemizable(..)
     , prettyPrint
 ) where
-import Data.List
+
 import Numeric
 
 -- | Item type used to represent S-Expression of Kicad format.
@@ -34,7 +34,7 @@ class Itemizable a where
 
 indent :: Bool -> Int -> String -> String
 indent True n s = replicate (4*n) ' ' ++ s ++ "\n"
-indent False n s = s
+indent False _ s = s
 
 noIndent :: [String]
 noIndent = ["at", "drill", "size", "net", "layer", "start", "end", "effects", "layer", "layers", "width", "tedit", "tstamp"]
