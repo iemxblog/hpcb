@@ -13,7 +13,7 @@ data Footprint = Footprint String Layer TEdit TStamp Position FpContent -- ^ Nam
 
 instance Itemizable Footprint where
   itemize (Footprint n l te ts pos (FpContent fpContent)) =
-    Item "Module" ([PString n, itemize l, itemize te, itemize ts, itemize pos] ++ map itemize fpContent)
+    Item "module" ([PString n, itemize l, itemize te, itemize ts, itemize pos] ++ map itemize fpContent)
 
 instance Transformable Footprint where
   transform f (Footprint s l te ts pos fpc) = Footprint s l te ts (f pos) fpc
