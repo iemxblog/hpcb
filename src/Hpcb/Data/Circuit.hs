@@ -1,13 +1,14 @@
 module Hpcb.Data.Circuit(
-  PCB
+  Circuit
 ) where
 
 import Hpcb.Data.Footprint
 import Hpcb.Data.Graphic
 import Hpcb.Data.Segment
+import Hpcb.Data.Net
 
-data PCB = PCB [Footprint] [Graphic] [Segment]
+data Circuit = Circuit [Footprint] [Graphic] [Segment]
 
-instance Monoid PCB where
-  mempty = PCB [] [] []
-  mappend (PCB m1 g1 s1) (PCB m2 g2 s2) = PCB (m1 ++ m2) (g1 ++ g2) (s1 ++ s2)
+instance Monoid Circuit where
+  mempty = Circuit [] [] []
+  mappend (Circuit m1 g1 s1) (Circuit m2 g2 s2) = Circuit (m1 ++ m2) (g1 ++ g2) (s1 ++ s2)
