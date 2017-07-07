@@ -4,6 +4,9 @@ module Hpcb.Data.Net (
 
 import Hpcb.SExpr
 
-data Net = Net Int String
+data Net =  Net String
+            | NumberedNet Int String
+
 instance Itemizable Net where
-  itemize (Net n s) = Item "net" [PInt n, PString s]
+  itemize Net{} = error "Net must be numbered before itemizing"
+  itemize (NumberedNet n s) = Item "net" [PInt n, PString ("\"" ++ s ++ "\"")]

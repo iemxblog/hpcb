@@ -5,7 +5,8 @@ module Hpcb.Functions (
   fpRectangle,
   fpCircle,
   fpText,
-  pad
+  pad,
+  newNet
 ) where
 
 import Hpcb.SExpr
@@ -61,3 +62,8 @@ pad ::  Int           -- ^ Pin number
         -> Net
         -> FpContent
 pad n t sh si d pnet = FpContent [Pad n t sh origin si d padDefaultLayers pnet]
+
+newNet ::  String    -- ^ Reference of component
+        -> Int    -- ^ Pin number
+        -> Net
+newNet ref pin = Net $ "Net-(" ++ ref ++ "-Pad" ++ show pin ++")"

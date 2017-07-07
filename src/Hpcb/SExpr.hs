@@ -31,7 +31,6 @@ instance Show Item where
 class Itemizable a where
     itemize :: a -> Item
 
-
 indent :: Bool -> Int -> String -> String
 indent True n s = replicate (4*n) ' ' ++ s ++ "\n"
 indent False _ s = s
