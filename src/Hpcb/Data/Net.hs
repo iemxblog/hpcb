@@ -4,8 +4,9 @@ module Hpcb.Data.Net (
 
 import Hpcb.SExpr
 
-data Net =  Net String
+data Net =  Net {netName :: String}
             | NumberedNet Int String
+            deriving (Eq, Ord, Show)
 
 instance Itemizable Net where
   itemize Net{} = error "Net must be numbered before itemizing"

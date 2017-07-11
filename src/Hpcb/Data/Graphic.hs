@@ -11,6 +11,7 @@ data Graphic =
   GrLine (V2 Float) (V2 Float) Float Layer Float  -- ^ start, end, angle, layer, width
   | GrCircle (V2 Float) (V2 Float) Layer Float    -- ^ center, end, layer, width
   | GrText String Position Layer Effects
+  deriving Show
 
 instance Itemizable Graphic where
   itemize (GrLine (V2 xs ys) (V2 xe ye) a l w) =

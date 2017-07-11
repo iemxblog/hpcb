@@ -13,12 +13,12 @@ module Hpcb.Data.Base(
 
 import Hpcb.SExpr
 
-data V2 a = V2 a a
+data V2 a = V2 a a deriving (Eq, Show)
 
 -- | Position :
 -- V2 Float : Coordinates
 -- Maybe Float : Orientation
-data Position = At (V2 Float) (Maybe Float)
+data Position = At (V2 Float) (Maybe Float) deriving Show
 
 origin :: Position
 origin = At (V2 0 0) Nothing
@@ -37,13 +37,13 @@ instance Itemizable Position where
     itemize (At (V2 x y) (Just o))  = Item "at" [PFloat x, PFloat y, PFloat o]
     itemize (At (V2 x y) Nothing)  = Item "at" [PFloat x, PFloat y]
 
-newtype TEdit = TEdit String
+newtype TEdit = TEdit String deriving Show
 instance Itemizable TEdit where
   itemize (TEdit s)= Item "tedit" [PString s]
 
 dummyTEdit = TEdit "5893982A"
 
-newtype TStamp = TStamp String
+newtype TStamp = TStamp String deriving Show
 instance Itemizable TStamp where
   itemize (TStamp s)= Item "tstamp" [PString s]
 

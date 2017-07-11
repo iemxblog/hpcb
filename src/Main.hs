@@ -3,6 +3,7 @@ module Main where
 import Hpcb.SExpr
 import Hpcb.Data
 import Hpcb.Functions
+import Hpcb.NetNumbering
 import Data.Monoid
 
 main :: IO ()
@@ -20,7 +21,7 @@ main = do
         Pad 2 ThroughHole Circle (At (V2 3.81 0) Nothing) (Size (V2 1.397 1.397)) (PadDrill 0.812799) (copperLayers  ++ maskLayers ++ [FSilkS]) (Net 2 "GND")
       ]
       -}
-  putStr $ prettyPrint $ itemize $
+  putStr $ prettyPrint $ itemize $ numberNets $ Circuit [
     translate (V2 66.04 33.3502) $
       layer FCu $
         footprint "R1" $
@@ -32,3 +33,4 @@ main = do
             )
             <> translate (V2 3.81 0) (pad 1 ThroughHole Circle (V2 1.397 1.397) 0.812799 (Net "/SIGNAL"))
             <> translate (V2 3.81 0) (pad 1 ThroughHole Circle (V2 1.397 1.397) 0.812799 (Net "GND"))
+    ] [] []

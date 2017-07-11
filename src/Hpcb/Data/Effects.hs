@@ -6,7 +6,7 @@ import Hpcb.SExpr
 
 -- | Effects are not implemented yet
 -- There is just a single constructor to provide one effect
-data Effects = StandardEffects
+data Effects = StandardEffects deriving Show
 
 instance Itemizable Effects where
   itemize StandardEffects =

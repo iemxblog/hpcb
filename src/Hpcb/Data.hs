@@ -7,7 +7,8 @@ module Hpcb.Data
   module Hpcb.Data.Layer,
   module Hpcb.Data.Footprint,
   module Hpcb.Data.Net,
-  module Hpcb.Data.Circuit
+  module Hpcb.Data.Circuit,
+  module Hpcb.Data.Segment
 ) where
 
 import Hpcb.Data.Action
@@ -18,3 +19,4 @@ import Hpcb.Data.Layer
 import Hpcb.Data.Footprint
 import Hpcb.Data.Net
 import Hpcb.Data.Circuit
+import Hpcb.Data.Segment

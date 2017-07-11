@@ -1,6 +1,8 @@
 module Hpcb.Data.Footprint(
   Footprint(..),
-  FpContent(..)
+  FpContent(..),
+  _fpContent,
+  _fpElements
 ) where
 
 import Hpcb.SExpr
@@ -8,8 +10,16 @@ import Hpcb.Data.Base
 import Hpcb.Data.Layer
 import Hpcb.Data.FpElement
 import Hpcb.Data.Action
+import Control.Lens hiding (transform)
 
-data Footprint = Footprint String Layer TEdit TStamp Position FpContent -- ^ Name, layer, last edition time stamp, time stamp from the schematic, module position, ...
+data Footprint = Footprint {
+  getFpName :: String,
+  getFplayer :: Layer,
+  getFpTEdit :: TEdit,
+  getFpTStamp :: TStamp,
+  getFpPosition :: Position,
+  getFpContent :: FpContent
+  } deriving Show
 
 instance Itemizable Footprint where
   itemize (Footprint n l te ts pos (FpContent fpContent)) =
@@ -22,7 +32,7 @@ instance ChangeableLayer Footprint where
   layer l (Footprint s _ te ts pos fpc) = Footprint s l te ts pos fpc
   layers _ Footprint{} = error "A footprint can have multiple layers"
 
-newtype FpContent = FpContent [FpElement]
+newtype FpContent = FpContent { getFpElements :: [FpElement] } deriving Show
 
 instance Transformable FpContent where
   transform f (FpContent fpc) = FpContent $ map (transform f) fpc
@@ -34,3 +44,10 @@ instance Monoid FpContent where
 instance ChangeableLayer FpContent where
   layer l (FpContent fpc) = FpContent (map (layer l) fpc)
   layers ls (FpContent fpc) = FpContent (map (layers ls) fpc)
+
+-- Lenses
+_fpContent :: Lens' Footprint FpContent
+_fpContent = lens getFpContent (\footprint fpcontent -> footprint {getFpContent = fpcontent})
+
+_fpElements :: Lens' FpContent [FpElement]
+_fpElements = lens getFpElements (\fpcontent fpelements -> fpcontent {getFpElements = fpelements})
