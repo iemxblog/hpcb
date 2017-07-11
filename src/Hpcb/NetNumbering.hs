@@ -31,22 +31,3 @@ numberNet m (NumberedNet n nn) = NumberedNet n nn
 numberNets :: Circuit -> Circuit
 numberNets c = over (_footprints . traverse . _fpContent . _fpElements . traverse . _pad . _net) (numberNet (netsMap c)) c
   where nm = netsMap
-
-{-
-numberNetFpElement :: Map.Map String Int -> FpElement -> FpElement
-numberNetFpElement
-
-numberNetsFootprint ::  Data.Map String Int
-                        -> Footprint
-                        -> Footprint
-numberNetsFootprint m (Footprint n l te ts pos (FpContent fpc))
-
-
-numberNetsSegment ::    Data.Map String Int
-                        -> Segment
-                        -> Segment
-numberNetsSegment =
-
-
-numberNets :: Circuit -> Circuit
--}
