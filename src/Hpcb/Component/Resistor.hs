@@ -41,7 +41,7 @@ r805 ref val = footprint "R_805" $
   <> fpRectangle 2.0 1.25 0.1 # layer FFab
   <> fpRectangle 3.2 2.0 0.05 # layer FCrtYd
   <> (
-    fpLine (V2 0.6 0.0875) (V2 (-0.6) 0.875) 0.15
+    fpLine (V2 0.6 0.875) (V2 (-0.6) 0.875) 0.15
     <> fpLine (V2 (-0.6) (-0.875)) (V2 0.6 (-0.875)) 0.15
   ) # layer FSilkS
   <> (
