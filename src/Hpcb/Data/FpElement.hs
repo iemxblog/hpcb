@@ -39,7 +39,7 @@ instance Itemizable FpElement where
     ]
 
   itemize (FpText name text pos layer effects) =
-    Item "fptext" [
+    Item "fp_text" [
       PString name,
       PString text,
       itemize pos,
@@ -48,7 +48,7 @@ instance Itemizable FpElement where
     ]
 
   itemize (Pad number padType shape pos (V2 sizeX sizeY) drill layers net) =
-    Item "Pad" [
+    Item "pad" [
       PInt number,
       itemize padType,
       itemize shape,
