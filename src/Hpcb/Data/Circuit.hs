@@ -19,7 +19,7 @@ data Circuit = Circuit {
 
 instance Monoid Circuit where
   mempty = Circuit [] [] []
-  (Circuit m1 g1 s1) `mappend` (Circuit m2 g2 s2) = Circuit (m1 ++ m2) (g1 ++ g2) (s1 ++ s2)
+  (Circuit f1 g1 s1) `mappend` (Circuit f2 g2 s2) = Circuit (f1 ++ f2) (g1 ++ g2) (s1 ++ s2)
 
 instance Itemizable Circuit where
   itemize (Circuit f g s) = Item "kicad_pcb" $
