@@ -8,6 +8,7 @@ import Hpcb.Data.Net
 import Hpcb.Data.FpElement
 import Hpcb.Data.Circuit
 import Hpcb.Data.Footprint
+import Hpcb.Data.Segment
 import qualified Data.Map as Map
 import Control.Lens
 
@@ -29,4 +30,8 @@ numberNet _ (NumberedNet n nn) = NumberedNet n nn
 
 -- | Assigns its nulber to every net of the 'Circuit'
 numberNets :: Circuit -> Circuit
-numberNets c = over (_footprints . traverse . _fpContent . _fpElements . traverse . _pad . _net) (numberNet (netsMap c)) c
+numberNets c = c2
+  where
+    c1 = over (_footprints . traverse . _fpContent . _fpElements . traverse . _pad . _net) (numberNet (netsMap c)) c
+    c2 = over (_segments . traverse . _segNet ) (numberNet nm) c1
+    nm = netsMap c

@@ -1,6 +1,6 @@
 module Hpcb.Data.Segment (
   Segment(..),
-  _net
+  _segNet
 ) where
 
 import Hpcb.SExpr
@@ -10,11 +10,11 @@ import Hpcb.Data.Net
 import Control.Lens
 
 data Segment = Segment {
-  _segstart :: V2 Float,
-  _segend :: V2 Float,
-  _segwidth :: Float,
-  _seglayer :: Layer,
-  _segnet :: Net
+  getSegstart :: V2 Float,
+  getSegend :: V2 Float,
+  getSegwidth :: Float,
+  getSeglayer :: Layer,
+  getSegnet :: Net
 } deriving Show
 
 instance Itemizable Segment where
@@ -28,5 +28,5 @@ instance Itemizable Segment where
     ]
 
 -- Lenses
-_net :: Lens' Segment Net
-_net = lens _segnet (\segment net -> segment {_segnet = net})
+_segNet :: Lens' Segment Net
+_segNet = lens getSegnet (\segment net -> segment {getSegnet = net})
