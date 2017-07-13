@@ -28,7 +28,7 @@ numberNet m (Net nn) = case Map.lookup (Net nn) m of
                           Just n -> NumberedNet n nn
 numberNet _ (NumberedNet n nn) = NumberedNet n nn
 
--- | Assigns its nulber to every net of the 'Circuit'
+-- | Assigns its number to every net of the 'Circuit'
 numberNets :: Circuit -> Circuit
 numberNets c = c2
   where
