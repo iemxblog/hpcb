@@ -1,6 +1,6 @@
 module Hpcb.Data.Segment (
   Segment(..),
-  net
+  _net
 ) where
 
 import Hpcb.SExpr
@@ -28,5 +28,5 @@ instance Itemizable Segment where
     ]
 
 -- Lenses
-net :: Lens' Segment Net
-net = lens _segnet (\segment net -> segment {_segnet = net})
+_net :: Lens' Segment Net
+_net = lens _segnet (\segment net -> segment {_segnet = net})
