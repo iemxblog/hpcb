@@ -41,10 +41,12 @@ newtype TEdit = TEdit String deriving Show
 instance Itemizable TEdit where
   itemize (TEdit s)= Item "tedit" [PString s]
 
+dummyTEdit :: TEdit
 dummyTEdit = TEdit "5893982A"
 
 newtype TStamp = TStamp String deriving Show
 instance Itemizable TStamp where
   itemize (TStamp s)= Item "tstamp" [PString s]
 
+dummyTStamp :: TStamp
 dummyTStamp = TStamp "5893982A"
