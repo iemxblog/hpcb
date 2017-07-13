@@ -48,16 +48,19 @@ instance Itemizable FpElement where
     ]
 
   itemize (Pad number padType shape pos (V2 sizeX sizeY) drill layers net) =
-    Item "pad" [
+    Item "pad" ([
       PInt number,
       itemize padType,
       itemize shape,
       itemize pos,
-      Item "size" [PFloat sizeX, PFloat sizeY],
-      Item "drill" [PFloat drill],
-      itemize layers,
+      Item "size" [PFloat sizeX, PFloat sizeY]]
+      ++ d ++
+      [itemize layers,
       itemize net
-    ]
+    ])
+    where d = case padType of
+                (ThroughHole dd) -> [Item "drill" [PFloat drill]]
+                SMD -> []
 
 instance Transformable FpElement where
   transform f (FpLine (V2 xs ys) (V2 xe ye) l w) =
@@ -89,9 +92,9 @@ instance ChangeableLayer FpElement where
     Pad number padType shape pos size drill ls net
 
 
-data PadType = ThroughHole | SMD deriving Show
+data PadType = ThroughHole {getDrill :: Float} | SMD deriving Show
 instance Itemizable PadType where
-  itemize ThroughHole = PString "thru_hole"
+  itemize (ThroughHole _) = PString "thru_hole"
   itemize SMD = PString "smd"
 
 data PadShape = Circle | Rect | Oval deriving Show
