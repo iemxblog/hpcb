@@ -1,7 +1,7 @@
 module Main where
 
 import Hpcb.SExpr
-import Hpcb.NetNumbering
+import Hpcb.Data.NetNumbering
 import Hpcb.Component
 import Hpcb.Data.Circuit
 import Data.Monoid

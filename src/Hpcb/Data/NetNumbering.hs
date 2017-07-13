@@ -1,4 +1,4 @@
-module Hpcb.NetNumbering (
+module Hpcb.Data.NetNumbering (
   listOfNets,
   netsMap,
   numberNets
