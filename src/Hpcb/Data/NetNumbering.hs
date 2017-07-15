@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleInstances #-}
 module Hpcb.Data.NetNumbering (
   listOfNets,
   netsMap,
@@ -9,6 +10,7 @@ import Hpcb.Data.FpElement
 import Hpcb.Data.Circuit
 import Hpcb.Data.Footprint
 import Hpcb.Data.Segment
+import Hpcb.SExpr
 import qualified Data.Map as Map
 import Control.Lens
 
@@ -35,3 +37,9 @@ numberNets c = c2
     c1 = over (_footprints . traverse . _fpContent . _fpElements . traverse . _pad . _net) (numberNet (netsMap c)) c
     c2 = over (_segments . traverse . _segNet ) (numberNet nm) c1
     nm = netsMap c
+
+instance Itemizable (Map.Map Net Int) where
+  itemize m = Item "NetsMap" $ map f (Map.toList m')
+    where
+      f (k, v) = Item "net" [PInt v, PString $ show (netName k)]
+      m' = Map.insert (Net "") 0 m

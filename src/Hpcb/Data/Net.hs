@@ -5,7 +5,7 @@ module Hpcb.Data.Net (
 import Hpcb.SExpr
 
 data Net =  Net {netName :: String}
-            | NumberedNet Int String
+            | NumberedNet {netNumber ::Int, netName :: String}
             deriving (Eq, Ord, Show)
 
 instance Itemizable Net where
