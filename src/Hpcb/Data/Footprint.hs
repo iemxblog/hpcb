@@ -26,7 +26,7 @@ instance Itemizable Footprint where
     Item "module" ([PString n, itemize l, itemize te, itemize ts, itemize pos] ++ map itemize fpContent)
 
 instance Transformable Footprint where
-  transform f (Footprint s l te ts pos fpc) = Footprint s l te ts (f pos) fpc
+  transform f (Footprint s l te ts pos fpc) = Footprint s l te ts (f pos) (transform f fpc)
 
 instance ChangeableLayer Footprint where
   layer l (Footprint s _ te ts pos fpc) = Footprint s l te ts pos fpc
