@@ -12,6 +12,7 @@ import Hpcb.Data.Net
 import Hpcb.Functions
 import Data.Monoid
 
+-- | SMD Capacitor, 805 package (2012 metric)
 c805 :: String        -- ^ Reference
         -> String     -- ^ Value
         -> Footprint
