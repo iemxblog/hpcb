@@ -26,6 +26,6 @@ c805 ref val = footprint "C_0805" $
     <> fpLine (V2 (-0.5) 0.85) (V2 0.5 0.85) 0.15
   ) # layer FSilkS
   <> (
-    pad 1 SMD Rect (V2 1 1.25) 0.1 (newNet ref 1) # translate (V2 (-1) 0)
-    <> pad 2 SMD Rect (V2 1 1.25) 0.1 (newNet ref 2) # translate (V2 1 0)
+    pad 1 SMD Rect (V2 1 1.25) (newNet ref 1) # translate (V2 (-1) 0)
+    <> pad 2 SMD Rect (V2 1 1.25) (newNet ref 2) # translate (V2 1 0)
   ) # layers [FCu, FPaste, FMask]

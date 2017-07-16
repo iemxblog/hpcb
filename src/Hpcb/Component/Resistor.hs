@@ -27,8 +27,8 @@ r1206 ref val = footprint "R_1206" $
     <> fpLine (V2 (-1) (-1.075)) (V2 1 (-1.075)) 0.15
   ) # layer FSilkS
   <> (
-    pad 1 SMD Rect (V2 0.9 1.7) 0.1 (newNet ref 1) # translate (V2 (-1.45) 0)
-    <> pad 2 SMD Rect (V2 0.9 1.7) 0.1 (newNet ref 2) # translate (V2 1.45 0)
+    pad 1 SMD Rect (V2 0.9 1.7) (newNet ref 1) # translate (V2 (-1.45) 0)
+    <> pad 2 SMD Rect (V2 0.9 1.7) (newNet ref 2) # translate (V2 1.45 0)
   ) # layers [FCu, FPaste, FMask]
 
 -- | SMD Resistor, 805 package (2012 metric)
@@ -45,6 +45,6 @@ r805 ref val = footprint "R_805" $
     <> fpLine (V2 (-0.6) (-0.875)) (V2 0.6 (-0.875)) 0.15
   ) # layer FSilkS
   <> (
-    pad 1 SMD Rect (V2 0.7 1.3) 0.1 (newNet ref 1) # translate (V2 (-0.95) 0)
-    <> pad 2 SMD Rect (V2 0.7 1.3) 0.1 (newNet ref 2) # translate (V2 0.95 0)
+    pad 1 SMD Rect (V2 0.7 1.3) (newNet ref 1) # translate (V2 (-0.95) 0)
+    <> pad 2 SMD Rect (V2 0.7 1.3) (newNet ref 2) # translate (V2 0.95 0)
   ) # layers [FCu, FPaste, FMask]

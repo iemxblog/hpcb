@@ -58,10 +58,9 @@ pad ::  Int           -- ^ Pin number
         -> PadType
         -> PadShape
         -> V2 Float   -- ^ Size
-        -> Float      -- ^ Drill
         -> Net
         -> FpContent
-pad n t sh si d pnet = FpContent [Pad n t sh origin si d padDefaultLayers pnet]
+pad n t sh si pnet = FpContent [Pad n t sh origin si padDefaultLayers pnet]
 
 newNet ::  String    -- ^ Reference of component
         -> Int    -- ^ Pin number
