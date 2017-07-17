@@ -59,7 +59,6 @@ instance Show Layer where
 -- This instance is why we need FlexibleInstances.
 instance Itemizable [Layer] where
   itemize [] = error "Empty list of layers"
-  itemize [l] = Item "layer" [itemize l]
   itemize ls = Item "layers" $ map (PString . show) ls
 
 
