@@ -2,6 +2,7 @@ module Hpcb.Functions (
   (#),
   footprint,
   fpLine,
+  fpPath,
   fpRectangle,
   fpCircle,
   fpText,
@@ -31,6 +32,12 @@ fpLine ::   V2 Float    -- ^ Start
             -> Float    -- ^ Width
             -> FpContent
 fpLine s e w = FpContent [FpLine s e defaultLayer w]
+
+fpPath :: [V2 Float]    -- ^ List of points of the path
+          -> Float      -- ^ Width of the path
+          -> FpContent
+fpPath xs w = FpContent $ map (\(s, e) -> FpLine s e defaultLayer w) l
+  where l = zip xs (tail xs)
 
 fpRectangle ::  Float     -- ^ Width
                 -> Float  -- ^ Height
