@@ -38,6 +38,6 @@ pinHeader ref cols rows = footprint headerDesc $
       # layers (copperLayers ++ maskLayers)
   where
     headerDesc = "CONN_" ++ min2 cols ++ "x" ++ min2 rows
-    min2 x = if length (show x) < 1
+    min2 x = if length (show x) < 2
               then "0" ++ show x
               else show x
