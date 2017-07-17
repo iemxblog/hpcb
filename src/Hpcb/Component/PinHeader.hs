@@ -12,7 +12,7 @@ import Hpcb.Data.Net
 import Hpcb.Functions
 import Data.Monoid
 
--- | SMD Resistor, 805 package (2012 metric)
+-- | Generic pin header
 pinHeader ::  String      -- ^ Reference
               -> Int      -- ^ Number of columns
               -> Int      -- ^ Number of rows
@@ -49,6 +49,7 @@ pinHeader ref cols rows = footprint headerDesc $
         (_, 1) -> V2 1.7272 2.032
         (_, _) -> V2 1.7272 1.7272
 
+-- | Generates the silk screen for a vertical pin header
 verticalHeaderSilk :: Int           -- ^ Number of rows
                       -> FpContent
 verticalHeaderSilk rows =
@@ -60,6 +61,7 @@ verticalHeaderSilk rows =
       V2 (-1.27) (2.54*(fromIntegral rows - 1)+1.27)
       ]
 
+-- | Generates the silk screen for a horizontal pin header
 horizontalHeaderSilk :: Int           -- ^ Number of columns
                         -> FpContent
 horizontalHeaderSilk cols =
@@ -67,6 +69,8 @@ horizontalHeaderSilk cols =
   <> fpLine (V2 (-1.55) 1.55) (V2 (-1.55) (-1.55)) 0.15
   <> fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55)) 0.15
 
+-- | Generates the silk screen for a header whose number of columns and
+-- rows are different of 1
 rectangleHeaderSilk ::  Int           -- ^ Number of columns
                         -> Int        -- ^ Number of rows
                         -> FpContent
@@ -82,12 +86,13 @@ rectangleHeaderSilk cols rows =
         V2 (-1.27) 1.27
         ]
 
+-- | Generates the silk screen for a single pin header
 singleHeaderSilk :: FpContent
 singleHeaderSilk =
   verticalCap
   <> fpLine (V2 (-1.27) 1.27) (V2 1.27 1.27) 0.15
 
--- | Generates the cap on the silkscreen or single line headers
+-- | Generates the cap on the silkscreen for single line headers
 verticalCap :: FpContent
 verticalCap =
   fpLine (V2 (-1.55) 0) (V2 (-1.55) (-1.55)) 0.15
