@@ -16,7 +16,7 @@ main =
   putStr $ prettyPrint $ kicadPCB $ numberNets $
     Circuit [
       r805 "R1" "10k" # translate (V2 10 0) # rotate 45,
-      pinHeader "P1" "CONN_02x03" 4 6
+      pinHeader "P1" 4 6
 
       ] [] []
     <> rectangle 50 30 0.15 # layer EdgeCuts
