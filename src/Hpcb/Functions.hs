@@ -47,11 +47,12 @@ fpRectangle ::  Float     -- ^ Width
                 -> Float  -- ^ Height
                 -> Float  -- ^ Line width
                 -> FpContent
-fpRectangle w h lw =
-  fpLine (V2 (-w/2) (h/2)) (V2 (-w/2) (-h/2)) lw
-  <> fpLine (V2 (w/2) (h/2)) (V2 (-w/2) (h/2)) lw
-  <> fpLine (V2 (w/2) (-h/2)) (V2 (w/2) (h/2)) lw
-  <> fpLine (V2 (-w/2) (-h/2)) (V2 (w/2) (-h/2)) lw
+fpRectangle w h lw = fpPath [
+  V2 (-w/2) (-h/2),
+  V2 (w/2) (-h/2),
+  V2 (w/2) (h/2),
+  V2 (-w/2) (h/2)
+  ] True lw
 
 fpCircle :: V2 Float    -- ^ Center
             -> V2 Float -- ^ End
