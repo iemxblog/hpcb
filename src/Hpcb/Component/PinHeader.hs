@@ -20,23 +20,76 @@ pinHeader ::  String      -- ^ Reference
 pinHeader ref cols rows = footprint headerDesc $
   fpText "reference" ref StandardEffects # translate (V2 0 (-5.1)) # layer FSilkS
   <> fpText "value" headerDesc StandardEffects # translate (V2 0 (-3.1)) # layer FFab
-  <> (  fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55)) 0.15
-        <>  fpLine (V2 (-1.55) (-1.55)) (V2 (-1.55) 0) 0.15
-        <>  fpPolygon 0.15 [
-          V2 1.27 1.27,
-          V2 1.27 (-1.27),
-          V2 (2.54*(fromIntegral cols - 1) + 1.27) (-1.27),
-          V2 (2.54*(fromIntegral cols - 1) + 1.27) (2.54*(fromIntegral rows - 1) + 1.27),
-          V2 (-1.27) (2.54*(fromIntegral rows - 1) + 1.27),
-          V2 (-1.27) 1.27
-      ]
-    ) # layer FSilkS
   <> fpRectangle (fromIntegral (cols-1) * 2.54+2*1.75) (fromIntegral (rows-1) * 2.54+2*1.75) 0.05 # translate (V2 (fromIntegral (cols-1) / 2 * 2.54) (fromIntegral (rows-1) / 2 * 2.54)) # layer FCrtYd
-  <> (pad 1 ThroughHole{getDrill=1.016} Rect (V2 1.7272 1.7272) (newNet ref 1)
-  <> foldr (<>) mempty [pad (c+(r-1)*cols) ThroughHole{getDrill=1.016} Oval (V2 1.7272 1.7272) (newNet ref (c+(r-1)*cols)) # translate (V2 ((fromIntegral c - 1)*2.54) ((fromIntegral r - 1)*2.54)) | c <- [1..cols], r <- [1..rows], (c,r) /= (1,1)])
+  <> case (cols, rows) of
+        (0, _) -> mempty
+        (_, 0) -> mempty
+        (1, 1) -> singleHeaderSilk
+        (1, rs) | rs > 1 -> verticalHeaderSilk rows
+        (cs, 1) | cs > 1 -> horizontalHeaderSilk cols
+        (cs, rs) -> rectangleHeaderSilk cols rows
+     # layer FSilkS
+  <> (pad 1 ThroughHole{getDrill=1.016} Rect firstPadSize (newNet ref 1)
+  <> foldr (<>) mempty [pad (c+(r-1)*cols) ThroughHole{getDrill=1.016} Oval padsSize (newNet ref (c+(r-1)*cols)) # translate (V2 ((fromIntegral c - 1)*2.54) ((fromIntegral r - 1)*2.54)) | c <- [1..cols], r <- [1..rows], (c,r) /= (1,1)])
       # layers (copperLayers ++ maskLayers)
   where
     headerDesc = "CONN_" ++ min2 cols ++ "x" ++ min2 rows
     min2 x = if length (show x) < 2
               then "0" ++ show x
               else show x
+    firstPadSize =
+      case (cols, rows) of
+        (1,1) -> V2 2.2352 2.2352
+        (1,_) -> V2 2.032 1.7272
+        (_,1) -> V2 1.7272 2.032
+        (_, _) -> V2 1.7272 1.7272
+    padsSize =
+      case (cols, rows) of
+        (1, _) -> V2 2.032 1.7272
+        (_, 1) -> V2 1.7272 2.032
+        (_, _) -> V2 1.7272 1.7272
+
+verticalHeaderSilk :: Int           -- ^ Number of rows
+                      -> FpContent
+verticalHeaderSilk rows =
+  verticalCap
+  <> fpPolygon 0.15 [
+      V2 (-1.27) 1.27,
+      V2 1.27 1.27,
+      V2 1.27 (2.54*(fromIntegral rows - 1)+1.27),
+      V2 (-1.27) (2.54*(fromIntegral rows - 1)+1.27)
+      ]
+
+horizontalHeaderSilk :: Int           -- ^ Number of columns
+                        -> FpContent
+horizontalHeaderSilk cols =
+  fpLine (V2 0 1.55) (V2 (-1.55) 1.55) 0.15
+  <> fpLine (V2 (-1.55) 1.55) (V2 (-1.55) (-1.55)) 0.15
+  <> fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55)) 0.15
+
+rectangleHeaderSilk ::  Int           -- ^ Number of columns
+                        -> Int        -- ^ Number of rows
+                        -> FpContent
+rectangleHeaderSilk cols rows =
+  fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55)) 0.15
+  <>  fpLine (V2 (-1.55) (-1.55)) (V2 (-1.55) 0) 0.15
+  <>  fpPolygon 0.15 [
+        V2 1.27 1.27,
+        V2 1.27 (-1.27),
+        V2 (2.54*(fromIntegral cols - 1) + 1.27) (-1.27),
+        V2 (2.54*(fromIntegral cols - 1) + 1.27) (2.54*(fromIntegral rows - 1) + 1.27),
+        V2 (-1.27) (2.54*(fromIntegral rows - 1) + 1.27),
+        V2 (-1.27) 1.27
+        ]
+
+singleHeaderSilk :: FpContent
+singleHeaderSilk =
+  verticalCap
+  <> fpLine (V2 (-1.27) 1.27) (V2 1.27 1.27) 0.15
+
+-- | Generates the cap on the silkscreen or single line headers
+verticalCap :: FpContent
+verticalCap =
+  fpLine (V2 (-1.55) 0) (V2 (-1.55) (-1.55)) 0.15
+  <> fpLine (V2 (-1.55) (-1.55)) (V2 1.55 (-1.55)) 0.15
+  <> fpLine (V2 1.55 (-1.55)) (V2 1.55 0) 0.15
