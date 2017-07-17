@@ -34,10 +34,14 @@ fpLine ::   V2 Float    -- ^ Start
 fpLine s e w = FpContent [FpLine s e defaultLayer w]
 
 fpPath :: [V2 Float]    -- ^ List of points of the path
+          -> Bool       -- ^ True : Path forms a cycle (return to first point at the end)
           -> Float      -- ^ Width of the path
           -> FpContent
-fpPath xs w = FpContent $ map (\(s, e) -> FpLine s e defaultLayer w) l
-  where l = zip xs (tail xs)
+fpPath xs cy w = FpContent $ map (\(s, e) -> FpLine s e defaultLayer w) l
+  where l = case cy of
+              True -> zip xs (tail (cycle xs))
+              False -> zip xs (tail xs)
+
 
 fpRectangle ::  Float     -- ^ Width
                 -> Float  -- ^ Height
