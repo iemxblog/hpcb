@@ -33,11 +33,11 @@ fpLine ::   V2 Float    -- ^ Start
             -> FpContent
 fpLine s e w = FpContent [FpLine s e defaultLayer w]
 
-fpPath :: [V2 Float]    -- ^ List of points of the path
-          -> Bool       -- ^ True : Path forms a cycle (return to first point at the end)
+fpPath :: Bool       -- ^ True : Path forms a cycle (return to first point at the end)
           -> Float      -- ^ Width of the path
+          -> [V2 Float]    -- ^ List of points of the path
           -> FpContent
-fpPath xs cy w = FpContent $ map (\(s, e) -> FpLine s e defaultLayer w) l
+fpPath cy w xs = FpContent $ map (\(s, e) -> FpLine s e defaultLayer w) l
   where l = case cy of
               True -> zip xs (tail (cycle xs))
               False -> zip xs (tail xs)
@@ -47,12 +47,12 @@ fpRectangle ::  Float     -- ^ Width
                 -> Float  -- ^ Height
                 -> Float  -- ^ Line width
                 -> FpContent
-fpRectangle w h lw = fpPath [
+fpRectangle w h lw = fpPath True lw [
   V2 (-w/2) (-h/2),
   V2 (w/2) (-h/2),
   V2 (w/2) (h/2),
   V2 (-w/2) (h/2)
-  ] True lw
+  ]
 
 fpCircle :: V2 Float    -- ^ Center
             -> V2 Float -- ^ End
