@@ -30,8 +30,7 @@ pinHeader ref cols rows = footprint headerDesc $
           V2 (-1.27) (2.54*(fromIntegral rows - 1) + 1.27),
           V2 (-1.27) 1.27
       ]
-    )
-      # layer FSilkS
+    ) # layer FSilkS
   <> fpRectangle (fromIntegral (cols-1) * 2.54+2*1.75) (fromIntegral (rows-1) * 2.54+2*1.75) 0.05 # translate (V2 (fromIntegral (cols-1) / 2 * 2.54) (fromIntegral (rows-1) / 2 * 2.54)) # layer FCrtYd
   <> (pad 1 ThroughHole{getDrill=1.016} Rect (V2 1.7272 1.7272) (newNet ref 1)
   <> foldr (<>) mempty [pad (c+(r-1)*cols) ThroughHole{getDrill=1.016} Oval (V2 1.7272 1.7272) (newNet ref (c+(r-1)*cols)) # translate (V2 ((fromIntegral c - 1)*2.54) ((fromIntegral r - 1)*2.54)) | c <- [1..cols], r <- [1..rows], (c,r) /= (1,1)])
