@@ -5,6 +5,7 @@ module Hpcb.Data.Circuit(
   _segments
 ) where
 
+import Hpcb.Data.Action
 import Hpcb.Data.Footprint
 import Hpcb.Data.Graphic
 import Hpcb.Data.Segment
@@ -24,6 +25,10 @@ instance Monoid Circuit where
 instance Itemizable Circuit where
   itemize (Circuit f g s) = Item "kicad_pcb" $
     map itemize f ++ map itemize g ++ map itemize s
+
+instance ChangeableLayer Circuit where
+  layer l (Circuit f g s) = Circuit (map (layer l) f) (map (layer l) g) (map (layer l) s)
+  layers ls (Circuit f g s) = Circuit (map (layers ls) f) (map (layers ls) g) (map (layers ls) s)
 
 -- Lenses
 _footprints :: Lens' Circuit [Footprint]

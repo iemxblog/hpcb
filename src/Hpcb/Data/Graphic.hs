@@ -1,8 +1,9 @@
 module Hpcb.Data.Graphic (
-  Graphic
+  Graphic(..)
 ) where
 
 import Hpcb.SExpr
+import Hpcb.Data.Action
 import Hpcb.Data.Base
 import Hpcb.Data.Layer
 import Hpcb.Data.Effects
@@ -38,3 +39,12 @@ instance Itemizable Graphic where
       itemize l,
       itemize e
     ]
+
+instance ChangeableLayer Graphic where
+  layer l (GrLine s e a _ w) = GrLine s e a l w
+  layer l (GrCircle c e _ w) = GrCircle c e l w
+  layer l (GrText s pos _ e) = GrText s pos l e
+
+  layers _ GrLine{} = error "A line cannot be on multiple layers"
+  layers _ GrCircle{} = error "A circle cannot be on multiple layers"
+  layers _ GrText{} = error "A text cannot be on multiple layers"
