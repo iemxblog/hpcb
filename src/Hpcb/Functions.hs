@@ -2,7 +2,7 @@ module Hpcb.Functions (
   (#),
   footprint,
   fpLine,
-  fpPath,
+  fpPolygon,
   fpRectangle,
   fpCircle,
   fpText,
@@ -33,21 +33,17 @@ fpLine ::   V2 Float    -- ^ Start
             -> FpContent
 fpLine s e w = FpContent [FpLine s e defaultLayer w]
 
-fpPath :: Bool       -- ^ True : Path forms a cycle (return to first point at the end)
-          -> Float      -- ^ Width of the path
+fpPolygon :: Float      -- ^ Width of the path
           -> [V2 Float]    -- ^ List of points of the path
           -> FpContent
-fpPath cy w xs = FpContent $ map (\(s, e) -> FpLine s e defaultLayer w) l
-  where l = case cy of
-              True -> zip xs (tail (cycle xs))
-              False -> zip xs (tail xs)
-
+fpPolygon w xs = FpContent $ map (\(s, e) -> FpLine s e defaultLayer w) l
+  where l = zip xs (tail (cycle xs))
 
 fpRectangle ::  Float     -- ^ Width
                 -> Float  -- ^ Height
                 -> Float  -- ^ Line width
                 -> FpContent
-fpRectangle w h lw = fpPath True lw [
+fpRectangle w h lw = fpPolygon lw [
   V2 (-w/2) (-h/2),
   V2 (w/2) (-h/2),
   V2 (w/2) (h/2),

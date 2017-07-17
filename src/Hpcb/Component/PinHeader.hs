@@ -23,7 +23,7 @@ pinHeader ref val cols rows = footprint ("CONN_" ++ show cols ++ "x" ++ show row
   <> fpText "value" val StandardEffects # translate (V2 0 (-3.1)) # layer FFab
   <> (  fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55)) 0.15
         <>  fpLine (V2 (-1.55) (-1.55)) (V2 (-1.55) 0) 0.15
-        <>  fpPath True 0.15 [
+        <>  fpPolygon 0.15 [
           V2 1.27 1.27,
           V2 1.27 (-1.27),
           V2 (2.54*(fromIntegral cols - 1) + 1.27) (-1.27),
