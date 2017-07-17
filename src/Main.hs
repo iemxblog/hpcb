@@ -14,6 +14,7 @@ main :: IO ()
 main =
   putStr $ prettyPrint $ kicadPCB $ numberNets $
     Circuit [
-      r805 "R1" "10k" # rotate 90
+      r805 "R1" "10k" # translate (V2 10 0) # rotate 45,
+      pinHeader "P1" "CONN_02x03" 4 6
 
       ] [] []
