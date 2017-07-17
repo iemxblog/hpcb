@@ -8,6 +8,7 @@ import Hpcb.Data.KicadPCB
 import Hpcb.Data.Action
 import Hpcb.Functions
 import Hpcb.Data.Base
+import Hpcb.Data.Layer
 import Data.Monoid
 
 main :: IO ()
@@ -18,3 +19,4 @@ main =
       pinHeader "P1" "CONN_02x03" 4 6
 
       ] [] []
+    <> rectangle 50 30 0.15 # layer EdgeCuts

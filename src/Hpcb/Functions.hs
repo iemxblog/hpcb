@@ -7,14 +7,18 @@ module Hpcb.Functions (
   fpCircle,
   fpText,
   pad,
-  newNet
+  newNet,
+  polygon,
+  rectangle
 ) where
 
 import Hpcb.SExpr
 import Hpcb.Data.Base
+import Hpcb.Data.Circuit
 import Hpcb.Data.Layer
 import Hpcb.Data.Footprint
 import Hpcb.Data.FpElement
+import Hpcb.Data.Graphic
 import Hpcb.Data.Effects
 import Hpcb.Data.Net
 import Data.Monoid
@@ -74,3 +78,24 @@ newNet ::  String    -- ^ Reference of component
         -> Int    -- ^ Pin number
         -> Net
 newNet ref pin = Net $ "Net-(" ++ ref ++ "-Pad" ++ show pin ++")"
+
+-- ############ Graphic Functions
+
+polygon :: Float      -- ^ Width of the path
+          -> [V2 Float]    -- ^ List of points of the path
+          -> Circuit
+polygon w xs = Circuit [] (map (\(s, e) -> GrLine s e angle defaultLayer w) l) []
+  where
+    l = zip xs (tail (cycle xs))
+    angle = 90 -- I don't know what it is useful for... not found in the doc
+
+rectangle ::  Float     -- ^ Width
+              -> Float  -- ^ Height
+              -> Float  -- ^ Line width
+              -> Circuit
+rectangle w h lw = polygon lw [
+  V2 (-w/2) (-h/2),
+  V2 (w/2) (-h/2),
+  V2 (w/2) (h/2),
+  V2 (-w/2) (h/2)
+  ]
