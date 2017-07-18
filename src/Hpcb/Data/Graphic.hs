@@ -40,7 +40,7 @@ instance Itemizable Graphic where
       itemize e
     ]
 
-instance ChangeableLayer Graphic where
+instance Parameterized Graphic where
   layer l (GrLine s e a _ w) = GrLine s e a l w
   layer l (GrCircle c e _ w) = GrCircle c e l w
   layer l (GrText s pos _ e) = GrText s pos l e
@@ -48,3 +48,7 @@ instance ChangeableLayer Graphic where
   layers _ GrLine{} = error "A line cannot be on multiple layers"
   layers _ GrCircle{} = error "A circle cannot be on multiple layers"
   layers _ GrText{} = error "A text cannot be on multiple layers"
+
+  width w (GrLine s e a l _) = GrLine s e a l w
+  width w (GrCircle c e l _) = GrCircle c e l w
+  width w (GrText s pos l e) = GrText s pos l e

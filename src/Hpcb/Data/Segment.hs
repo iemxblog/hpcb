@@ -28,9 +28,10 @@ instance Itemizable Segment where
       itemize n
     ]
 
-instance ChangeableLayer Segment where
+instance Parameterized Segment where
   layer l (Segment s e w _ n) = Segment s e w l n
   layers ls Segment{} = error "A segment cannot have multiple layers"
+  width w (Segment s e _ l n) = Segment s e w l n
 
 -- Lenses
 _segNet :: Lens' Segment Net

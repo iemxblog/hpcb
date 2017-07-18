@@ -1,6 +1,6 @@
 module Hpcb.Data.Action (
   Transformable(..),
-  ChangeableLayer(..)
+  Parameterized(..)
 ) where
 
 import Hpcb.Data.Base
@@ -15,6 +15,7 @@ class Transformable a where
   rotate :: Float -> a -> a
   rotate = transform . rotation
 
-class ChangeableLayer a where
+class Parameterized a where
   layer :: Layer -> a -> a
   layers :: [Layer] -> a -> a
+  width :: Float -> a -> a

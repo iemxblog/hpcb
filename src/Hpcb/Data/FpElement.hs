@@ -78,7 +78,7 @@ instance Transformable FpElement where
   transform f (Pad number padType shape pos size layers net) =
     Pad number padType shape (f pos) size layers net
 
-instance ChangeableLayer FpElement where
+instance Parameterized FpElement where
   layer l (FpLine s e _ w) = FpLine s e l w
   layer l (FpCircle c e _ w) = FpCircle c e l w
   layer l (FpText n t pos _ e) = FpText n t pos l e
@@ -90,6 +90,12 @@ instance ChangeableLayer FpElement where
   layers _ FpText{} = error "A fp_text cannot have multiple layers"
   layers ls (Pad number padType shape pos size _ net) =
     Pad number padType shape pos size ls net
+
+  width w (FpLine s e l _) = FpLine s e l w
+  width w (FpCircle c e l _) = FpCircle c e l w
+  width w (FpText n t pos l e) = FpText n t pos l e
+  width w (Pad number padType shape pos size l net) =
+    Pad number padType shape pos size l net
 
 
 data PadType = ThroughHole {getDrill :: Float} | SMD deriving Show

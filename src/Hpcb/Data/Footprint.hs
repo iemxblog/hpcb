@@ -28,9 +28,10 @@ instance Itemizable Footprint where
 instance Transformable Footprint where
   transform f (Footprint s l te ts pos fpc) = Footprint s l te ts (f pos) (transform f fpc)
 
-instance ChangeableLayer Footprint where
+instance Parameterized Footprint where
   layer l (Footprint s _ te ts pos fpc) = Footprint s l te ts pos fpc
   layers _ Footprint{} = error "A footprint can have multiple layers"
+  width w (Footprint s l te ts pos fpc) = Footprint s l te ts pos (width w fpc)
 
 newtype FpContent = FpContent { getFpElements :: [FpElement] } deriving Show
 
@@ -41,9 +42,10 @@ instance Monoid FpContent where
   mempty = FpContent []
   FpContent xs `mappend` FpContent ys = FpContent (xs ++ ys)
 
-instance ChangeableLayer FpContent where
+instance Parameterized FpContent where
   layer l (FpContent fpc) = FpContent (map (layer l) fpc)
   layers ls (FpContent fpc) = FpContent (map (layers ls) fpc)
+  width w (FpContent fpc) = FpContent (map (width w) fpc)
 
 -- Lenses
 _fpContent :: Lens' Footprint FpContent
