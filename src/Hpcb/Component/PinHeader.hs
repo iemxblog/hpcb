@@ -67,6 +67,12 @@ horizontalHeaderSilk cols =
   fpLine (V2 0 1.55) (V2 (-1.55) 1.55) 0.15
   <> fpLine (V2 (-1.55) 1.55) (V2 (-1.55) (-1.55)) 0.15
   <> fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55)) 0.15
+  <> fpPolygon 0.15 [
+      V2 1.27 (-1.27),
+      V2 (2.54*(fromIntegral cols - 1) + 1.27) (-1.27),
+      V2 (2.54*(fromIntegral cols - 1) + 1.27) 1.27,
+      V2 1.27 1.27
+      ]
 
 -- | Generates the silk screen for a header whose number of columns and
 -- rows are different of 1
