@@ -13,6 +13,7 @@ module Hpcb.Data.Base(
 ) where
 
 import Hpcb.SExpr
+import Data.Maybe
 
 data V2 a = V2 a a deriving (Eq, Show)
 
@@ -30,8 +31,10 @@ translation :: V2 Float -> Transformation
 translation (V2 x y) (At (V2 xp yp) a) = At (V2(xp+x) (yp+y)) a
 
 rotation :: Float -> Transformation
-rotation a (At (V2 x y) Nothing) = At (V2 x y) (Just a)
-rotation a (At (V2 x y) (Just ma)) = At (V2 x y) (Just (ma + a))
+rotation a (At (V2 x y) mo) =
+  At (V2 (x*cos (fromDegrees a) - y * sin (fromDegrees a)) (x * sin (fromDegrees a) + y * cos (fromDegrees a))) (Just $ fromMaybe 0 mo + a)
+  where
+    fromDegrees deg = deg * pi / 180
 
 instance Itemizable Position where
     itemize (At (V2 x y) (Just 0.0))  = Item "at" [PFloat x, PFloat y]
