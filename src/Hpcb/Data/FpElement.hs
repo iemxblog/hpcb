@@ -18,7 +18,7 @@ data FpElement =
   FpLine (V2 Float) (V2 Float) Layer Float -- ^ line start, line end, layer, line width
   | FpCircle (V2 Float) (V2 Float) Layer Float -- ^ center, end, layer, width
   | FpText String String Position Layer Effects -- ^ name, content, position, layer, effects (font, justification , etc.)
-  | Pad Int PadType PadShape Position (V2 Float) [Layer] Net  -- ^ Int : Pin number, type, shape, position, size, drill, layers, net
+  | Pad Int PadType PadShape Position (V2 Float) [Layer] Net  -- ^ Int : Pin number, type, shape, position, size, layers, net
   deriving Show
 
 instance Itemizable FpElement where
