@@ -8,7 +8,6 @@ import Hpcb.Data.Effects
 import Hpcb.Data.Footprint
 import Hpcb.Data.FpElement
 import Hpcb.Data.Layer
-import Hpcb.Data.Net
 import Hpcb.Functions
 import Data.Monoid
 

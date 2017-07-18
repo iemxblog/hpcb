@@ -12,7 +12,6 @@ module Hpcb.Functions (
   rectangle
 ) where
 
-import Hpcb.SExpr
 import Hpcb.Data.Base
 import Hpcb.Data.Circuit
 import Hpcb.Data.Layer
@@ -21,9 +20,9 @@ import Hpcb.Data.FpElement
 import Hpcb.Data.Graphic
 import Hpcb.Data.Effects
 import Hpcb.Data.Net
-import Data.Monoid
 
 infixl 8 #
+(#) :: a -> (a -> b) -> b
 x # f = f x
 
 footprint ::   String    -- ^ Name

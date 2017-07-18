@@ -38,16 +38,16 @@ instance Itemizable FpElement where
       Item "width" [PFloat w]
     ]
 
-  itemize (FpText name text pos layer effects) =
+  itemize (FpText name text pos lay effects) =
     Item "fp_text" [
       PString name,
       PString text,
       itemize pos,
-      itemize layer,
+      itemize lay,
       itemize effects
     ]
 
-  itemize (Pad number padType shape pos (V2 sizeX sizeY) layers net) =
+  itemize (Pad number padType shape pos (V2 sizeX sizeY) ls net) =
     Item "pad" ([
       PInt number,
       itemize padType,
@@ -55,7 +55,7 @@ instance Itemizable FpElement where
       itemize pos,
       Item "size" [PFloat sizeX, PFloat sizeY]]
       ++ d ++
-      [itemize layers,
+      [itemize ls,
       itemize net
     ])
     where d = case padType of
@@ -72,11 +72,11 @@ instance Transformable FpElement where
     where At (V2 xc' yc') _ = f (At (V2 xc yc) Nothing)
           At (V2 xe' ye') _ = f (At (V2 xe ye) Nothing)
 
-  transform f (FpText name text pos layer effects) =
-    FpText name text (f pos) layer effects
+  transform f (FpText name text pos lay effects) =
+    FpText name text (f pos) lay effects
 
-  transform f (Pad number padType shape pos size layers net) =
-    Pad number padType shape (f pos) size layers net
+  transform f (Pad number padType shape pos size ls net) =
+    Pad number padType shape (f pos) size ls net
 
 instance Parameterized FpElement where
   layer l (FpLine s e _ w) = FpLine s e l w
@@ -93,8 +93,8 @@ instance Parameterized FpElement where
 
   width w (FpLine s e l _) = FpLine s e l w
   width w (FpCircle c e l _) = FpCircle c e l w
-  width w (FpText n t pos l e) = FpText n t pos l e
-  width w (Pad number padType shape pos size l net) =
+  width _ (FpText n t pos l e) = FpText n t pos l e
+  width _ (Pad number padType shape pos size l net) =
     Pad number padType shape pos size l net
 
 

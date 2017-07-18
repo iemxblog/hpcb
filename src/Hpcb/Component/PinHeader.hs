@@ -8,7 +8,6 @@ import Hpcb.Data.Effects
 import Hpcb.Data.Footprint
 import Hpcb.Data.FpElement
 import Hpcb.Data.Layer
-import Hpcb.Data.Net
 import Hpcb.Functions
 import Data.Monoid
 
@@ -27,7 +26,7 @@ pinHeader ref cols rows = footprint headerDesc $
         (1, 1) -> singleHeaderSilk
         (1, rs) | rs > 1 -> verticalHeaderSilk rows
         (cs, 1) | cs > 1 -> horizontalHeaderSilk cols
-        (cs, rs) -> rectangleHeaderSilk cols rows
+        (_, _) -> rectangleHeaderSilk cols rows
      # layer FSilkS
   <> (pad 1 ThroughHole{getDrill=1.016} Rect firstPadSize (newNet ref 1)
   <> foldr (<>) mempty [pad (c+(r-1)*cols) ThroughHole{getDrill=1.016} Oval padsSize (newNet ref (c+(r-1)*cols)) # translate (V2 ((fromIntegral c - 1)*2.54) ((fromIntegral r - 1)*2.54)) | c <- [1..cols], r <- [1..rows], (c,r) /= (1,1)])

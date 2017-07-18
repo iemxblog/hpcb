@@ -51,4 +51,4 @@ instance Parameterized Graphic where
 
   width w (GrLine s e a l _) = GrLine s e a l w
   width w (GrCircle c e l _) = GrCircle c e l w
-  width w (GrText s pos l e) = GrText s pos l e
+  width _ (GrText s pos l e) = GrText s pos l e
