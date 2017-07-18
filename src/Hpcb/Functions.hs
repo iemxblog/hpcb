@@ -32,21 +32,18 @@ footprint n fpc = Footprint n defaultLayer dummyTEdit dummyTStamp origin fpc
 
 fpLine ::   V2 Float    -- ^ Start
             -> V2 Float -- ^ End
-            -> Float    -- ^ Width
             -> FpContent
-fpLine s e w = FpContent [FpLine s e defaultLayer w]
+fpLine s e = FpContent [FpLine s e defaultLayer defaultWidth]
 
-fpPolygon :: Float      -- ^ Width of the path
-          -> [V2 Float]    -- ^ List of points of the path
-          -> FpContent
-fpPolygon w xs = FpContent $ map (\(s, e) -> FpLine s e defaultLayer w) l
+fpPolygon ::  [V2 Float]    -- ^ List of points of the path
+              -> FpContent
+fpPolygon xs = FpContent $ map (\(s, e) -> FpLine s e defaultLayer defaultWidth) l
   where l = zip xs (tail (cycle xs))
 
 fpRectangle ::  Float     -- ^ Width
                 -> Float  -- ^ Height
-                -> Float  -- ^ Line width
                 -> FpContent
-fpRectangle w h lw = fpPolygon lw [
+fpRectangle w h = fpPolygon [
   V2 (-w/2) (-h/2),
   V2 (w/2) (-h/2),
   V2 (w/2) (h/2),
@@ -55,9 +52,8 @@ fpRectangle w h lw = fpPolygon lw [
 
 fpCircle :: V2 Float    -- ^ Center
             -> V2 Float -- ^ End
-            -> Float    -- ^ Width
             -> FpContent
-fpCircle c e w = FpContent [FpCircle c e defaultLayer w]
+fpCircle c e = FpContent [FpCircle c e defaultLayer defaultWidth]
 
 fpText :: String                -- ^ Name
           -> String             -- ^ Content
@@ -80,19 +76,17 @@ newNet ref pin = Net $ "Net-(" ++ ref ++ "-Pad" ++ show pin ++")"
 
 -- ############ Graphic Functions
 
-polygon :: Float      -- ^ Width of the path
-          -> [V2 Float]    -- ^ List of points of the path
+polygon :: [V2 Float]    -- ^ List of points of the path
           -> Circuit
-polygon w xs = Circuit [] (map (\(s, e) -> GrLine s e angle defaultLayer w) l) []
+polygon xs = Circuit [] (map (\(s, e) -> GrLine s e angle defaultLayer defaultWidth) l) []
   where
     l = zip xs (tail (cycle xs))
     angle = 90 -- I don't know what it is useful for... not found in the doc
 
 rectangle ::  Float     -- ^ Width
               -> Float  -- ^ Height
-              -> Float  -- ^ Line width
               -> Circuit
-rectangle w h lw = polygon lw [
+rectangle w h = polygon [
   V2 (-w/2) (-h/2),
   V2 (w/2) (-h/2),
   V2 (w/2) (h/2),

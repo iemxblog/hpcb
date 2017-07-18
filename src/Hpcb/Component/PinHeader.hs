@@ -19,7 +19,7 @@ pinHeader ::  String      -- ^ Reference
 pinHeader ref cols rows = footprint headerDesc $
   fpText "reference" ref StandardEffects # translate (V2 0 (-5.1)) # layer FSilkS
   <> fpText "value" headerDesc StandardEffects # translate (V2 0 (-3.1)) # layer FFab
-  <> fpRectangle (fromIntegral (cols-1) * 2.54+2*1.75) (fromIntegral (rows-1) * 2.54+2*1.75) 0.05 # translate (V2 (fromIntegral (cols-1) / 2 * 2.54) (fromIntegral (rows-1) / 2 * 2.54)) # layer FCrtYd
+  <> fpRectangle (fromIntegral (cols-1) * 2.54+2*1.75) (fromIntegral (rows-1) * 2.54+2*1.75) # translate (V2 (fromIntegral (cols-1) / 2 * 2.54) (fromIntegral (rows-1) / 2 * 2.54)) # layer FCrtYd # width 0.05
   <> case (cols, rows) of
         (0, _) -> mempty
         (_, 0) -> mempty
@@ -51,38 +51,40 @@ pinHeader ref cols rows = footprint headerDesc $
 -- | Generates the silk screen for a vertical pin header
 verticalHeaderSilk :: Int           -- ^ Number of rows
                       -> FpContent
-verticalHeaderSilk rows =
+verticalHeaderSilk rows = (
   verticalCap
-  <> fpPolygon 0.15 [
+  <> fpPolygon [
       V2 (-1.27) 1.27,
       V2 1.27 1.27,
       V2 1.27 (2.54*(fromIntegral rows - 1)+1.27),
       V2 (-1.27) (2.54*(fromIntegral rows - 1)+1.27)
       ]
+  ) # width 0.15
 
 -- | Generates the silk screen for a horizontal pin header
 horizontalHeaderSilk :: Int           -- ^ Number of columns
                         -> FpContent
-horizontalHeaderSilk cols =
-  fpLine (V2 0 1.55) (V2 (-1.55) 1.55) 0.15
-  <> fpLine (V2 (-1.55) 1.55) (V2 (-1.55) (-1.55)) 0.15
-  <> fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55)) 0.15
-  <> fpPolygon 0.15 [
+horizontalHeaderSilk cols = (
+  fpLine (V2 0 1.55) (V2 (-1.55) 1.55)
+  <> fpLine (V2 (-1.55) 1.55) (V2 (-1.55) (-1.55))
+  <> fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55))
+  <> fpPolygon [
       V2 1.27 (-1.27),
       V2 (2.54*(fromIntegral cols - 1) + 1.27) (-1.27),
       V2 (2.54*(fromIntegral cols - 1) + 1.27) 1.27,
       V2 1.27 1.27
       ]
+  ) # width 0.15
 
 -- | Generates the silk screen for a header whose number of columns and
 -- rows are different of 1
 rectangleHeaderSilk ::  Int           -- ^ Number of columns
                         -> Int        -- ^ Number of rows
                         -> FpContent
-rectangleHeaderSilk cols rows =
-  fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55)) 0.15
-  <>  fpLine (V2 (-1.55) (-1.55)) (V2 (-1.55) 0) 0.15
-  <>  fpPolygon 0.15 [
+rectangleHeaderSilk cols rows = (
+  fpLine (V2 (-1.55) (-1.55)) (V2 0 (-1.55))
+  <>  fpLine (V2 (-1.55) (-1.55)) (V2 (-1.55) 0)
+  <>  fpPolygon [
         V2 1.27 1.27,
         V2 1.27 (-1.27),
         V2 (2.54*(fromIntegral cols - 1) + 1.27) (-1.27),
@@ -90,16 +92,18 @@ rectangleHeaderSilk cols rows =
         V2 (-1.27) (2.54*(fromIntegral rows - 1) + 1.27),
         V2 (-1.27) 1.27
         ]
+  ) # width 0.15
 
 -- | Generates the silk screen for a single pin header
 singleHeaderSilk :: FpContent
-singleHeaderSilk =
+singleHeaderSilk = (
   verticalCap
-  <> fpLine (V2 (-1.27) 1.27) (V2 1.27 1.27) 0.15
+  <> fpLine (V2 (-1.27) 1.27) (V2 1.27 1.27)
+  ) # width 0.15
 
 -- | Generates the cap on the silkscreen for single line headers
 verticalCap :: FpContent
 verticalCap =
-  fpLine (V2 (-1.55) 0) (V2 (-1.55) (-1.55)) 0.15
-  <> fpLine (V2 (-1.55) (-1.55)) (V2 1.55 (-1.55)) 0.15
-  <> fpLine (V2 1.55 (-1.55)) (V2 1.55 0) 0.15
+  fpLine (V2 (-1.55) 0) (V2 (-1.55) (-1.55))
+  <> fpLine (V2 (-1.55) (-1.55)) (V2 1.55 (-1.55))
+  <> fpLine (V2 1.55 (-1.55)) (V2 1.55 0)

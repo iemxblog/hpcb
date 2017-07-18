@@ -19,4 +19,4 @@ main =
       pinHeader "P1" 4 6,
       capacitiveSensor "B1" 5 6 # translate (V2 (-10) 0)
       ] [] []
-    <> rectangle 50 30 0.15 # layer EdgeCuts
+    <> rectangle 50 30 # layer EdgeCuts # width 0.15

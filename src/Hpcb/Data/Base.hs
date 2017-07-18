@@ -8,7 +8,8 @@ module Hpcb.Data.Base(
   TEdit(..),
   dummyTEdit,
   TStamp(..),
-  dummyTStamp
+  dummyTStamp,
+  defaultWidth
 ) where
 
 import Hpcb.SExpr
@@ -50,3 +51,6 @@ instance Itemizable TStamp where
 
 dummyTStamp :: TStamp
 dummyTStamp = TStamp "5893982A"
+
+defaultWidth :: Float
+defaultWidth = 0.15
