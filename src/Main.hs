@@ -15,11 +15,11 @@ main :: IO ()
 main =
   putStr $ prettyPrint $ kicadPCB $ numberNets $
     ( r805 "R1" "10k" # translate (V2 10 0) # rotate 45
-      <> r805 "R1" "10k" # translate (V2 10 0) # rotate 30
+      <> r805 "R2" "10k" # translate (V2 10 0) # rotate 30
       <> pinHeader "P1" 4 6
       <> capacitiveSensor "B1" 5 6 # translate (V2 (-10) 0)
       <> rectangle 50 30 # layer EdgeCuts # width 0.15
     )
-    # connect "GND" "Net-(P1-Pad5)"
-    # connect "GND" "Net-(R1-Pad1)"
-    <> foldr (<>) mempty [r805 ("R" ++ show (i+1)) "10k" # translate (V2 15 0) # rotate (360/6*fromIntegral i) | i <- [0..5] ]
+    # connect (net "GND") (pin "P1" 5)
+    # connect (net "GND") (pin "R1" 1)
+    <> foldr (<>) mempty [r805 ("R" ++ show (i+3)) "10k" # translate (V2 15 0) # rotate (360/6*fromIntegral i) | i <- [0..5] ]
