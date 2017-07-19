@@ -64,7 +64,7 @@ instance Itemizable FpElement where
 
 instance Transformable FpElement where
   transform m (FpLine s e l w) = FpLine (applyMatrixV2 m s) (applyMatrixV2 m e) l w
-  transform m (FpCircle c e l w) = FpLine (applyMatrixV2 m c) (applyMatrixV2 m e) l w
+  transform m (FpCircle c e l w) = FpCircle (applyMatrixV2 m c) (applyMatrixV2 m e) l w
   transform m (FpText name text pos lay effects) = FpText name text (applyMatrix m pos) lay effects
   transform m (Pad number padType shape pos size ls net) =
     Pad number padType shape (applyMatrix m pos) size ls net
