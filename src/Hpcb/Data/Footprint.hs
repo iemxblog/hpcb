@@ -15,7 +15,7 @@ import Data.Matrix
 
 data Footprint = Footprint {
   getFpName :: String,
-  getFplayer :: Layer,
+  getFpLayer :: Layer,
   getFpTEdit :: TEdit,
   getFpTStamp :: TStamp,
   getFpPosition :: Position,
