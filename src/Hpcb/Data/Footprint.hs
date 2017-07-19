@@ -11,6 +11,7 @@ import Hpcb.Data.Layer
 import Hpcb.Data.FpElement
 import Hpcb.Data.Action
 import Control.Lens hiding (transform)
+import Data.Matrix
 
 data Footprint = Footprint {
   getFpName :: String,
@@ -26,7 +27,10 @@ instance Itemizable Footprint where
     Item "module" ([PString n, itemize l, itemize te, itemize ts, itemize pos] ++ map itemize fpContent)
 
 instance Transformable Footprint where
-  transform f (Footprint s l te ts pos fpc) = Footprint s l te ts (f pos) (transform f fpc)
+  transform m (Footprint s l te ts pos fpc) = Footprint s l te ts (applyMatrix m pos) (transform newM fpc)
+    where
+      newM = setElem o (3, 4) $ identity 4  -- we keep only the orientation of the footprint
+      o = getElem 3 4 m                     -- we get the orientation of the footprint
 
 instance Parameterized Footprint where
   layer l (Footprint s _ te ts pos fpc) = Footprint s l te ts pos fpc

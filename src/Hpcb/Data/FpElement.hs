@@ -63,20 +63,11 @@ instance Itemizable FpElement where
                 SMD -> []
 
 instance Transformable FpElement where
-  transform f (FpLine (V2 xs ys) (V2 xe ye) l w) =
-    FpLine (V2 xs' ys') (V2 xe' ye') l w
-    where At (V2 xs' ys') _ = f (At (V2 xs ys) Nothing)
-          At (V2 xe' ye') _ = f (At (V2 xe ye) Nothing)
-  transform f (FpCircle (V2 xc yc) (V2 xe ye) l w) =
-    FpCircle (V2 xc' yc') (V2 xe' ye') l w
-    where At (V2 xc' yc') _ = f (At (V2 xc yc) Nothing)
-          At (V2 xe' ye') _ = f (At (V2 xe ye) Nothing)
-
-  transform f (FpText name text pos lay effects) =
-    FpText name text (f pos) lay effects
-
-  transform f (Pad number padType shape pos size ls net) =
-    Pad number padType shape (f pos) size ls net
+  transform m (FpLine s e l w) = FpLine (applyMatrixV2 m s) (applyMatrixV2 m e) l w
+  transform m (FpCircle c e l w) = FpLine (applyMatrixV2 m c) (applyMatrixV2 m e) l w
+  transform m (FpText name text pos lay effects) = FpText name text (applyMatrix m pos) lay effects
+  transform m (Pad number padType shape pos size ls net) =
+    Pad number padType shape (applyMatrix m pos) size ls net
 
 instance Parameterized FpElement where
   layer l (FpLine s e _ w) = FpLine s e l w

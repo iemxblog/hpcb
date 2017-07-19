@@ -5,9 +5,10 @@ module Hpcb.Data.Action (
 
 import Hpcb.Data.Base
 import Hpcb.Data.Layer
+import Data.Matrix
 
 class Transformable a where
-  transform :: (Position -> Position) -> a -> a
+  transform :: Matrix Float -> a -> a
 
   translate :: V2 Float -> a -> a
   translate = transform . translation
