@@ -53,8 +53,8 @@ translation (V2 x y) = fromList 4 4 [
 rotation :: Float             -- ^ Rotation angle
             -> Matrix Float   -- ^ Rotation matrix
 rotation a = fromList 4 4 [
-    cos (fromDegrees a), -sin (fromDegrees a), 0, 0,
-    sin (fromDegrees a), cos (fromDegrees a), 0, 0,
+    cos (fromDegrees a), sin (fromDegrees a), 0, 0,
+    -sin (fromDegrees a), cos (fromDegrees a), 0, 0,
     0, 0, 1, a,
     0, 0, 0, 1
   ]
