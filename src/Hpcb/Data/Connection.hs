@@ -11,7 +11,8 @@ import Hpcb.Data.Net
 import Hpcb.Data.Segment
 import Control.Lens
 
--- | Returns the name of the net associated with the pin
+-- | Returns the name of the net associated with the pin (identified by component reference and pin number).
+--
 -- It is named like this so that we can use it like so :
 --
 -- @
@@ -37,13 +38,14 @@ pin fpRef pinNumber c = pinNetName
 
 -- | Generates a function which returns the same net name for evercy Circuit
 -- passed as argument.
+--
 -- We define it so that we can use 'connect' like so :
 --
 -- @
 -- connect (net \"GND\") (pin "R1" 1)
 -- @
 --
--- which is quite convenient :)
+-- which is also quite convenient :)
 net ::  String
         -> Circuit -> String
 net = const
