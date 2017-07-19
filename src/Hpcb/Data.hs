@@ -2,6 +2,7 @@ module Hpcb.Data
 (
   module Hpcb.Data.Action,
   module Hpcb.Data.Base,
+  module Hpcb.Data.Connection,
   module Hpcb.Data.Effects,
   module Hpcb.Data.FpElement,
   module Hpcb.Data.KicadPCB,
@@ -15,6 +16,7 @@ module Hpcb.Data
 
 import Hpcb.Data.Action
 import Hpcb.Data.Base
+import Hpcb.Data.Connection
 import Hpcb.Data.Effects
 import Hpcb.Data.FpElement
 import Hpcb.Data.KicadPCB

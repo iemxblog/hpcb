@@ -8,13 +8,17 @@ import Hpcb.Data.Action
 import Hpcb.Functions
 import Hpcb.Data.Base
 import Hpcb.Data.Layer
+import Hpcb.Data.Connection
 import Data.Monoid
 
 main :: IO ()
 main =
   putStr $ prettyPrint $ kicadPCB $ numberNets $
-    r805 "R1" "10k" # translate (V2 10 0) # rotate 45
-    <> r805 "R1" "10k" # translate (V2 10 0) # rotate 30
-    <> pinHeader "P1" 4 6
-    <> capacitiveSensor "B1" 5 6 # translate (V2 (-10) 0)
-    <> rectangle 50 30 # layer EdgeCuts # width 0.15
+    ( r805 "R1" "10k" # translate (V2 10 0) # rotate 45
+      <> r805 "R1" "10k" # translate (V2 10 0) # rotate 30
+      <> pinHeader "P1" 4 6
+      <> capacitiveSensor "B1" 5 6 # translate (V2 (-10) 0)
+      <> rectangle 50 30 # layer EdgeCuts # width 0.15
+    )
+    # connect "GND" "Net-(P1-Pad5)"
+    # connect "GND" "Net-(R1-Pad1)"
