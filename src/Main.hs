@@ -22,3 +22,4 @@ main =
     )
     # connect "GND" "Net-(P1-Pad5)"
     # connect "GND" "Net-(R1-Pad1)"
+    <> foldr (<>) mempty [r805 ("R" ++ show (i+1)) "10k" # translate (V2 15 0) # rotate (360/6*fromIntegral i) | i <- [0..5] ]
