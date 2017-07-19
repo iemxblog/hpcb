@@ -14,6 +14,7 @@ import Control.Lens hiding (transform)
 import Data.Matrix
 
 data Footprint = Footprint {
+  getFpRef :: String,
   getFpName :: String,
   getFpLayer :: Layer,
   getFpTEdit :: TEdit,
@@ -23,19 +24,19 @@ data Footprint = Footprint {
   } deriving Show
 
 instance Itemizable Footprint where
-  itemize (Footprint n l te ts pos (FpContent fpContent)) =
+  itemize (Footprint _ n l te ts pos (FpContent fpContent)) =
     Item "module" ([PString n, itemize l, itemize te, itemize ts, itemize pos] ++ map itemize fpContent)
 
 instance Transformable Footprint where
-  transform m (Footprint s l te ts pos fpc) = Footprint s l te ts (applyMatrix m pos) (transform newM fpc)
+  transform m (Footprint ref s l te ts pos fpc) = Footprint ref s l te ts (applyMatrix m pos) (transform newM fpc)
     where
       newM = setElem o (3, 4) $ identity 4  -- we keep only the orientation of the footprint
       o = getElem 3 4 m                     -- we get the orientation of the footprint
 
 instance Parameterized Footprint where
-  layer l (Footprint s _ te ts pos fpc) = Footprint s l te ts pos fpc
+  layer l (Footprint ref s _ te ts pos fpc) = Footprint ref s l te ts pos fpc
   layers _ Footprint{} = error "A footprint can have multiple layers"
-  width w (Footprint s l te ts pos fpc) = Footprint s l te ts pos (width w fpc)
+  width w (Footprint ref s l te ts pos fpc) = Footprint ref s l te ts pos (width w fpc)
 
 newtype FpContent = FpContent { getFpElements :: [FpElement] } deriving Show
 

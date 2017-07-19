@@ -17,7 +17,7 @@ pinHeader ::  String      -- ^ Reference
               -> Int      -- ^ Number of columns
               -> Int      -- ^ Number of rows
               -> Circuit
-pinHeader ref cols rows = footprint headerDesc $
+pinHeader ref cols rows = footprint ref headerDesc $
   fpText "reference" ref StandardEffects # translate (V2 0 (-5.1)) # layer FSilkS
   <> fpText "value" headerDesc StandardEffects # translate (V2 0 (-3.1)) # layer FFab
   <> fpRectangle (fromIntegral (cols-1) * 2.54+2*1.75) (fromIntegral (rows-1) * 2.54+2*1.75) # translate (V2 (fromIntegral (cols-1) / 2 * 2.54) (fromIntegral (rows-1) / 2 * 2.54)) # layer FCrtYd # width 0.05

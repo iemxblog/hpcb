@@ -25,10 +25,11 @@ infixl 8 #
 (#) :: a -> (a -> b) -> b
 x # f = f x
 
-footprint ::   String    -- ^ Name
+footprint ::   String    -- ^ Reference
+            -> String    -- ^ Name
             -> FpContent
             -> Circuit
-footprint n fpc = Circuit [Footprint n defaultLayer dummyTEdit dummyTStamp origin fpc] [] []
+footprint ref n fpc = Circuit [Footprint ref n defaultLayer dummyTEdit dummyTStamp origin fpc] [] []
 
 fpLine ::   V2 Float    -- ^ Start
             -> V2 Float -- ^ End

@@ -16,7 +16,7 @@ spec :: SpecWith ()
 spec = describe "Net numbering" $ do
           describe "listOfNets" $ do
             it "returns the correct list of nets for a basic list of FpElement" $
-              listOfNets (Circuit [Footprint "U1" FCu dummyTEdit dummyTStamp origin (FpContent [
+              listOfNets (Circuit [Footprint "U1" "R_805" FCu dummyTEdit dummyTStamp origin (FpContent [
                 FpLine (V2 1 2) (V2 3 4) FCu 1,
                 FpCircle (V2 1 2) (V2 3 4) BCu 1,
                 FpText "ref" "r1" (At 1 2 0) FCu StandardEffects,
