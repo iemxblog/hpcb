@@ -40,6 +40,11 @@ instance Itemizable Graphic where
       itemize e
     ]
 
+instance Transformable Graphic where
+  transform m (GrLine s e a l w) = GrLine (applyMatrixV2 m s) (applyMatrixV2 m e) a l w
+  transform m (GrCircle c e l w) = GrCircle (applyMatrixV2 m c) (applyMatrixV2 m e) l w
+  transform m (GrText s pos l e) = GrText s (applyMatrix m pos) l e
+
 instance Parameterized Graphic where
   layer l (GrLine s e a _ w) = GrLine s e a l w
   layer l (GrCircle c e _ w) = GrCircle c e l w

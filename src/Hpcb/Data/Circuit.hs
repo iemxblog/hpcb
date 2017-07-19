@@ -10,7 +10,7 @@ import Hpcb.Data.Footprint
 import Hpcb.Data.Graphic
 import Hpcb.Data.Segment
 import Hpcb.SExpr
-import Control.Lens
+import Control.Lens hiding (transform)
 
 data Circuit = Circuit {
   getFootprints :: [Footprint],
@@ -25,6 +25,9 @@ instance Monoid Circuit where
 instance Itemizable Circuit where
   itemize (Circuit f g s) = Item "kicad_pcb" $
     map itemize f ++ map itemize g ++ map itemize s
+
+instance Transformable Circuit where
+  transform m (Circuit f g s) = Circuit (map (transform m) f) (map (transform m) g) (map (transform m) s)
 
 instance Parameterized Circuit where
   layer l (Circuit f g s) = Circuit (map (layer l) f) (map (layer l) g) (map (layer l) s)

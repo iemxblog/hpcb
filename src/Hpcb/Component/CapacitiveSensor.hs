@@ -4,8 +4,8 @@ module Hpcb.Component.CapacitiveSensor (
 
 import Hpcb.Data.Action
 import Hpcb.Data.Base
+import Hpcb.Data.Circuit
 import Hpcb.Data.Effects
-import Hpcb.Data.Footprint
 import Hpcb.Data.FpElement
 import Hpcb.Data.Layer
 import Hpcb.Functions
@@ -14,7 +14,7 @@ import Data.Monoid
 capacitiveSensor :: String        -- ^ Reference
                     -> Float      -- ^ Diameter on copper layer
                     -> Float      -- ^ Diameter on silk screen
-                    -> Footprint
+                    -> Circuit
 capacitiveSensor ref diam1 diam2 = footprint "Capacitive_Sensor" $
   fpText "reference" ref StandardEffects # translate (V2 0 (-maxDiam/2-2)) # layer FSilkS
   <> fpText "value" val StandardEffects # translate (V2 0 (maxDiam/2+2)) # layer FFab

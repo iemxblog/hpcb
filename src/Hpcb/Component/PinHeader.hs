@@ -4,6 +4,7 @@ module Hpcb.Component.PinHeader (
 
 import Hpcb.Data.Action
 import Hpcb.Data.Base
+import Hpcb.Data.Circuit
 import Hpcb.Data.Effects
 import Hpcb.Data.Footprint
 import Hpcb.Data.FpElement
@@ -15,7 +16,7 @@ import Data.Monoid
 pinHeader ::  String      -- ^ Reference
               -> Int      -- ^ Number of columns
               -> Int      -- ^ Number of rows
-              -> Footprint
+              -> Circuit
 pinHeader ref cols rows = footprint headerDesc $
   fpText "reference" ref StandardEffects # translate (V2 0 (-5.1)) # layer FSilkS
   <> fpText "value" headerDesc StandardEffects # translate (V2 0 (-3.1)) # layer FFab

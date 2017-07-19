@@ -27,8 +27,8 @@ x # f = f x
 
 footprint ::   String    -- ^ Name
             -> FpContent
-            -> Footprint
-footprint n fpc = Footprint n defaultLayer dummyTEdit dummyTStamp origin fpc
+            -> Circuit
+footprint n fpc = Circuit [Footprint n defaultLayer dummyTEdit dummyTStamp origin fpc] [] []
 
 fpLine ::   V2 Float    -- ^ Start
             -> V2 Float -- ^ End

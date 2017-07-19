@@ -28,6 +28,9 @@ instance Itemizable Segment where
       itemize n
     ]
 
+instance Transformable Segment where
+  transform m (Segment s e w l n) = Segment (applyMatrixV2 m s) (applyMatrixV2 m e) w l n
+
 instance Parameterized Segment where
   layer l (Segment s e w _ n) = Segment s e w l n
   layers _ Segment{} = error "A segment cannot have multiple layers"

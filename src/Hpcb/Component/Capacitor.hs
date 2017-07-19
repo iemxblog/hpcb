@@ -4,8 +4,8 @@ module Hpcb.Component.Capacitor (
 
 import Hpcb.Data.Action
 import Hpcb.Data.Base
+import Hpcb.Data.Circuit
 import Hpcb.Data.Effects
-import Hpcb.Data.Footprint
 import Hpcb.Data.FpElement
 import Hpcb.Data.Layer
 import Hpcb.Functions
@@ -14,7 +14,7 @@ import Data.Monoid
 -- | SMD Capacitor, 805 package (2012 metric)
 c805 :: String        -- ^ Reference
         -> String     -- ^ Value
-        -> Footprint
+        -> Circuit
 c805 ref val = footprint "C_0805" $
   fpText "reference" ref StandardEffects # translate (V2 0 (-2.1)) # layer FSilkS
   <> fpText "value" val StandardEffects # translate (V2 0 2.1) # layer FFab

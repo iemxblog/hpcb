@@ -5,8 +5,8 @@ module Hpcb.Component.Resistor (
 
 import Hpcb.Data.Action
 import Hpcb.Data.Base
+import Hpcb.Data.Circuit
 import Hpcb.Data.Effects
-import Hpcb.Data.Footprint
 import Hpcb.Data.FpElement
 import Hpcb.Data.Layer
 import Hpcb.Functions
@@ -15,7 +15,7 @@ import Data.Monoid
 -- | SMD Resistor, 1206 package (3216 metric)
 r1206 ::  String        -- ^ Reference
           -> String     -- ^ Value
-          -> Footprint
+          -> Circuit
 r1206 ref val = footprint "R_1206" $
   fpText "reference" ref StandardEffects # translate (V2 0 (-2.3)) # layer FSilkS
   <> fpText "value" val StandardEffects # translate (V2 0 2.3) # layer FFab
@@ -33,7 +33,7 @@ r1206 ref val = footprint "R_1206" $
 -- | SMD Resistor, 805 package (2012 metric)
 r805 :: String      -- ^ Reference
         -> String   -- ^ Value
-        -> Footprint
+        -> Circuit
 r805 ref val = footprint "R_805" $
   fpText "reference" ref StandardEffects # translate (V2 0 (-2.3)) # layer FSilkS
   <> fpText "value" val StandardEffects # translate (V2 0 2.3) # layer FFab
