@@ -1,5 +1,5 @@
 module Hpcb.Component.SOT (
-  sot23
+  sot_23
 ) where
 
 import Hpcb.Data.Action
@@ -11,10 +11,10 @@ import Hpcb.Data.Layer
 import Hpcb.Functions
 import Data.Monoid
 
-sot23 ::  String
-          -> String
+sot_23 ::  String      -- ^ Reference
+          -> String   -- ^ Value
           -> Circuit
-sot23 ref val = footprint ref "SOT_23" $
+sot_23 ref val = footprint ref "SOT_23" $
   fpText "reference" ref StandardEffects # translate (V2 0 (-2.5)) # layer FSilkS
   <> fpText "value" val StandardEffects # translate (V2 0 2.5) # layer FFab
   <> fpPolygon [
