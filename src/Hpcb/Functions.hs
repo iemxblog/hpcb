@@ -9,7 +9,8 @@ module Hpcb.Functions (
   pad,
   newNet,
   polygon,
-  rectangle
+  rectangle,
+  runCircuit
 ) where
 
 import Hpcb.Data.Base
@@ -20,6 +21,9 @@ import Hpcb.Data.FpElement
 import Hpcb.Data.Graphic
 import Hpcb.Data.Effects
 import Hpcb.Data.Net
+import Hpcb.Data.NetNumbering
+import Hpcb.Data.KicadPCB
+import Hpcb.SExpr
 
 infixl 8 #
 (#) :: a -> (a -> b) -> b
@@ -93,3 +97,6 @@ rectangle w h = polygon [
   V2 (w/2) (h/2),
   V2 (-w/2) (h/2)
   ]
+
+runCircuit :: Circuit -> IO ()
+runCircuit = putStr . prettyPrint . kicadPCB . numberNets
