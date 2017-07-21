@@ -20,7 +20,7 @@ r1206 ref val = footprint ref "R_1206" $
   fpText "reference" ref StandardEffects # translate (V2 0 (-2.3)) # layer FSilkS
   <> fpText "value" val StandardEffects # translate (V2 0 2.3) # layer FFab
   <> fpRectangle 3.2 1.6 # layer FFab # width 0.1
-  <> fpRectangle 4.4 2.4 # layer FCrtYd #width 0.05
+  <> fpRectangle 4.4 2.4 # layer FCrtYd # width 0.05
   <> (
     fpLine (V2 1 1.075) (V2 (-1) 1.075)
     <> fpLine (V2 (-1) (-1.075)) (V2 1 (-1.075))
