@@ -24,3 +24,4 @@ main =
     # connect (net "GND") (pin "R1" 1)
     <> foldr (<>) mempty [r805 ("R" ++ show (i+3)) "10k" # translate (V2 15 0) # rotate (360/6*fromIntegral i) | i <- [0..5] ]
     # connect (pin "R3" 1) (pin "R4" 1)
+    <> sot23 "D1" "ZENER_3.3V" # translate (V2 20 0)
