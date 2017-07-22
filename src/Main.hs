@@ -1,11 +1,6 @@
 module Main where
 
-import Hpcb.Component
-import Hpcb.Data.Action
-import Hpcb.Functions
-import Hpcb.Data.Base
-import Hpcb.Data.Layer
-import Hpcb.Data.Connection
+import Hpcb
 import Data.Monoid
 
 main :: IO ()
