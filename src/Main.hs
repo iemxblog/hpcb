@@ -17,4 +17,5 @@ main = runCircuit $
   # connect (pin "R3" 1) (pin "R4" 1)
   <> sot_23 "D1" "ZENER_3.3V" # translate (V2 20 0)
   <> sot_23_5 "U1" "MIC5205" # translate (V2 20 10)
-  <> tqfp32 "U2" "ATMEGA328P-AU" # translate (V2 (-20) 10)
+  <> tqfp_32 "U2" "ATMEGA328P-AU" # translate (V2 (-20) 10)
+  <> tqfp_44 "U3" "ATMEGA32U4" # translate (V2 (-17) (-7))
