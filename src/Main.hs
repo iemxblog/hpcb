@@ -13,7 +13,7 @@ main = runCircuit $
   )
   # connect (net "GND") (pin "P1" 5)
   # connect (net "GND") (pin "R1" 1)
-  <> foldr (<>) mempty [r805 ("R" ++ show (i+3)) "10k" # translate (V2 15 0) # rotate (360/6*fromIntegral i) | i <- [0..5] ]
+  <> mconcat [r805 ("R" ++ show (i+3)) "10k" # translate (V2 15 0) # rotate (360/6*fromIntegral i) | i <- [0..5] ]
   # connect (pin "R3" 1) (pin "R4" 1)
   <> sot_23 "D1" "ZENER_3.3V" # translate (V2 20 0)
   <> sot_23_5 "U1" "MIC5205" # translate (V2 20 10)

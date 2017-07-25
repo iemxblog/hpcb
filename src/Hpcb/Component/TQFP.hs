@@ -27,16 +27,16 @@ tqfp32 ref val = footprint ref "TQFP-32" $
     V2 (-3.5) 3.5
   ] # layer FFab # width 0.15
   <> fpRectangle 10.6 10.6 # layer FCrtYd # width 0.05
-  <> foldr (<>) mempty [silkCorner # rotate (i*90) | i <- [0..2]]
+  <> mconcat [silkCorner # rotate (i*90) | i <- [0..2]]
   <> (
     fpLine (V2 (-3.625) (-3.625)) (V2 (-3.625) (-3.4))
     <> fpLine (V2 (-3.625) (-3.625)) (V2 (-3.3) (-3.625))
     <> fpLine (V2 (-3.625) (-3.4)) (V2 (-5.05) (-3.4))
   ) # layer FSilkS # width 0.15
-  <> foldr (<>) mempty [padsLine (i*8+1) # rotate (90*fromIntegral i) | i <- [0..3]]
+  <> mconcat [padsLine (i*8+1) # rotate (90*fromIntegral i) | i <- [0..3]]
   where
     silkCorner = (
         fpLine (V2 (-3.625) 3.625) (V2 (-3.625) 3.3)
         <> fpLine (V2 (-3.625) 3.625) (V2 (-3.3) 3.625)
       ) # layer FSilkS # width 0.15
-    padsLine nStart = foldr (<>) mempty [pad (nStart + i) SMD Rect (V2 1.6 0.55) (newNet ref (nStart + i)) # translate (V2 (-4.25) (-2.8+fromIntegral i*0.8)) | i <- [0..7]] # layers [FCu, FPaste, FMask]
+    padsLine nStart = mconcat [pad (nStart + i) SMD Rect (V2 1.6 0.55) (newNet ref (nStart + i)) # translate (V2 (-4.25) (-2.8+fromIntegral i*0.8)) | i <- [0..7]] # layers [FCu, FPaste, FMask]
