@@ -20,7 +20,7 @@ spec = describe "Net numbering" $ do
                 FpLine (V2 1 2) (V2 3 4) FCu 1,
                 FpCircle (V2 1 2) (V2 3 4) BCu 1,
                 FpText "ref" "r1" (At 1 2 0) FCu StandardEffects,
-                Pad 1 SMD Rect (At 3 4 0) (V2 1 2) [FCu, FPaste, FMask] (Net "/SIGNAL"),
-                Pad 2 SMD Rect (At 3 4 0) (V2 1 2) [FCu, FPaste, FMask] (Net "GND"),
-                Pad 3 SMD Rect (At 3 4 0) (V2 1 2) [FCu, FPaste, FMask] (Net "VCC")
+                Pad 1 "" SMD Rect (At 3 4 0) (V2 1 2) [FCu, FPaste, FMask] (Net "/SIGNAL"),
+                Pad 2 "" SMD Rect (At 3 4 0) (V2 1 2) [FCu, FPaste, FMask] (Net "GND"),
+                Pad 3 "" SMD Rect (At 3 4 0) (V2 1 2) [FCu, FPaste, FMask] (Net "VCC")
               ])] [] []) `shouldBe` [Net "/SIGNAL", Net"GND", Net "VCC"]

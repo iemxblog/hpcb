@@ -30,11 +30,11 @@ pin fpRef pinNumber c = pinNetName
             [] -> error $ "Component " ++ fpRef ++ " doesn't exist"
             [x] -> x
             _ -> error $ "Multiple components with same reference (" ++ fpRef ++ ") found "
-    pin = case filter (\(Pad n _ _ _ _ _ _) -> n == pinNumber ) $ toListOf (_fpContent . _fpElements . traverse . _pad) fp of
+    pin = case filter (\p -> padNumber p == pinNumber ) $ toListOf (_fpContent . _fpElements . traverse . _pad) fp of
             [] -> error $ "No pin " ++ show pinNumber ++ " in component " ++ fpRef
             [x] -> x
             _ -> error $ "Multiple pins found for component " ++ fpRef ++ "and pin " ++ show pinNumber
-    pinNetName = netName $ (\(Pad _ _ _ _ _ _ n) -> n) pin
+    pinNetName = netName $ (\p -> padNet p) pin
 
 -- | Generates a function which returns the same net name for evercy Circuit
 -- passed as argument.

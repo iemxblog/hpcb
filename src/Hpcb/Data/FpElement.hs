@@ -33,6 +33,7 @@ data FpElement =
     fpTextEffects :: Effects }
   | Pad {
     padNumber :: Int,
+    padName :: String,
     padType :: PadType,
     padShape :: PadShape,
     padPos :: Position,
@@ -67,7 +68,7 @@ instance Itemizable FpElement where
       itemize effects
     ]
 
-  itemize (Pad number padType shape pos (V2 sizeX sizeY) ls net) =
+  itemize (Pad number _ padType shape pos (V2 sizeX sizeY) ls net) =
     Item "pad" ([
       PInt number,
       itemize padType,
@@ -86,27 +87,27 @@ instance Transformable FpElement where
   transform m (FpLine s e l w) = FpLine (applyMatrixV2 m s) (applyMatrixV2 m e) l w
   transform m (FpCircle c e l w) = FpCircle (applyMatrixV2 m c) (applyMatrixV2 m e) l w
   transform m (FpText name text pos lay effects) = FpText name text (applyMatrix m pos) lay effects
-  transform m (Pad number padType shape pos size ls net) =
-    Pad number padType shape (applyMatrix m pos) size ls net
+  transform m (Pad number padName padType shape pos size ls net) =
+    Pad number padName padType shape (applyMatrix m pos) size ls net
 
 instance Parameterized FpElement where
   layer l (FpLine s e _ w) = FpLine s e l w
   layer l (FpCircle c e _ w) = FpCircle c e l w
   layer l (FpText n t pos _ e) = FpText n t pos l e
-  layer l (Pad number padType shape pos size _ net) =
-    Pad number padType shape pos size [l] net
+  layer l (Pad number padName padType shape pos size _ net) =
+    Pad number padName padType shape pos size [l] net
 
   layers _ FpLine{} = error "A fp_line cannot have multiple layers"
   layers _ FpCircle{} = error "A fp_circle cannot have multiple layers"
   layers _ FpText{} = error "A fp_text cannot have multiple layers"
-  layers ls (Pad number padType shape pos size _ net) =
-    Pad number padType shape pos size ls net
+  layers ls (Pad number padName padType shape pos size _ net) =
+    Pad number padName padType shape pos size ls net
 
   width w (FpLine s e l _) = FpLine s e l w
   width w (FpCircle c e l _) = FpCircle c e l w
   width _ (FpText n t pos l e) = FpText n t pos l e
-  width _ (Pad number padType shape pos size l net) =
-    Pad number padType shape pos size l net
+  width _ (Pad number padName padType shape pos size l net) =
+    Pad number padName padType shape pos size l net
 
 
 data PadType = ThroughHole {getDrill :: Float} | SMD deriving Show
@@ -125,7 +126,7 @@ instance Itemizable PadShape where
 _pad :: Prism' FpElement FpElement
 _pad = prism' setter getter
   where
-    setter (Pad pn pt sh pos si ls n) = Pad pn pt sh pos si ls n
+    setter (Pad pn pname pt sh pos si ls n) = Pad pn pname pt sh pos si ls n
     setter fpe = fpe
     getter pad@Pad{} = Just pad
     getter _ = Nothing
@@ -133,5 +134,5 @@ _pad = prism' setter getter
 _net :: Lens' FpElement Net
 _net = lens getter setter
   where
-    getter (Pad _ _ _ _ _  _ n) = n
-    setter (Pad pn pt sh pos si ls _) n = Pad pn pt sh pos si ls n
+    getter (Pad _ _ _ _ _ _  _ n) = n
+    setter (Pad pn pname pt sh pos si ls _) n = Pad pn pname pt sh pos si ls n
