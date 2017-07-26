@@ -15,10 +15,30 @@ import Hpcb.Data.Net
 import Control.Lens
 
 data FpElement =
-  FpLine (V2 Float) (V2 Float) Layer Float -- ^ line start, line end, layer, line width
-  | FpCircle (V2 Float) (V2 Float) Layer Float -- ^ center, end, layer, width
-  | FpText String String Position Layer Effects -- ^ name, content, position, layer, effects (font, justification , etc.)
-  | Pad Int PadType PadShape Position (V2 Float) [Layer] Net  -- ^ Int : Pin number, type, shape, position, size, layers, net
+  FpLine {
+    fpLineStart :: V2 Float,
+    fpLineEnd :: V2 Float,
+    fpLineLayer :: Layer,
+    fpLineWidth :: Float }
+  | FpCircle {
+    fpCircleCenter :: V2 Float,
+    fpCircleEnd :: V2 Float,
+    fpCircleLayer :: Layer,
+    fpCircleWidth :: Float }
+  | FpText {
+    fpTextName :: String,
+    fpTextContent :: String,
+    fpTextPos :: Position,
+    fpTextLayer :: Layer,
+    fpTextEffects :: Effects }
+  | Pad {
+    padNumber :: Int,
+    padType :: PadType,
+    padShape :: PadShape,
+    padPos :: Position,
+    padSize :: (V2 Float),
+    padLayers :: [Layer],
+    padNet :: Net }
   deriving Show
 
 instance Itemizable FpElement where
