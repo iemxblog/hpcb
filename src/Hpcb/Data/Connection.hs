@@ -1,4 +1,6 @@
 module Hpcb.Data.Connection (
+  name,
+  names,
   pin,
   net,
   connect
@@ -10,6 +12,35 @@ import Hpcb.Data.FpElement
 import Hpcb.Data.Net
 import Hpcb.Data.Segment
 import Control.Lens
+
+-- ^ Assigns a name to a pin, given the reference of the component and pin number
+name :: String      -- ^ Reference of the component
+        -> Int      -- ^ The pin of which we want to change the name
+        -> String   -- ^ New name of the pin
+        -> Circuit  -- ^ Circuit to look into
+        -> Circuit
+name ref num n c = over (_footprints . traverse) f c
+  where
+    f fp = if getFpRef fp == ref
+            then over (_fpContent . _fpElements . traverse . _pad) assignName fp
+            else fp
+    assignName p@(Pad pnum _ _ _ _ _ _ _) | pnum == num = p {padName = n}
+    assignName p = p
+
+names ::  String
+          -> [(Int, String)]
+          -> Circuit
+          -> Circuit
+names ref assocList circuit = foldr (\(i, s) c -> name ref i s c) circuit assocList
+
+getFootprintByRef ::  String        -- ^ Footprint reference
+                      -> Circuit    -- ^ Circuit to look into
+                      -> Footprint
+getFootprintByRef fpRef c =
+  case filter (\fp -> getFpRef fp == fpRef) $ toListOf (_footprints . traverse) c of
+    [] -> error $ "Component " ++ fpRef ++ " doesn't exist"
+    [x] -> x
+    _ -> error $ "Multiple components with same reference (" ++ fpRef ++ ") found "
 
 -- | Returns the name of the net associated with the pin (identified by component reference and pin number).
 --
@@ -26,10 +57,7 @@ pin ::  String      -- ^ Reference of the component
         -> String
 pin fpRef pinNumber c = pinNetName
   where
-    fp = case filter (\fp -> getFpRef fp == fpRef) $ toListOf (_footprints . traverse) c of
-            [] -> error $ "Component " ++ fpRef ++ " doesn't exist"
-            [x] -> x
-            _ -> error $ "Multiple components with same reference (" ++ fpRef ++ ") found "
+    fp = getFootprintByRef fpRef c
     pin = case filter (\p -> padNumber p == pinNumber ) $ toListOf (_fpContent . _fpElements . traverse . _pad) fp of
             [] -> error $ "No pin " ++ show pinNumber ++ " in component " ++ fpRef
             [x] -> x

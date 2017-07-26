@@ -4,7 +4,8 @@ module Hpcb.Component (
   module Hpcb.Component.PinHeader,
   module Hpcb.Component.CapacitiveSensor,
   module Hpcb.Component.SOT,
-  module Hpcb.Component.TQFP
+  module Hpcb.Component.TQFP,
+  module Hpcb.Component.Atmel
 ) where
 
 import Hpcb.Component.Resistor
@@ -13,3 +14,4 @@ import Hpcb.Component.PinHeader
 import Hpcb.Component.CapacitiveSensor
 import Hpcb.Component.SOT
 import Hpcb.Component.TQFP
+import Hpcb.Component.Atmel
