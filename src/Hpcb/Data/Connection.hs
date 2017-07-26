@@ -16,22 +16,22 @@ import Control.Lens
 -- ^ Assigns a name to a pin, given the reference of the component and pin number
 name :: String      -- ^ Reference of the component
         -> Int      -- ^ The pin of which we want to change the name
-        -> String   -- ^ New name of the pin
+        -> [String] -- ^ New names of the pin
         -> Circuit  -- ^ Circuit to look into
         -> Circuit
-name ref num n c = over (_footprints . traverse) f c
+name ref num ns c = over (_footprints . traverse) f c
   where
     f fp = if getFpRef fp == ref
-            then over (_fpContent . _fpElements . traverse . _pad) assignName fp
+            then over (_fpContent . _fpElements . traverse . _pad) assignNames fp
             else fp
-    assignName p@(Pad pnum _ _ _ _ _ _ _) | pnum == num = p {padName = n}
-    assignName p = p
+    assignNames p@(Pad pnum _ _ _ _ _ _ _) | pnum == num = p {padNames = ns}
+    assignNames p = p
 
 names ::  String
-          -> [(Int, String)]
+          -> [(Int, [String])]
           -> Circuit
           -> Circuit
-names ref assocList circuit = foldr (\(i, s) c -> name ref i s c) circuit assocList
+names ref assocList circuit = foldr (\(i, ss) c -> name ref i ss c) circuit assocList
 
 getFootprintByRef ::  String        -- ^ Footprint reference
                       -> Circuit    -- ^ Circuit to look into
