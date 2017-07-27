@@ -64,7 +64,7 @@ pin fpRef pinNumber c = pinNetName
             [] -> error $ "No pin " ++ show pinNumber ++ " in component " ++ fpRef
             [x] -> x
             _ -> error $ "Multiple pins found for component " ++ fpRef ++ "and pin " ++ show pinNumber
-    pinNetName = netName $ (\p -> padNet p) pin
+    pinNetName = netName $ padNet pin
 
 -- | Generates a function which returns the same net name for evercy Circuit
 -- passed as argument.
