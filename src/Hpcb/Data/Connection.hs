@@ -1,6 +1,7 @@
 module Hpcb.Data.Connection (
   name,
   names,
+  pinName,
   pin,
   net,
   connect
@@ -44,6 +45,25 @@ getFootprintByRef fpRef c =
     [x] -> x
     _ -> error $ "Multiple components with same reference (" ++ fpRef ++ ") found "
 
+-- | Returns the nets associated with pin name
+-- It is named like this so that we can use it like so :
+--
+-- @
+-- connect (net \"GND\") (pinName "U1" \"GND\")
+-- @
+--
+-- which is quite convenient :)
+pinName ::  String                  -- ^ Reference of the component
+            -> String               -- ^ Name of the pin(s)
+            -> Circuit -> [String]
+pinName ref pn c = pinsNets
+  where
+    fp = getFootprintByRef ref c
+    pins = case filter (\p -> pn `elem` padNames p) $ toListOf (_fpContent . _fpElements . traverse . _pad) fp of
+              [] -> error $ "No pin named " ++ show pins ++ " in component " ++ ref
+              xs -> xs
+    pinsNets = map (netName . padNet) pins
+
 -- | Returns the name of the net associated with the pin (identified by component reference and pin number).
 --
 -- It is named like this so that we can use it like so :
@@ -56,15 +76,14 @@ getFootprintByRef fpRef c =
 pin ::  String      -- ^ Reference of the component
         -> Int      -- ^ Pin number
         -> Circuit  -- ^ Circuit to look in
-        -> String
+        -> [String]
 pin fpRef pinNumber c = pinNetName
   where
     fp = getFootprintByRef fpRef c
-    pin = case filter (\p -> padNumber p == pinNumber ) $ toListOf (_fpContent . _fpElements . traverse . _pad) fp of
+    pins = case filter (\p -> padNumber p == pinNumber ) $ toListOf (_fpContent . _fpElements . traverse . _pad) fp of
             [] -> error $ "No pin " ++ show pinNumber ++ " in component " ++ fpRef
-            [x] -> x
-            _ -> error $ "Multiple pins found for component " ++ fpRef ++ "and pin " ++ show pinNumber
-    pinNetName = netName $ padNet pin
+            xs -> xs
+    pinNetName = map (netName . padNet) pins
 
 -- | Generates a function which returns the same net name for evercy Circuit
 -- passed as argument.
@@ -77,21 +96,42 @@ pin fpRef pinNumber c = pinNetName
 --
 -- which is also quite convenient :)
 net ::  String
-        -> Circuit -> String
-net = const
+        -> Circuit -> [String]
+net s = \_ -> [s]
 
 -- | Replaces occurences of Net name 2 by Net name 1
 -- Beware, connect s1 s2 is different from connect s2 s1
-connect ::  (Circuit -> String)       -- ^ Function returning net name 1
-            -> (Circuit -> String)    -- ^ Function returnin net name 2
-            -> Circuit                -- ^ Circuit where the connection is made
-            -> Circuit
-connect f1 f2 c = c2
+connectNets ::  String       -- ^ Net name 1
+                -> String    -- ^ Net name 2
+                -> Circuit   -- ^ Circuit where the connection is made
+                -> Circuit
+connectNets nn1 nn2 c = c2
   where
-    nn1 = f1 c  -- nn is for "net name"
-    nn2 = f2 c
     f (Net nn) | nn == nn2 = Net nn1
     f (Net nn) = Net nn
     f (NumberedNet _ _) = error $ "Cannot connect a numbered net (nn1 = " ++ nn1 ++ " nn2 = " ++ nn2 ++")"
     c1 = over (_footprints . traverse . _fpContent . _fpElements . traverse . _pad . _net) f c
     c2 = over (_segments . traverse . _segNet) f c1
+
+-- | Connects pins and components. To be used with 'pin', 'pinName', and 'net'.
+-- The final net name is the first net of the first list. So the order of lists is important.
+-- Examples of usage :
+--
+-- @
+-- connect (net \"GND\") (pin "R1" 1)
+-- connect (net \"GND\") (pinName "U1" \"GND\")
+-- connect (pinName "U1" "VCC") (pinName "U1" "VCC")
+-- @
+--
+connect ::  (Circuit -> [String])       -- ^ List of nets 1
+            -> (Circuit -> [String])    -- ^ List of nets 2
+            -> Circuit                  -- ^ Circuit where the connections are made
+            -> Circuit
+connect f1 f2 c = c2
+  where
+    nns1 = f1 c
+    nns2 = f2 c
+    newNetName = case nns1 of
+      [] -> error "Cannot connect an empty list of nets"
+      (x:_) -> x
+    c2 = foldr (\nn cir -> connectNets newNetName nn cir) c (nns1 ++ nns2)
