@@ -69,7 +69,7 @@ pinName ref pn c = pinsNets
 -- It is named like this so that we can use it like so :
 --
 -- @
--- connect (net \"GND\") (pin "R1" 1)
+-- connect (net \"GND\") (pin \"R1\" 1)
 -- @
 --
 -- which is quite convenient :)
@@ -91,7 +91,7 @@ pin fpRef pinNumber c = pinNetName
 -- We define it so that we can use 'connect' like so :
 --
 -- @
--- connect (net \"GND\") (pin "R1" 1)
+-- connect (net \"GND\") (pin \"R1\" 1)
 -- @
 --
 -- which is also quite convenient :)
@@ -118,9 +118,9 @@ connectNets nn1 nn2 c = c2
 -- Examples of usage :
 --
 -- @
--- connect (net \"GND\") (pin "R1" 1)
--- connect (net \"GND\") (pinName "U1" \"GND\")
--- connect (pinName "U1" "VCC") (pinName "U1" "VCC")
+-- connect (net \"GND\") (pin \"R1\" 1)
+-- connect (net \"GND\") (pinName \"U1\" \"GND\")
+-- connect (pinName \"U1\" \"VCC\") (pinName \"U1\" \"VCC\")
 -- @
 --
 connect ::  (Circuit -> [String])       -- ^ List of nets 1
