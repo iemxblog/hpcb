@@ -13,7 +13,7 @@ import Hpcb.Data.Net
 import Hpcb.Data.Segment
 import Control.Lens
 
--- ^ Assigns a name to a pin, given the reference of the component and pin number
+-- ^ Assigns names to a pin, given the reference of the component and pin number
 name :: String      -- ^ Reference of the component
         -> Int      -- ^ The pin of which we want to change the name
         -> [String] -- ^ New names of the pin
@@ -27,12 +27,14 @@ name ref num ns c = over (_footprints . traverse) f c
     assignNames p@(Pad pnum _ _ _ _ _ _ _) | pnum == num = p {padNames = ns}
     assignNames p = p
 
-names ::  String
-          -> [(Int, [String])]
-          -> Circuit
+-- | Assigns names to pins of a circuit, with an assocation list (pin number, pin names)
+names ::  String                -- ^ Reference of the component
+          -> [(Int, [String])]  -- ^ Association list (pin number, pin names)
+          -> Circuit            -- ^ Circuit where the component is located
           -> Circuit
 names ref assocList circuit = foldr (\(i, ss) c -> name ref i ss c) circuit assocList
 
+-- | Looks for a footprint, given its reference
 getFootprintByRef ::  String        -- ^ Footprint reference
                       -> Circuit    -- ^ Circuit to look into
                       -> Footprint
