@@ -21,3 +21,4 @@ main = runCircuit $
   <> atmega328p_au "U2" # translate (V2 (-20) 10)
     # connect (net "GND") (pinName "U2" "GND")
   <> tqfp_44 "U3" "ATMEGA32U4" # translate (V2 (-17) (-7))
+  <> lm358n "U4" # translate (V2 17.4 (-9.7))

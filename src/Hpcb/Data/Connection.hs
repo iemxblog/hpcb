@@ -29,6 +29,22 @@ name ref num ns c = over (_footprints . traverse) f c
     assignNames p = p
 
 -- | Assigns names to pins of a circuit, with an assocation list (pin number, pin names)
+-- Example of usage :
+--
+-- @@
+-- lm358n :: String
+--           -> Circuit
+-- lm358n ref = soic_8 ref "LM358N" # names ref [
+--     (1, [\"OUTA\"]),
+--     (2, [\"-INA\"]),
+--     (3, [\"+INA\"]),
+--     (4, [\"GND\", \"V-\"]),
+--     (5, [\"+INB\"]),
+--     (6, [\"-INB\"]),
+--     (7, [\"OUTB\"]),
+--     (8, [\"V+\"])
+--   ]
+-- @@
 names ::  String                -- ^ Reference of the component
           -> [(Int, [String])]  -- ^ Association list (pin number, pin names)
           -> Circuit            -- ^ Circuit where the component is located
