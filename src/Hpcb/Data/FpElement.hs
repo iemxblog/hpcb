@@ -37,7 +37,7 @@ data FpElement =
     padType :: PadType,
     padShape :: PadShape,
     padPos :: Position,
-    padSize :: (V2 Float),
+    padSize :: V2 Float,
     padLayers :: [Layer],
     padNet :: Net }
   deriving Show

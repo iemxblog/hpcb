@@ -20,7 +20,7 @@ name :: String      -- ^ Reference of the component
         -> [String] -- ^ New names of the pin
         -> Circuit  -- ^ Circuit to look into
         -> Circuit
-name ref num ns c = over (_footprints . traverse) f c
+name ref num ns = over (_footprints . traverse) f
   where
     f fp = if getFpRef fp == ref
             then over (_fpContent . _fpElements . traverse . _pad) assignNames fp
@@ -113,7 +113,7 @@ pin fpRef pinNumber c = pinNetName
 -- which is also quite convenient :)
 net ::  String
         -> Circuit -> [String]
-net s = \_ -> [s]
+net s = const [s]
 
 -- | Replaces occurences of Net name 2 by Net name 1
 -- Beware, connect s1 s2 is different from connect s2 s1
