@@ -22,3 +22,4 @@ main = runCircuit $
     # connect (net "GND") (pinName "U2" "GND")
   <> tqfp_44 "U3" "ATMEGA32U4" # translate (V2 (-17) (-7))
   <> lm358n "U4" # translate (V2 17.4 (-9.7))
+  <> led_805 "D2" # translate (V2 13.5 5.9)

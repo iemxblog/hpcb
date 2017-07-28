@@ -7,7 +7,8 @@ module Hpcb.Component (
   module Hpcb.Component.TQFP,
   module Hpcb.Component.Atmel,
   module Hpcb.Component.SOIC,
-  module Hpcb.Component.OpAmp
+  module Hpcb.Component.OpAmp,
+  module Hpcb.Component.LED
 ) where
 
 import Hpcb.Component.Resistor
@@ -19,3 +20,4 @@ import Hpcb.Component.TQFP
 import Hpcb.Component.Atmel
 import Hpcb.Component.SOIC
 import Hpcb.Component.OpAmp
+import Hpcb.Component.LED
