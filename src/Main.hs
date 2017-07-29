@@ -24,6 +24,7 @@ main = runCircuit $
     <> tqfp_44 "U3" "ATMEGA32U4" # translate (V2 (-17) (-7))
     <> lm358n "U4" # translate (V2 17.4 (-9.7))
     <> led_805 "D2" # translate (V2 13.5 5.9)
+    <> tact_switch "S1" # translate (V2 13.5 11.9)
     )
   # connect (net "GND") (pinName "D2" "K")
   # connect (pin "R8" 1) (pinName "D2" "A")

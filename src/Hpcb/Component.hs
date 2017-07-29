@@ -8,7 +8,8 @@ module Hpcb.Component (
   module Hpcb.Component.Atmel,
   module Hpcb.Component.SOIC,
   module Hpcb.Component.OpAmp,
-  module Hpcb.Component.LED
+  module Hpcb.Component.LED,
+  module Hpcb.Component.Switch
 ) where
 
 import Hpcb.Component.Resistor
@@ -21,3 +22,4 @@ import Hpcb.Component.Atmel
 import Hpcb.Component.SOIC
 import Hpcb.Component.OpAmp
 import Hpcb.Component.LED
+import Hpcb.Component.Switch
