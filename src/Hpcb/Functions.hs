@@ -55,10 +55,9 @@ fpRectangle w h = fpPolygon [
   V2 (-w/2) (h/2)
   ]
 
-fpCircle :: V2 Float    -- ^ Center
-            -> V2 Float -- ^ End
+fpCircle :: Float         -- ^ Diameter
             -> FpContent
-fpCircle c e = FpContent [FpCircle c e defaultLayer defaultWidth]
+fpCircle d = FpContent [FpCircle (V2 0 0) (V2 (d/2) 0) defaultLayer defaultWidth]
 
 fpText :: String                -- ^ Name
           -> String             -- ^ Content
