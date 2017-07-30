@@ -13,10 +13,11 @@ import Hpcb.Functions
 import Data.Monoid
 
 led_805 ::  String      -- ^ Reference
+            -> String   -- ^ Value
             -> Circuit
-led_805 ref = (footprint ref "LED_0805" $
+led_805 ref val = (footprint ref "LED_0805" $
     fpText "reference" ref StandardEffects # translate (V2 0 (-1.45)) # layer FSilkS
-    <> fpText "value" "LED_0805" StandardEffects # translate (V2 0 1.55) # layer FFab
+    <> fpText "value" val StandardEffects # translate (V2 0 1.55) # layer FFab
     <> (
       fpLine (V2 (-1.8) (-0.7)) (V2 (-1.8) 0.7)
       <> fpLine (V2 (-1.8) 0.7) (V2 1 0.7)
