@@ -17,7 +17,36 @@ library
   hs-source-dirs:      src
   ghc-options: -Wall
   exposed-modules:
-    Hpcb
+    Hpcb,
+    Hpcb.Component,
+    Hpcb.Component.Atmel,
+    Hpcb.Component.CapacitiveSensor,
+    Hpcb.Component.Capacitor,
+    Hpcb.Component.LED,
+    Hpcb.Component.OpAmp,
+    Hpcb.Component.PinHeader,
+    Hpcb.Component.Regulator,
+    Hpcb.Component.Resistor,
+    Hpcb.Component.SOIC,
+    Hpcb.Component.SOT,
+    Hpcb.Component.Switch,
+    Hpcb.Component.TQFP,
+    Hpcb.Data,
+    Hpcb.Data.Action,
+    Hpcb.Data.Base,
+    Hpcb.Data.Circuit,
+    Hpcb.Data.Connection,
+    Hpcb.Data.Effects,
+    Hpcb.Data.Footprint,
+    Hpcb.Data.FpElement,
+    Hpcb.Data.Graphic,
+    Hpcb.Data.KicadPCB,
+    Hpcb.Data.Layer,
+    Hpcb.Data.Net,
+    Hpcb.Data.NetNumbering,
+    Hpcb.Data.Segment,
+    Hpcb.Functions,
+    Hpcb.SExpr
   default-language:    Haskell2010
   build-depends:
     base >= 4.7 && < 5,
@@ -37,7 +66,7 @@ executable hpcb
     matrix
 
 executable arduino-pro-mini
-  hs-source-dirs:      src
+  hs-source-dirs:      examples
   ghc-options: -Wall
   main-is:             Arduino-pro-mini.hs
   default-language:    Haskell2010
@@ -45,7 +74,8 @@ executable arduino-pro-mini
     base >= 4.7 && < 5,
     containers,
     lens,
-    matrix
+    matrix,
+    hpcb
 
 test-suite tests
   hs-source-dirs: src tests
