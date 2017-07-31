@@ -76,7 +76,7 @@ pinName ref pn c = pinsNets
   where
     fp = getFootprintByRef ref c
     pins = case filter (\p -> pn `elem` padNames p) $ toListOf (_fpContent . _fpElements . traverse . _pad) fp of
-              [] -> error $ "No pin named " ++ show pins ++ " in component " ++ ref
+              [] -> error $ "No pin named " ++ show pn ++ " in component " ++ ref
               xs -> xs
     pinsNets = map (netName . padNet) pins
 
