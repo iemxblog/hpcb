@@ -10,7 +10,8 @@ module Hpcb.Component (
   module Hpcb.Component.OpAmp,
   module Hpcb.Component.LED,
   module Hpcb.Component.Switch,
-  module Hpcb.Component.Regulator
+  module Hpcb.Component.Regulator,
+  module Hpcb.Component.CPLD
 ) where
 
 import Hpcb.Component.Resistor
@@ -25,3 +26,4 @@ import Hpcb.Component.OpAmp
 import Hpcb.Component.LED
 import Hpcb.Component.Switch
 import Hpcb.Component.Regulator
+import Hpcb.Component.CPLD

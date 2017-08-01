@@ -22,6 +22,7 @@ library
     Hpcb.Component.Atmel,
     Hpcb.Component.CapacitiveSensor,
     Hpcb.Component.Capacitor,
+    Hpcb.Component.CPLD,
     Hpcb.Component.LED,
     Hpcb.Component.OpAmp,
     Hpcb.Component.PinHeader,
