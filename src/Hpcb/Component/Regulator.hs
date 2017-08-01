@@ -1,5 +1,6 @@
 module Hpcb.Component.Regulator (
-  mic5205
+  mic5205,
+  lm1117
 ) where
 
 import Hpcb.Component.SOT
@@ -15,4 +16,12 @@ mic5205 ref = sot_23_5 ref "MIC5205" # names ref [
     (3, ["EN"]),
     (4, ["BP"]),
     (5, ["OUT"])
+  ]
+
+lm1117 ::  String
+          -> Circuit
+lm1117 ref = sot_223_3 ref "LM117" # names ref [
+  (1, ["ADJ", "GND"]),
+  (2, ["VOUT"]),
+  (3, ["VIN"])
   ]

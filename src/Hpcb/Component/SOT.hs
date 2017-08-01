@@ -1,6 +1,8 @@
 module Hpcb.Component.SOT (
   sot_23,
-  sot_23_5
+  sot_23_5,
+  sot_223,
+  sot_223_3
 ) where
 
 import Hpcb.Data.Action
@@ -64,3 +66,45 @@ sot_23_5 ref val = footprint ref "SOT-23-5" $
     <> pad 4 SMD Rect (V2 1.06 0.65) (newNet ref 4) # translate (V2 1.1 0.95)
     <> pad 5 SMD Rect (V2 1.06 0.65) (newNet ref 5) # translate (V2 1.1 (-0.95))
   ) # layers [FCu, FPaste, FMask]
+
+sot_223_n ::  Int         --  Number of pins (3 or 4)
+              -> String   -- ^ Reference
+              -> String   -- ^ Value
+              -> Circuit
+sot_223_n n ref val = footprint ref "SOT-223" $
+  fpText "reference" ref StandardEffects # translate (V2 0 (-4.5)) # layer FSilkS
+  <> fpText "value" val StandardEffects # translate (V2 0 4.5) # layer FFab
+  <> fpRectangle 8.8 7.2 # layer FCrtYd # width 0.05
+  <> (
+    fpLine (V2 1.91 3.41) (V2 1.91 2.15)
+    <> fpLine (V2 1.91 (-3.41)) (V2 1.91 (-2.15))
+    <> fpLine (V2 (-1.85) 3.41) (V2 1.91 3.41)
+    <> fpLine (V2 (-4.1) (-3.41)) (V2 1.91 (-3.41))
+  ) # layer FSilkS # width 0.12
+  <> fpPolygon [
+    V2 (-1.85) (-2.3),
+    V2 (-0.8) (-3.35),
+    V2 1.85 (-3.35),
+    V2 1.85 3.35,
+    V2 (-1.85) 3.35
+  ] # layer FFab # width 0.1
+  <> (
+    pad 1 SMD Rect (V2 2 1.5) (newNet ref 1) # translate (V2 (-3.15) (-2.3))
+    <> pad 2 SMD Rect (V2 2 1.5) (newNet ref 2) # translate (V2 (-3.15) 0)
+    <> pad 3 SMD Rect (V2 2 1.5) (newNet ref 3) # translate (V2 (-3.15) 2.3)
+    <> (if n == 3 then
+          pad 2 SMD Rect (V2 2 3.8) (newNet ref 2) # translate (V2 3.15 0)
+        else
+          pad 4 SMD Rect (V2 2 3.8) (newNet ref 4) # translate (V2 3.15 0)
+    )
+  ) # layers [FCu, FPaste, FMask]
+
+sot_223 ::  String
+            -> String
+            -> Circuit
+sot_223 = sot_223_n 4
+
+sot_223_3 :: String
+            -> String
+            -> Circuit
+sot_223_3 = sot_223_n 3
