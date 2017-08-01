@@ -25,6 +25,7 @@ library
     Hpcb.Component.CPLD,
     Hpcb.Component.LED,
     Hpcb.Component.OpAmp,
+    Hpcb.Component.Oscillator,
     Hpcb.Component.PinHeader,
     Hpcb.Component.QFP,
     Hpcb.Component.Regulator,

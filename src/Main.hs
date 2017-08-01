@@ -26,6 +26,7 @@ main = runCircuit $
     <> led_805 "D2" "Red" # translate (V2 13.5 5.9)
     <> tact_switch "S1" # translate (V2 13.5 11.9)
     <> lm1117 "U5" # translate (V2 32.9 2.8)
+    <> qx733A20 "Q1" # translate (V2 32.9 (-5))
     )
   # connect (net "GND") (pinName "D2" "K")
   # connect (pin "R8" 1) (pinName "D2" "A")
