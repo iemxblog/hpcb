@@ -64,7 +64,3 @@ sot_23_5 ref val = footprint ref "SOT-23-5" $
     <> pad 4 SMD Rect (V2 1.06 0.65) (newNet ref 4) # translate (V2 1.1 0.95)
     <> pad 5 SMD Rect (V2 1.06 0.65) (newNet ref 5) # translate (V2 1.1 (-0.95))
   ) # layers [FCu, FPaste, FMask]
-
-{-
-    (pad 5 smd rect (at 1.1 -0.95) (size 1.06 0.65) (layers F.Cu F.Paste F.Mask))
-    -}
