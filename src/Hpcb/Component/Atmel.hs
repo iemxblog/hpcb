@@ -2,7 +2,7 @@ module Hpcb.Component.Atmel (
   atmega328p_au
 ) where
 
-import Hpcb.Component.TQFP
+import Hpcb.Component.QFP
 import Hpcb.Data.Connection
 import Hpcb.Data.Circuit
 import Hpcb.Functions
@@ -10,7 +10,7 @@ import Hpcb.Functions
 atmega328p_au ::  String      -- ^ Reference
                   -> Circuit
 atmega328p_au ref =
-  tqfp_32 ref "ATMEGA328P-AU" # names ref [
+  qfp_32 ref "ATMEGA328P-AU" # names ref [
     (1, ["PD3"]),
     (2, ["PD4"]),
     (3, ["GND"]),

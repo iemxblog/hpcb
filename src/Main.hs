@@ -21,7 +21,7 @@ main = runCircuit $
     <> sot_23_5 "U1" "MIC5205" # translate (V2 20 10)
     <> atmega328p_au "U2" # translate (V2 (-20) 10)
       # connect (net "GND") (pinName "U2" "GND")
-    <> tqfp_44 "U3" "ATMEGA32U4" # translate (V2 (-17) (-7))
+    <> qfp_44 "U3" "ATMEGA32U4" # translate (V2 (-17) (-7))
     <> lm358n "U4" # translate (V2 17.4 (-9.7))
     <> led_805 "D2" "Red" # translate (V2 13.5 5.9)
     <> tact_switch "S1" # translate (V2 13.5 11.9)
