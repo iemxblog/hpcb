@@ -1,16 +1,26 @@
 module Hpcb.Component.PinHeader (
-  pinHeader
+  pinHeader,
+  pinHeaderFromNets
 ) where
 
 import Hpcb.Data.Action
 import Hpcb.Data.Base
 import Hpcb.Data.Circuit
+import Hpcb.Data.Connection
 import Hpcb.Data.Effects
 import Hpcb.Data.Footprint
 import Hpcb.Data.FpElement
 import Hpcb.Data.Layer
 import Hpcb.Functions
 import Data.Monoid
+
+-- | Generates a vertical pin header from a list of nets.
+-- Each pin will be connected to the corresponding net.
+pinHeaderFromNets ::  String      -- ^ Reference
+                      -> [String]    -- ^ ListOfNets
+                      -> Circuit
+pinHeaderFromNets ref xs = foldr (\(x, i) c -> c # connect (net x) (pin ref i)) (pinHeader ref 1 (length xs)) l
+  where l = zip xs [1..]
 
 -- | Generic pin header
 pinHeader ::  String      -- ^ Reference
