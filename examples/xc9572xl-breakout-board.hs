@@ -2,5 +2,147 @@ module Main (
   main
 ) where
 
+import Hpcb
+import Data.Monoid
+
+power :: Circuit
+power = (
+  lm1117 "U2"
+  <> c805 "C1" "10uF-Tantalum"
+  <> c805 "C2" "10uF-Tantalum"
+  )
+  # connect (net "RAW") (pinName "U2" "VIN")
+  # connect (net "RAW") (pin "C1" 1)
+  # connect (net "GND") (pin "C1" 2)
+  # connect (net "GND") (pinName "U2" "GND")
+  # connect (net "+3V3") (pinName "U2" "VOUT")
+  # connect (net "+3V3") (pin "C2" 1)
+  # connect (net "GND") (pin "C2" 2)
+
+oscillator :: Circuit
+oscillator = (
+  qx733A20 "Q1"
+  <> c805 "C3" "0.1uF"
+  )
+  # connect (net "+3V3") (pin "C3" 1)
+  # connect (net "GND") (pin "C3" 2)
+  # connect (net "+3V3") (pinName "Q1" "VCC")
+  # connect (net "+3V3") (pinName "Q1" "EN")
+  # connect (net "GND") (pinName "Q1" "GND")
+  # connect (net "OSC") (pinName "Q1" "OUT")
+
+jtag :: Circuit
+jtag = pinHeaderFromNets "JTAG" [
+  "TMS",
+  "TDI",
+  "TDO",
+  "TCK",
+  "GND",
+  "+3.3V"
+  ]
+
+pinHeaderLeft :: Circuit
+pinHeaderLeft = pinHeaderFromNets "JP1" [
+  "IO1-2",
+  "IO1-5",
+  "IO1-6",
+  "IO1-8",
+  "IO1-9",
+  "IO1-11",
+  "IO1-14",
+  "IO1-15",
+  "IO1-17",
+  "IO3-2",
+  "IO3-5",
+  "IO3-8",
+  "IO3-9",
+  "IO3-11",
+  "IO3-14",
+  "IO3-15",
+  "IO3-16",
+  "IO3-17",
+  "GND"
+  ]
+
+pinHeaderRight :: Circuit
+pinHeaderRight = pinHeaderFromNets "JP2" [
+  "RAW",
+  "GND",
+  "+3V3",
+  "IO2-2",
+  "IO2-5",
+  "IO2-6",
+  "IO2-8",
+  "IO2-9",
+  "IO2-11",
+  "IO2-14",
+  "IO2-15",
+  "IO2-17",
+  "IO4-2",
+  "IO4-5",
+  "IO4-8",
+  "IO4-11",
+  "IO4-14",
+  "IO4-15",
+  "IO4-17"
+  ]
+
+cpld :: Circuit
+cpld =
+  xc9572xl "U1"
+  # connect (net "GND") (pinName "U1" "GND")
+  # connect (net "+3V3") (pinName "U1" "VCCIO")
+  # connect (net "+3V3") (pinName "U1" "VCCINT")
+  # connectNamesToNets "U1"[
+    "IO1-14",
+    "IO1-15",
+    "IO1-17",
+    "IO3-2",
+    "IO3-5",
+    "IO3-8",
+    "IO3-9",
+    "TDI",
+    "TMS",
+    "TCK",
+    "IO3-11",
+    "IO3-14",
+    "IO3-15",
+    "IO3-17",
+    "IO3-16",
+    "IO4-2",
+    "IO4-5",
+    "IO4-8",
+    "IO4-11",
+    "IO4-14",
+    "TDO",
+    "IO4-15",
+    "IO4-17",
+    "IO2-2",
+    "IO2-5",
+    "IO2-6",
+    "IO2-8",
+    "IO2-9",
+    "IO2-11",
+    "IO2-14",
+    "IO2-15",
+    "IO2-17",
+    "IO1-2",
+    "IO1-5",
+    "IO1-6",
+    "IO1-8",
+    "IO1-9",
+    "IO1-11"
+  ]
+
+
+xc9572xl_breakout_board :: Circuit
+xc9572xl_breakout_board =
+  power
+  <> oscillator
+  <> jtag
+  <> pinHeaderLeft
+  <> pinHeaderRight
+  <> cpld
+
 main :: IO ()
-main = putStrLn "Hello, world!"
+main = runCircuit xc9572xl_breakout_board
