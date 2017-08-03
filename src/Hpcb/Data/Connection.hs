@@ -4,7 +4,9 @@ module Hpcb.Data.Connection (
   pinName,
   pin,
   net,
-  connect
+  connect,
+  connectPinsToNets,
+  connectNamesToNets
 ) where
 
 import Hpcb.Data.Circuit
@@ -151,3 +153,16 @@ connect f1 f2 c = c2
       [] -> error "Cannot connect an empty list of nets"
       (x:_) -> x
     c2 = foldr (\nn cir -> connectNets newNetName nn cir) c (nns1 ++ nns2)
+
+connectPinsToNets ::  String
+                      -> [String]
+                      -> Circuit
+                      -> Circuit
+connectPinsToNets ref xs c = foldr (\(x, i) cir -> connect (net x) (pin ref i) cir) c l
+  where l = zip xs [1..]
+
+connectNamesToNets :: String        -- ^ Reference of the Component
+                      -> [String]   -- ^ List of pin names (and corresponding nets)
+                      -> Circuit
+                      -> Circuit
+connectNamesToNets ref xs c = foldr (\x cir -> connect (net x) (pinName ref x) cir) c xs

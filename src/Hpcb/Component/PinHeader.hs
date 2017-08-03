@@ -19,8 +19,7 @@ import Data.Monoid
 pinHeaderFromNets ::  String      -- ^ Reference
                       -> [String]    -- ^ ListOfNets
                       -> Circuit
-pinHeaderFromNets ref xs = foldr (\(x, i) c -> c # connect (net x) (pin ref i)) (pinHeader ref 1 (length xs)) l
-  where l = zip xs [1..]
+pinHeaderFromNets ref xs = pinHeader ref 1 (length xs) # connectPinsToNets ref xs
 
 -- | Generic pin header
 pinHeader ::  String      -- ^ Reference
