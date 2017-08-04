@@ -8,8 +8,8 @@ import Data.Monoid
 power :: Circuit
 power = (
   lm1117 "U2"
-  <> c805 "C1" "10uF-Tantalum"
-  <> c805 "C2" "10uF-Tantalum"
+  <> c805 "C1" "10uF-Tantalum" # rotate (-90) # translate (V2 (2.54*3) 0)
+  <> c805 "C2" "10uF-Tantalum" # rotate 90 # translate (V2 (-2.54*3) 0)
   )
   # connect (net "RAW") (pinName "U2" "VIN")
   # connect (net "RAW") (pin "C1" 1)
@@ -20,12 +20,8 @@ power = (
   # connect (net "GND") (pin "C2" 2)
 
 oscillator :: Circuit
-oscillator = (
+oscillator =
   qx733A20 "Q1"
-  <> c805 "C3" "0.1uF"
-  )
-  # connect (net "+3V3") (pin "C3" 1)
-  # connect (net "GND") (pin "C3" 2)
   # connect (net "+3V3") (pinName "Q1" "VCC")
   # connect (net "+3V3") (pinName "Q1" "EN")
   # connect (net "GND") (pinName "Q1" "GND")
@@ -69,22 +65,22 @@ pinHeaderRight = pinHeaderFromNets "JP2" [
   "RAW",
   "GND",
   "+3V3",
-  "IO2-2",
-  "IO2-5",
-  "IO2-6",
-  "IO2-8",
-  "IO2-9",
-  "IO2-11",
-  "IO2-14",
-  "IO2-15",
   "IO2-17",
-  "IO4-2",
-  "IO4-5",
-  "IO4-8",
-  "IO4-11",
-  "IO4-14",
+  "IO2-15",
+  "IO2-14",
+  "IO2-11",
+  "IO2-9",
+  "IO2-8",
+  "IO2-6",
+  "IO2-5",
+  "IO2-2",
+  "IO4-17",
   "IO4-15",
-  "IO4-17"
+  "IO4-14",
+  "IO4-11",
+  "IO4-8",
+  "IO4-5",
+  "IO4-2"
   ]
 
 cpld :: Circuit
@@ -137,12 +133,12 @@ cpld =
 
 xc9572xl_breakout_board :: Circuit
 xc9572xl_breakout_board = (
-    power
-    <> oscillator
-    <> jtag
+    power # translate (V2 (6*2.54) (1*2.54))
+    <> oscillator # translate (V2 (6*2.54) (4*2.54))
+    <> jtag # rotate 90 # translate (V2 (4*2.54) (17*2.54))
     <> pinHeaderLeft
     <> pinHeaderRight # translate (V2 (12*2.54) 0)
-    <> cpld
+    <> cpld # translate (V2 (6*2.54) (10*2.54))
   )
   # connect (pinName "Q1" "OUT") (pinName "U1" "GCK3")
 
