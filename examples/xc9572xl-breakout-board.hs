@@ -136,13 +136,15 @@ cpld =
 
 
 xc9572xl_breakout_board :: Circuit
-xc9572xl_breakout_board =
-  power
-  <> oscillator
-  <> jtag
-  <> pinHeaderLeft
-  <> pinHeaderRight
-  <> cpld
+xc9572xl_breakout_board = (
+    power
+    <> oscillator
+    <> jtag
+    <> pinHeaderLeft
+    <> pinHeaderRight # translate (V2 (12*2.54) 0)
+    <> cpld
+  )
+  # connect (pinName "Q1" "OUT") (pinName "U1" "GCK3")
 
 main :: IO ()
 main = runCircuit xc9572xl_breakout_board
