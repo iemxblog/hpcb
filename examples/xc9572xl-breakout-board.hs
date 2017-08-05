@@ -38,50 +38,58 @@ jtag = pinHeaderFromNets "JTAG" [
   ]
 
 pinHeaderLeft :: Circuit
-pinHeaderLeft = pinHeaderFromNets "JP1" [
-  "IO1-2",
-  "IO1-5",
-  "IO1-6",
-  "IO1-8",
-  "IO1-9",
-  "IO1-11",
-  "IO1-14",
-  "IO1-15",
-  "IO1-17",
-  "IO3-2",
-  "IO3-5",
-  "IO3-8",
-  "IO3-9",
-  "IO3-11",
-  "IO3-14",
-  "IO3-15",
-  "IO3-16",
-  "IO3-17",
-  "GND"
-  ]
+pinHeaderLeft =
+  pinHeaderFromNets "JP1" netsList
+  <> mconcat [text t # translate (V2 (2.54*1.75) (fromIntegral (i::Int) * 2.54)) | (t, i) <- zip netsList [0..]]
+    where
+      netsList = [
+        "IO1-2",
+        "IO1-5",
+        "IO1-6",
+        "IO1-8",
+        "IO1-9",
+        "IO1-11",
+        "IO1-14",
+        "IO1-15",
+        "IO1-17",
+        "IO3-2",
+        "IO3-5",
+        "IO3-8",
+        "IO3-9",
+        "IO3-11",
+        "IO3-14",
+        "IO3-15",
+        "IO3-16",
+        "IO3-17",
+        "GND"
+        ]
 
 pinHeaderRight :: Circuit
-pinHeaderRight = pinHeaderFromNets "JP2" [
-  "RAW",
-  "GND",
-  "+3V3",
-  "IO2-17",
-  "IO2-15",
-  "IO2-14",
-  "IO2-11",
-  "IO2-9",
-  "IO2-8",
-  "IO2-6",
-  "IO2-5",
-  "IO2-2",
-  "IO4-17",
-  "IO4-15",
-  "IO4-14",
-  "IO4-11",
-  "IO4-8",
-  "IO4-5",
-  "IO4-2"
-  ]
+pinHeaderRight =
+  pinHeaderFromNets "JP2" netsList
+  <> mconcat [text t # translate (V2 (-2.54*1.75) (fromIntegral (i::Int) * 2.54)) | (t, i) <- zip netsList [0..]]
+  where
+    netsList = [
+      "RAW",
+      "GND",
+      "+3V3",
+      "IO2-17",
+      "IO2-15",
+      "IO2-14",
+      "IO2-11",
+      "IO2-9",
+      "IO2-8",
+      "IO2-6",
+      "IO2-5",
+      "IO2-2",
+      "IO4-17",
+      "IO4-15",
+      "IO4-14",
+      "IO4-11",
+      "IO4-8",
+      "IO4-5",
+      "IO4-2"
+      ]
 
 cpld :: Circuit
 cpld =
