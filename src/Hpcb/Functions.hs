@@ -10,6 +10,7 @@ module Hpcb.Functions (
   newNet,
   polygon,
   rectangle,
+  text,
   runCircuit
 ) where
 
@@ -96,6 +97,10 @@ rectangle w h = polygon [
   V2 (w/2) (h/2),
   V2 (-w/2) (h/2)
   ]
+
+text :: String
+        -> Circuit
+text s = Circuit [] [(GrText s origin FSilkS StandardEffects)] []
 
 runCircuit :: Circuit -> IO ()
 runCircuit = putStr . prettyPrint . kicadPCB . numberNets
