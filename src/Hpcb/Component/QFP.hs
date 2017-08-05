@@ -17,9 +17,9 @@ qfp_32 :: String        -- ^ Reference
           -> String     -- ^ Value
           -> Circuit
 qfp_32 ref val = footprint ref "TQFP-32" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-6.05)) # layer FSilkS
-  <> fpText "value" val StandardEffects # translate (V2 0 6.05) # layer FFab
-  <> fpText "user" ref StandardEffects # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-6.05)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 6.05) # layer FFab
+  <> fpText "user" ref defaultEffects # layer FFab
   <> fpPolygon [
     V2 (-3.5) (-2.5),
     V2 (-2.5) (-3.5),
@@ -46,9 +46,9 @@ qfp_44 :: String
           -> String
           -> Circuit
 qfp_44 ref val = footprint ref "TQFP-44" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-7.45)) # layer FSilkS
-  <> fpText "value" val StandardEffects # translate (V2 0 7.45) # layer FFab
-  <> fpText "user" ref StandardEffects # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-7.45)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 7.45) # layer FFab
+  <> fpText "user" ref defaultEffects # layer FFab
   <> fpPolygon [
     V2 (-5) (-4),
     V2 (-4) (-5),

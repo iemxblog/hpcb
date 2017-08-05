@@ -17,8 +17,8 @@ r1206 ::  String        -- ^ Reference
           -> String     -- ^ Value
           -> Circuit
 r1206 ref val = footprint ref "R_1206" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-2.3)) # layer FSilkS
-  <> fpText "value" val StandardEffects # translate (V2 0 2.3) # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-2.3)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 2.3) # layer FFab
   <> fpRectangle 3.2 1.6 # layer FFab # width 0.1
   <> fpRectangle 4.4 2.4 # layer FCrtYd # width 0.05
   <> (
@@ -35,8 +35,8 @@ r805 :: String      -- ^ Reference
         -> String   -- ^ Value
         -> Circuit
 r805 ref val = footprint ref "R_805" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-2.3)) # layer FSilkS
-  <> fpText "value" val StandardEffects # translate (V2 0 2.3) # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-2.3)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 2.3) # layer FFab
   <> fpRectangle 2.0 1.25 # layer FFab # width 0.1
   <> fpRectangle 3.2 2.0 # layer FCrtYd # width 0.05
   <> (

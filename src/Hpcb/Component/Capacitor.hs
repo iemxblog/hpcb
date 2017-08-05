@@ -16,8 +16,8 @@ c805 :: String        -- ^ Reference
         -> String     -- ^ Value
         -> Circuit
 c805 ref val = footprint ref "C_0805" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-2.1)) # layer FSilkS
-  <> fpText "value" val StandardEffects # translate (V2 0 2.1) # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-2.1)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 2.1) # layer FFab
   <> fpRectangle 2.0 1.25 # layer FFab # width 0.15
   <> fpRectangle 3.6 2.0 # layer FCrtYd # width 0.05
   <> (

@@ -27,8 +27,8 @@ pinHeader ::  String      -- ^ Reference
               -> Int      -- ^ Number of rows
               -> Circuit
 pinHeader ref cols rows = footprint ref headerDesc $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-2.54)) # layer FSilkS
-  <> fpText "value" headerDesc StandardEffects # translate (V2 0 (fromIntegral rows * 2.54)) # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-2.54)) # layer FSilkS
+  <> fpText "value" headerDesc defaultEffects # translate (V2 0 (fromIntegral rows * 2.54)) # layer FFab
   <> fpRectangle (fromIntegral (cols-1) * 2.54+2*1.75) (fromIntegral (rows-1) * 2.54+2*1.75) # translate (V2 (fromIntegral (cols-1) / 2 * 2.54) (fromIntegral (rows-1) / 2 * 2.54)) # layer FCrtYd # width 0.05
   <> case (cols, rows) of
         (0, _) -> mempty

@@ -18,8 +18,8 @@ sot_23 ::  String      -- ^ Reference
           -> String   -- ^ Value
           -> Circuit
 sot_23 ref val = footprint ref "SOT-23" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-2.5)) # layer FSilkS
-  <> fpText "value" val StandardEffects # translate (V2 0 2.5) # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-2.5)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 2.5) # layer FFab
   <> fpPolygon [
     V2 (-0.7) (-0.95),
     V2 (-0.15) (-1.52),
@@ -45,8 +45,8 @@ sot_23_5 ::  String      -- ^ Reference
             -> String   -- ^ Value
             -> Circuit
 sot_23_5 ref val = footprint ref "SOT-23-5" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-2.9)) # layer FSilkS
-  <> fpText "value" val StandardEffects # translate (V2 0 2.9) # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-2.9)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 2.9) # layer FFab
   <> (
     fpLine (V2 (-0.9) 1.61) (V2 0.9 1.61)
     <> fpLine (V2 0.9 (-1.61)) (V2 (-1.55) (-1.61))
@@ -72,8 +72,8 @@ sot_223_n ::  Int         --  Number of pins (3 or 4)
               -> String   -- ^ Value
               -> Circuit
 sot_223_n n ref val = footprint ref "SOT-223" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-4.5)) # layer FSilkS
-  <> fpText "value" val StandardEffects # translate (V2 0 4.5) # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-4.5)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 4.5) # layer FFab
   <> fpRectangle 8.8 7.2 # layer FCrtYd # width 0.05
   <> (
     fpLine (V2 1.91 3.41) (V2 1.91 2.15)

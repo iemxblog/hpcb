@@ -15,8 +15,8 @@ soic_8 :: String      -- ^ Reference
           -> String   -- ^ Value
           -> Circuit
 soic_8 ref val = footprint ref "SOIC-8" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-3.5)) # layer FSilkS
-  <> fpText "value" val StandardEffects # translate (V2 0 3.5) # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-3.5)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 3.5) # layer FFab
   <> fpPolygon [
     V2 (-1.95) (-1.45),
     V2 (-0.95) (-2.45),

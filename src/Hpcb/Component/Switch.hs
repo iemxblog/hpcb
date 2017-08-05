@@ -14,8 +14,8 @@ import Data.Monoid
 tact_switch ::  String      -- ^ Reference
                 -> Circuit
 tact_switch ref = footprint ref "TACT_SWITCH" $
-  fpText "reference" ref StandardEffects # translate (V2 0 (-4)) # layer FSilkS
-  <> fpText "value" "TACT_SWITCH" StandardEffects # translate (V2 0 4) # layer FFab
+  fpText "reference" ref defaultEffects # translate (V2 0 (-4)) # layer FSilkS
+  <> fpText "value" "TACT_SWITCH" defaultEffects # translate (V2 0 4) # layer FFab
   <> (
     fpLine (V2 (-2) (-3)) (V2 2 (-3))
     <> fpLine (V2 (-2) 3) (V2 2 3)

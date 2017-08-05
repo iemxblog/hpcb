@@ -16,8 +16,8 @@ import Data.Monoid
 qx733A20 :: String
             -> Circuit
 qx733A20 ref = (footprint ref "QX733A20.00000B15M" $
-    fpText "reference" ref StandardEffects # translate (V2 0 (-4.2)) # layer FSilkS
-    <> fpText "value" "QX733A20.00000B15M" StandardEffects # translate (V2 0 4.2) # layer FFab
+    fpText "reference" ref defaultEffects # translate (V2 0 (-4.2)) # layer FSilkS
+    <> fpText "value" "QX733A20.00000B15M" defaultEffects # translate (V2 0 4.2) # layer FFab
     <> fpRectangle 7 5 # layer FFab # width 0.1
     <> fpRectangle 7.5 6.7 # layer FCrtYd # width 0.05
     <> (

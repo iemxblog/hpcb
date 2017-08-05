@@ -1,18 +1,46 @@
 module Hpcb.Data.Effects (
-  Effects(..)
+  Effects(..),
+  defaultEffects
 ) where
 
 import Hpcb.SExpr
 
 -- | Effects are not implemented yet
 -- There is just a single constructor to provide one effect
-data Effects = StandardEffects deriving Show
+data Effects = Effects Font Display deriving Show
+data Font = Font (Float, Float) Float Style deriving Show
+data Style = Normal | Italic deriving Show
+
+data Display = Display Justification Bool deriving Show
+data Justification = LeftJustify | CenterJustify | RightJustify deriving Show
 
 instance Itemizable Effects where
-  itemize StandardEffects =
+  itemize (Effects f d)  =
       Item "effects" [
-        Item "font" [
-          Item "size" [PInt 1, PInt 1],
-          Item "thickness" [PFloat 0.15]
-        ]
+        itemize f,
+        itemize d
       ]
+
+instance Itemizable Font where
+  itemize (Font (sx, sy) th s) =
+    Item "font" [
+      Item "size" [PFloat sx, PFloat sy],
+      Item "thickness" [PFloat th],
+      itemize s
+    ]
+
+instance Itemizable Style where
+  itemize Normal = PString ""
+  itemize Italic = PString "italic"
+
+instance Itemizable Display where
+  itemize (Display CenterJustify False) = PString ""
+  itemize (Display j b) = Item "justify" [itemize j, if b then PString "mirror" else PString ""]
+
+instance Itemizable Justification where
+  itemize LeftJustify = PString "left"
+  itemize CenterJustify = PString "center"
+  itemize RightJustify = PString "right"
+
+defaultEffects :: Effects
+defaultEffects = Effects (Font (1,1) 0.15 Normal) (Display CenterJustify False)
