@@ -33,6 +33,7 @@ instance Parameterized Circuit where
   layer l (Circuit f g s) = Circuit (map (layer l) f) (map (layer l) g) (map (layer l) s)
   layers ls (Circuit f g s) = Circuit (map (layers ls) f) (map (layers ls) g) (map (layers ls) s)
   width w (Circuit f g s) = Circuit (map (width w) f) (map (width w) g) (map (width w) s)
+  effects e (Circuit f g s) = Circuit (map (effects e) f) (map (effects e) g) (map (effects e) s)
 
 -- Lenses
 _footprints :: Lens' Circuit [Footprint]

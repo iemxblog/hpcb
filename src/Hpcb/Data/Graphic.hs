@@ -57,3 +57,7 @@ instance Parameterized Graphic where
   width w (GrLine s e a l _) = GrLine s e a l w
   width w (GrCircle c e l _) = GrCircle c e l w
   width _ (GrText s pos l e) = GrText s pos l e
+
+  effects _ l@GrLine{} = l
+  effects _ c@GrCircle{} = c
+  effects f (GrText s pos lay e) = GrText s pos lay (f e)

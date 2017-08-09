@@ -5,6 +5,7 @@ module Hpcb.Data.Action (
 
 import Hpcb.Data.Base
 import Hpcb.Data.Layer
+import Hpcb.Data.Effects
 import Data.Matrix
 
 class Transformable a where
@@ -20,3 +21,4 @@ class Parameterized a where
   layer :: Layer -> a -> a
   layers :: [Layer] -> a -> a
   width :: Float -> a -> a
+  effects :: (Effects -> Effects) -> a -> a

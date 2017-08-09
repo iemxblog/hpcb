@@ -37,6 +37,7 @@ instance Parameterized Footprint where
   layer l (Footprint ref s _ te ts pos fpc) = Footprint ref s l te ts pos fpc
   layers _ Footprint{} = error "A footprint can have multiple layers"
   width w (Footprint ref s l te ts pos fpc) = Footprint ref s l te ts pos (width w fpc)
+  effects e (Footprint ref s l te ts pos fpc) = Footprint ref s l te ts pos (effects e fpc)
 
 newtype FpContent = FpContent { getFpElements :: [FpElement] } deriving Show
 
@@ -51,6 +52,7 @@ instance Parameterized FpContent where
   layer l (FpContent fpc) = FpContent (map (layer l) fpc)
   layers ls (FpContent fpc) = FpContent (map (layers ls) fpc)
   width w (FpContent fpc) = FpContent (map (width w) fpc)
+  effects e (FpContent fpc) = FpContent (map (effects e) fpc)
 
 -- Lenses
 _fpContent :: Lens' Footprint FpContent

@@ -35,6 +35,7 @@ instance Parameterized Segment where
   layer l (Segment s e w _ n) = Segment s e w l n
   layers _ Segment{} = error "A segment cannot have multiple layers"
   width w (Segment s e _ l n) = Segment s e w l n
+  effects _ s@Segment{} = s
 
 -- Lenses
 _segNet :: Lens' Segment Net

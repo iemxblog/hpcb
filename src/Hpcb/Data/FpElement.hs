@@ -59,13 +59,13 @@ instance Itemizable FpElement where
       Item "width" [PFloat w]
     ]
 
-  itemize (FpText name text pos lay effects) =
+  itemize (FpText name text pos lay eff) =
     Item "fp_text" [
       PString name,
       PString text,
       itemize pos,
       itemize lay,
-      itemize effects
+      itemize eff
     ]
 
   itemize (Pad number _ padType shape pos (V2 sizeX sizeY) ls net) =
@@ -86,7 +86,7 @@ instance Itemizable FpElement where
 instance Transformable FpElement where
   transform m (FpLine s e l w) = FpLine (applyMatrixV2 m s) (applyMatrixV2 m e) l w
   transform m (FpCircle c e l w) = FpCircle (applyMatrixV2 m c) (applyMatrixV2 m e) l w
-  transform m (FpText name text pos lay effects) = FpText name text (applyMatrix m pos) lay effects
+  transform m (FpText name text pos lay eff) = FpText name text (applyMatrix m pos) lay eff
   transform m (Pad number padNames padType shape pos size ls net) =
     Pad number padNames padType shape (applyMatrix m pos) size ls net
 
@@ -109,6 +109,10 @@ instance Parameterized FpElement where
   width _ (Pad number padNames padType shape pos size l net) =
     Pad number padNames padType shape pos size l net
 
+  effects _ l@FpLine{} = l
+  effects _ c@FpCircle{} = c
+  effects f (FpText n t pos lay e) = FpText n t pos lay (f e)
+  effects _ p@Pad{} = p
 
 data PadType = ThroughHole {getDrill :: Float} | SMD deriving Show
 instance Itemizable PadType where
