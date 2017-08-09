@@ -1,5 +1,7 @@
 module Hpcb.Data.Effects (
   Effects(..),
+  Style(..),
+  Justification(..),
   defaultEffects,
   fontSize,
   fontThickness,
