@@ -40,7 +40,7 @@ jtag = pinHeaderFromNets "JTAG" [
 pinHeaderLeft :: Circuit
 pinHeaderLeft =
   pinHeaderFromNets "JP1" netsList
-  <> mconcat [text t # translate (V2 (2.54*1.75) (fromIntegral (i::Int) * 2.54)) | (t, i) <- zip netsList [0..]]
+  <> mconcat [text t # justify LeftJustify # translate (V2 (2.54*0.75) (fromIntegral (i::Int) * 2.54)) | (t, i) <- zip netsList [0..]]
     where
       netsList = [
         "IO1-2",
@@ -67,7 +67,7 @@ pinHeaderLeft =
 pinHeaderRight :: Circuit
 pinHeaderRight =
   pinHeaderFromNets "JP2" netsList
-  <> mconcat [text t # translate (V2 (-2.54*1.75) (fromIntegral (i::Int) * 2.54)) | (t, i) <- zip netsList [0..]]
+  <> mconcat [text t # justify RightJustify # translate (V2 (-2.54*0.75) (fromIntegral (i::Int) * 2.54)) | (t, i) <- zip netsList [0..]]
   where
     netsList = [
       "RAW",
