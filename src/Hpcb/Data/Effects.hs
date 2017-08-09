@@ -6,7 +6,7 @@ module Hpcb.Data.Effects (
   fontSize,
   fontThickness,
   fontStyle,
-  justification,
+  justify,
   mirror
 ) where
 
@@ -67,10 +67,10 @@ fontStyle ::  Style
               -> Effects
 fontStyle st (Effects (Font si th _) d) = Effects (Font si th st) d
 
-justification ::  Justification
+justify ::  Justification
                   -> Effects
                   -> Effects
-justification j (Effects f (Display _ b)) = Effects f (Display j b)
+justify j (Effects f (Display _ b)) = Effects f (Display j b)
 
 mirror :: Effects -> Effects
 mirror (Effects f (Display j _)) = Effects f (Display j True)
