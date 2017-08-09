@@ -91,6 +91,18 @@ executable xc9572xl-breakout-board
     matrix,
     hpcb
 
+executable led
+  hs-source-dirs:      examples
+  ghc-options: -Wall
+  main-is:             led.hs
+  default-language:    Haskell2010
+  build-depends:
+    base >= 4.7 && < 5,
+    containers,
+    lens,
+    matrix,
+    hpcb
+
 test-suite tests
   hs-source-dirs: src tests
   ghc-options: -Wall
