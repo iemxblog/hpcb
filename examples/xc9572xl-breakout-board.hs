@@ -138,6 +138,9 @@ cpld =
     "IO1-11"
   ]
 
+outline :: Circuit
+outline = rectangle w l # translate (V2 (w/2-2.54) (l/2-2.54)) # layer EdgeCuts
+  where (w, l) = (35.56, 50.80)
 
 xc9572xl_breakout_board :: Circuit
 xc9572xl_breakout_board = (
@@ -147,6 +150,7 @@ xc9572xl_breakout_board = (
     <> pinHeaderLeft
     <> pinHeaderRight # translate (V2 (12*2.54) 0)
     <> cpld # translate (V2 (6*2.54) (10*2.54))
+    <> outline
   )
   # connect (pinName "Q1" "OUT") (pinName "U1" "GCK3")
 
