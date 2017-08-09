@@ -22,3 +22,13 @@ class Parameterized a where
   layers :: [Layer] -> a -> a
   width :: Float -> a -> a
   effects :: (Effects -> Effects) -> a -> a
+  fontSize :: (Float, Float) -> a -> a
+  fontSize = effects . fontSizeE
+  fontThickness :: Float -> a -> a
+  fontThickness = effects . fontThicknessE
+  fontStyle :: Style -> a -> a
+  fontStyle = effects . fontStyleE
+  justify :: Justification -> a -> a
+  justify = effects . justifyE
+  mirror :: a -> a
+  mirror = effects mirrorE

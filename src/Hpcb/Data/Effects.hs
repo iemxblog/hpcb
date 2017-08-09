@@ -3,11 +3,11 @@ module Hpcb.Data.Effects (
   Style(..),
   Justification(..),
   defaultEffects,
-  fontSize,
-  fontThickness,
-  fontStyle,
-  justify,
-  mirror
+  fontSizeE,
+  fontThicknessE,
+  fontStyleE,
+  justifyE,
+  mirrorE
 ) where
 
 import Hpcb.SExpr
@@ -52,25 +52,25 @@ instance Itemizable Justification where
 defaultEffects :: Effects
 defaultEffects = Effects (Font (1,1) 0.15 Normal) (Display CenterJustify False)
 
-fontSize :: (Float, Float)
+fontSizeE :: (Float, Float)
             -> Effects
             -> Effects
-fontSize si (Effects (Font _ th st) d) = Effects (Font si th st) d
+fontSizeE si (Effects (Font _ th st) d) = Effects (Font si th st) d
 
-fontThickness ::  Float
+fontThicknessE ::  Float
                   -> Effects
                   -> Effects
-fontThickness th (Effects (Font si _ st) d) = Effects (Font si th st) d
+fontThicknessE th (Effects (Font si _ st) d) = Effects (Font si th st) d
 
-fontStyle ::  Style
+fontStyleE ::  Style
               -> Effects
               -> Effects
-fontStyle st (Effects (Font si th _) d) = Effects (Font si th st) d
+fontStyleE st (Effects (Font si th _) d) = Effects (Font si th st) d
 
-justify ::  Justification
+justifyE ::  Justification
                   -> Effects
                   -> Effects
-justify j (Effects f (Display _ b)) = Effects f (Display j b)
+justifyE j (Effects f (Display _ b)) = Effects f (Display j b)
 
-mirror :: Effects -> Effects
-mirror (Effects f (Display j _)) = Effects f (Display j True)
+mirrorE :: Effects -> Effects
+mirrorE (Effects f (Display j _)) = Effects f (Display j True)
