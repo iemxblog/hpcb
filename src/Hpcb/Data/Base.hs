@@ -6,6 +6,8 @@ module Hpcb.Data.Base(
   origin,
   translation,
   rotation,
+  reflectionX,
+  reflectionY,
   TEdit(..),
   dummyTEdit,
   TStamp(..),
@@ -60,6 +62,23 @@ rotation a = fromList 4 4 [
   ]
   where
     fromDegrees deg = deg * pi / 180
+
+reflectionX :: Matrix Float
+reflectionX = fromList 4 4 [
+  1, 0, 0, 0,
+  0, -1, 0, 0,
+  0, 0, -1, 0,
+  0, 0, 0, 1
+  ]
+
+reflectionY :: Matrix Float
+reflectionY = fromList 4 4 [
+  -1, 0, 0, 0,
+  0, 1, 0, 0,
+  0, 0, -1, 180,
+  0, 0, 0, 1
+  ]
+
 
 instance Itemizable Position where
     itemize (At x y 0.0)  = Item "at" [PFloat x, PFloat y]

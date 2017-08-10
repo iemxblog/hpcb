@@ -17,6 +17,12 @@ class Transformable a where
   rotate :: Float -> a -> a
   rotate = transform . rotation
 
+  reflectX :: a -> a
+  reflectX = transform reflectionX
+
+  reflectY :: a -> a
+  reflectY = transform reflectionY
+
 class Parameterized a where
   layer :: Layer -> a -> a
   layers :: [Layer] -> a -> a
