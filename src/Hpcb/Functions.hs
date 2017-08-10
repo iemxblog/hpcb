@@ -8,6 +8,7 @@ module Hpcb.Functions (
   fpText,
   pad,
   newNet,
+  line,
   polygon,
   rectangle,
   text,
@@ -81,12 +82,17 @@ newNet ref pin = Net $ "Net-(" ++ ref ++ "-Pad" ++ show pin ++")"
 
 -- ############ Graphic Functions
 
+line :: V2 Float
+        -> V2 Float
+        -> Circuit
+line a b = Circuit [] [GrLine a b angle defaultLayer defaultWidth] []
+  where angle = 90 -- I don't know what it is useful for... not found in the doc
+
 polygon :: [V2 Float]    -- ^ List of points of the path
           -> Circuit
-polygon xs = Circuit [] (map (\(s, e) -> GrLine s e angle defaultLayer defaultWidth) l) []
+polygon xs = mconcat . map (uncurry line) $ l
   where
     l = zip xs (tail (cycle xs))
-    angle = 90 -- I don't know what it is useful for... not found in the doc
 
 rectangle ::  Float     -- ^ Width
               -> Float  -- ^ Height
