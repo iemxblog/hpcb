@@ -100,7 +100,7 @@ rectangle w h = polygon [
 
 text :: String
         -> Circuit
-text s = Circuit [] [(GrText s origin FSilkS defaultEffects)] []
+text s = Circuit [] [GrText s origin FSilkS defaultEffects] []
 
 runCircuit :: Circuit -> IO ()
 runCircuit = putStr . prettyPrint . kicadPCB . numberNets
