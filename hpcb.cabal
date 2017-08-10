@@ -115,10 +115,10 @@ executable r2r-ladder
     matrix,
     hpcb
 
-executable hilbert-curve
+executable tree
   hs-source-dirs:      examples
   ghc-options: -Wall
-  main-is:             hilbert-curve.hs
+  main-is:             tree.hs
   default-language:    Haskell2010
   build-depends:
     base >= 4.7 && < 5,
