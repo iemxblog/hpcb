@@ -96,7 +96,7 @@ mcu =
   # connect (net "GND") (pinName "U1" "GND")
 ~~~~~
 
-# Example 4
+### Example 4
 Create 2 leds, an connect their 2 anodes together.
 
 ~~~~~
