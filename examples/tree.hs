@@ -6,7 +6,10 @@ import Hpcb
 import Data.Monoid
 
 vline :: Float -> Circuit
-vline l = line (V2 0 0) (V2 0 (-l))
+vline l = (
+  line (V2 0 0) (V2 0 (-l)) # layer FCu
+  <> line (V2 0 0) (V2 0 (-l)) # layer FMask
+  ) # width 0.15
 
 tree :: Int           -- ^ Depth of the tree
         -> Float      -- ^ Length of the trunk
@@ -25,4 +28,6 @@ tree n l lb a f =
       <> tree (n-1) (l*f) (lb*f) a f # translate (V2 0 (-lb))
 
 main :: IO ()
-main = runCircuit $ tree 10 10 5 15 0.75
+main = runCircuit $
+  tree 10 10 5 20 0.75
+  <> rectangle 70 60 # layer EdgeCuts # translate (V2 0 (-27))
