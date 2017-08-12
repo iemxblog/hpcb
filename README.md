@@ -3,8 +3,16 @@ Create a PCB programmatically instead of using a GUI
 (like OpenSCAD for 3d modelling)
 
 # Hello world !
+
+Install Haskell :
+
 ~~~~~
 $ sudo apt install haskell-platform
+~~~~~
+
+Create a directory with a sandbox :
+
+~~~~~
 $ mkdir hello-world
 $ cd hello-world
 $ cabal sandbox init
