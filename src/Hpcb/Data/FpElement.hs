@@ -14,6 +14,7 @@ import Hpcb.Data.Effects
 import Hpcb.Data.Net
 import Control.Lens
 
+-- | Footprint element (line, circle, text, pad, etc.)
 data FpElement =
   FpLine {
     fpLineStart :: V2 Float,
@@ -114,11 +115,13 @@ instance Parameterized FpElement where
   effects f (FpText n t pos lay e) = FpText n t pos lay (f e)
   effects _ p@Pad{} = p
 
+-- | Pad type : through hole or surface mount
 data PadType = ThroughHole {getDrill :: Float} | SMD deriving Show
 instance Itemizable PadType where
   itemize (ThroughHole _) = PString "thru_hole"
   itemize SMD = PString "smd"
 
+-- | Pad Shape
 data PadShape = Circle | Rect | Oval deriving Show
 instance Itemizable PadShape where
   itemize Circle = PString "circle"
@@ -127,6 +130,7 @@ instance Itemizable PadShape where
 
 -- Lenses
 
+-- | Lens for 'Pad'
 _pad :: Prism' FpElement FpElement
 _pad = prism' setter getter
   where
@@ -135,6 +139,7 @@ _pad = prism' setter getter
     getter pad@Pad{} = Just pad
     getter _ = Nothing
 
+-- | Lens for 'Net'
 _net :: Lens' FpElement Net
 _net = lens getter setter
   where

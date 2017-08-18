@@ -12,6 +12,7 @@ import Hpcb.Data.Segment
 import Hpcb.SExpr
 import Control.Lens hiding (transform)
 
+-- | Main datatype, which is used to combine circuits together.
 data Circuit = Circuit {
   getFootprints :: [Footprint],
   getGraphics :: [Graphic],
@@ -36,6 +37,7 @@ instance Parameterized Circuit where
   effects e (Circuit f g s) = Circuit (map (effects e) f) (map (effects e) g) (map (effects e) s)
 
 -- Lenses
+
 _footprints :: Lens' Circuit [Footprint]
 _footprints = lens getFootprints (\circuit footprints -> circuit {getFootprints = footprints})
 

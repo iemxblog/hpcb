@@ -13,14 +13,15 @@ import Hpcb.Data.Action
 import Control.Lens hiding (transform)
 import Data.Matrix
 
+-- | Footprint datatype (called module in Kicad file format)
 data Footprint = Footprint {
-  getFpRef :: String,
-  getFpName :: String,
-  getFpLayer :: Layer,
-  getFpTEdit :: TEdit,
-  getFpTStamp :: TStamp,
-  getFpPosition :: Position,
-  getFpContent :: FpContent
+  getFpRef :: String,           -- ^ Reference
+  getFpName :: String,          -- ^ Name
+  getFpLayer :: Layer,          -- ^ Layer
+  getFpTEdit :: TEdit,          -- ^ TEdit,
+  getFpTStamp :: TStamp,        -- ^ Time stamp
+  getFpPosition :: Position,    -- ^ Position of the footprint
+  getFpContent :: FpContent     -- ^ Contents of the footprint
   } deriving Show
 
 instance Itemizable Footprint where
@@ -39,6 +40,7 @@ instance Parameterized Footprint where
   width w (Footprint ref s l te ts pos fpc) = Footprint ref s l te ts pos (width w fpc)
   effects e (Footprint ref s l te ts pos fpc) = Footprint ref s l te ts pos (effects e fpc)
 
+-- | Alias type for [FpElement]
 newtype FpContent = FpContent { getFpElements :: [FpElement] } deriving Show
 
 instance Transformable FpContent where
@@ -55,8 +57,11 @@ instance Parameterized FpContent where
   effects e (FpContent fpc) = FpContent (map (effects e) fpc)
 
 -- Lenses
+
+-- | Lens for FpContent
 _fpContent :: Lens' Footprint FpContent
 _fpContent = lens getFpContent (\footprint fpcontent -> footprint {getFpContent = fpcontent})
 
+-- | Lens for FpElement
 _fpElements :: Lens' FpContent [FpElement]
 _fpElements = lens getFpElements (\fpcontent fpelements -> fpcontent {getFpElements = fpelements})

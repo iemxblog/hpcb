@@ -8,6 +8,7 @@ import Hpcb.Data.Layer
 import Hpcb.Data.Effects
 import Data.Matrix
 
+-- | Class of types that can be transformed by geometric operations.
 class Transformable a where
   transform :: Matrix Float -> a -> a
 
@@ -23,6 +24,8 @@ class Transformable a where
   reflectY :: a -> a
   reflectY = transform reflectionY
 
+-- | Class of types that have parameters that can be modified
+-- (layer, width, font, etc.)
 class Parameterized a where
   layer :: Layer -> a -> a
   layers :: [Layer] -> a -> a

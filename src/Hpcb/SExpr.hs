@@ -1,3 +1,15 @@
+{-|
+Module      : Hpcb.SExpr
+Description : Datatype for Kicad file format's S-Expressions
+Copyright   : (c) Maxime ANDRE, 2016
+License     : MIT
+Maintainer  : iemxblog@gmail.com
+Stability   : experimental
+Portability : POSIX
+
+This module contains the datatype used to represent S-Expressions of Kicad
+format.
+-}
 module Hpcb.SExpr (
     Item(..)
     , Itemizable(..)
@@ -28,6 +40,7 @@ instance Show Item where
     show (PFloat f) = showFFloat Nothing f ""
     show (PInt i) = show i
 
+-- | Class of types which are transformable into an S-Expression.
 class Itemizable a where
     itemize :: a -> Item
 
@@ -48,5 +61,7 @@ prettyPrint' b n (PInt i) = indent b n $ show i
 prettyPrint' b n (Item s xs) | s `elem` noIndent || not b = indent b n $ "(" ++ s ++ " " ++ unwords (map (prettyPrint' False n) xs) ++ ")"
   | otherwise = indent b n ("(" ++ s ++ " ") ++ concatMap (prettyPrint' b (n+1)) xs ++ indent b n ")"
 
-prettyPrint :: Item -> String
+-- | Pretty prints an 'Item' (S-Expression)
+prettyPrint ::  Item        -- ^ S-Expression to be pretty-printed
+                -> String
 prettyPrint = prettyPrint' True 0

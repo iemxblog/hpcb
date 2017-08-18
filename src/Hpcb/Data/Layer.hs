@@ -11,6 +11,7 @@ module Hpcb.Data.Layer(
 
 import Hpcb.SExpr
 
+-- | Layer data type.
 data Layer =
   FCu
   | BCu
@@ -84,18 +85,23 @@ instance Itemizable Layer where
   itemize FFab = Item "layer" [PString "F.Fab"]
   itemize BFab = Item "layer" [PString "B.Fab"]
 
+-- | List of layers of the top side of a board.
 topSideLayers :: [Layer]
 topSideLayers =  [FCu, FAdhes, FPaste, FSilkS, FMask, FCrtYd, FFab]
 
+-- | List of layers of the bottom side of a board.
 bottomSideLayers :: [Layer]
 bottomSideLayers = [BCu, BAdhes, BPaste, BSilkS, BMask, BCrtYd, BFab]
 
+-- | List of all the copper layers.
 copperLayers :: [Layer]
 copperLayers = [FCu, BCu]
 
+-- | List of all the mask layers.
 maskLayers :: [Layer]
 maskLayers = [FMask, BMask]
 
+-- | Default layer. Can be changed with function 'layer'.
 defaultLayer :: Layer
 defaultLayer = FCu
 

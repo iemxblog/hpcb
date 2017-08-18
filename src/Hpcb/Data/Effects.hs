@@ -12,13 +12,17 @@ module Hpcb.Data.Effects (
 
 import Hpcb.SExpr
 
--- | Effects are not implemented yet
--- There is just a single constructor to provide one effect
+-- | Datatype that represents Kicad file format's effects.
 data Effects = Effects Font Display deriving Show
+
+-- | Font type : size, thickness and 'Style'.
 data Font = Font (Float, Float) Float Style deriving Show
+-- | Style of a 'Font' : Normal or italic.
 data Style = Normal | Italic deriving Show
 
 data Display = Display Justification Bool deriving Show
+
+-- | Font justification.
 data Justification = LeftJustify | CenterJustify | RightJustify deriving Show
 
 instance Itemizable Effects where
@@ -49,28 +53,40 @@ instance Itemizable Justification where
   itemize CenterJustify = PString "center"
   itemize RightJustify = PString "right"
 
+-- | Effects that are used when generating a text.
+-- They can be modified later by using functions of the 'Parameterized' typeclass.
 defaultEffects :: Effects
 defaultEffects = Effects (Font (1,1) 0.15 Normal) (Display CenterJustify False)
 
-fontSizeE :: (Float, Float)
+-- | Modifies the size of a font.
+-- This function is used by the 'Parameterized' typeclass.
+fontSizeE :: (Float, Float) -- ^ New size
             -> Effects
             -> Effects
 fontSizeE si (Effects (Font _ th st) d) = Effects (Font si th st) d
 
-fontThicknessE ::  Float
+-- | Modifies the thickness of a font.
+-- This function is used by the 'Parameterized' typeclass.
+fontThicknessE ::  Float      -- ^ New thickness
                   -> Effects
                   -> Effects
 fontThicknessE th (Effects (Font si _ st) d) = Effects (Font si th st) d
 
-fontStyleE ::  Style
+-- | Modifies the style of a font.
+-- This function is used by the 'Parameterized' typeclass.
+fontStyleE ::  Style        -- ^ New style
               -> Effects
               -> Effects
 fontStyleE st (Effects (Font si th _) d) = Effects (Font si th st) d
 
+-- | Modifies the justification of a text.
+-- This function is used by the 'Parameterized' typeclass.
 justifyE ::  Justification
                   -> Effects
                   -> Effects
 justifyE j (Effects f (Display _ b)) = Effects f (Display j b)
 
+-- | Applies mirroring to a text.
+-- This function is used by the 'Parameterized' typeclass.
 mirrorE :: Effects -> Effects
 mirrorE (Effects f (Display j _)) = Effects f (Display j True)

@@ -213,6 +213,7 @@ Here is how we make a rotation :
 
 ## How to make a new footprint
 
+## Instantiate a new component from an existing footprint
 
 # Links
 
@@ -227,3 +228,5 @@ Here is how we make a rotation :
 [PCBmodE](pcbmode.com) is a printed circuit board design Python script that creates an SVG from JSON input files, and then creates Gerber and Excellon files for manufacturing.
 
 ## Kicad file format description
+
+[Kicad file format](http://kicad-pcb.org/help/file-formats/)

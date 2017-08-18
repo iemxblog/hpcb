@@ -33,7 +33,7 @@ name ref num ns = over (_footprints . traverse) f
 -- | Assigns names to pins of a circuit, with an assocation list (pin number, pin names)
 -- Example of usage :
 --
--- @@
+-- @
 -- lm358n :: String
 --           -> Circuit
 -- lm358n ref = soic_8 ref "LM358N" # names ref [
@@ -46,7 +46,7 @@ name ref num ns = over (_footprints . traverse) f
 --     (7, [\"OUTB\"]),
 --     (8, [\"V+\"])
 --   ]
--- @@
+-- @
 names ::  String                -- ^ Reference of the component
           -> [(Int, [String])]  -- ^ Association list (pin number, pin names)
           -> Circuit            -- ^ Circuit where the component is located
@@ -67,7 +67,7 @@ getFootprintByRef fpRef c =
 -- It is named like this so that we can use it like so :
 --
 -- @
--- connect (net \"GND\") (pinName "U1" \"GND\")
+-- connect (net \"GND\") (pinName \"U1\" \"GND\")
 -- @
 --
 -- which is quite convenient :)

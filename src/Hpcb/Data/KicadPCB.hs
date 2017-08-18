@@ -7,6 +7,7 @@ import Hpcb.Data.Circuit
 import Hpcb.Data.NetNumbering
 import Hpcb.Data.Net
 
+-- | Generates the general section from a given circuit.
 general :: Circuit -> Item
 general c@(Circuit f g s) = Item "general" [
   Item "links" [PInt 0],
@@ -25,7 +26,7 @@ general c@(Circuit f g s) = Item "general" [
     modules = length f
     nets = length $ listOfNets c
 
-
+-- | Generic layer list.
 layerList :: Item
 layerList = Item "layers" [
   Item "0" [PString "F.Cu", PString "signal"],
@@ -50,6 +51,7 @@ layerList = Item "layers" [
   Item "49" [PString "F.Fab", PString "user"]
   ]
 
+-- | Generic setup section.
 setup :: Item
 setup = Item "setup" [
   Item "last_trace_width" [PFloat 0.1524],
@@ -110,6 +112,7 @@ nets :: Circuit -> [Item]
 nets c = nl
   where Item _ nl = itemize $ netsMap c
 
+-- | Builds the default net class.
 netClass :: Circuit -> Item
 netClass c = Item "net_class" ([
   PString "Default",
@@ -124,7 +127,9 @@ netClass c = Item "net_class" ([
   where
     nl = map (\n -> Item "add_net" [PString . show $ netName n]) $ listOfNets c
 
-kicadPCB :: Circuit -> Item
+-- | Transform a circuit into the S-Expression format.
+kicadPCB :: Circuit   -- ^ Circuit to transform
+            -> Item
 kicadPCB c@(Circuit f g s) = Item "kicad_pcb" ([
   Item "version" [PInt 4],
   Item "host" [PString "pcbnew", PString "4.0.5+dfsg1-4"],

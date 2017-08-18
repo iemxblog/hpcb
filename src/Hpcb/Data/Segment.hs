@@ -10,6 +10,7 @@ import Hpcb.Data.Layer
 import Hpcb.Data.Net
 import Control.Lens
 
+-- | Segment datatype (which is a part of a track)
 data Segment = Segment {
   getSegstart :: V2 Float,
   getSegend :: V2 Float,
@@ -38,5 +39,7 @@ instance Parameterized Segment where
   effects _ s@Segment{} = s
 
 -- Lenses
+
+-- | Lens for a 'Net' in a 'Segment'
 _segNet :: Lens' Segment Net
 _segNet = lens getSegnet (\segment net -> segment {getSegnet = net})

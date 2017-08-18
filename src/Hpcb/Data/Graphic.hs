@@ -8,6 +8,7 @@ import Hpcb.Data.Base
 import Hpcb.Data.Layer
 import Hpcb.Data.Effects
 
+-- | Graphic elements that are not inside footprints.
 data Graphic =
   GrLine (V2 Float) (V2 Float) Float Layer Float  -- ^ start, end, angle, layer, width
   | GrCircle (V2 Float) (V2 Float) Layer Float    -- ^ center, end, layer, width
