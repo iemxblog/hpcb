@@ -220,12 +220,10 @@ Here is how we make a rotation :
 
 ### Skidl
 
-SKiDL is a module that extends Python with the ability to design electronic circuits.
-[SKiDL](https://github.com/xesscorp/skidl)
+[SKiDL](https://github.com/xesscorp/skidl) is a module that extends Python with the ability to design electronic circuits.
 
 ### PCBmodE
 
-PCBmodE is a printed circuit board design Python script that creates an SVG from JSON input files, and then creates Gerber and Excellon files for manufacturing.
-[PCBmodE](pcbmode.com)
+[PCBmodE](pcbmode.com) is a printed circuit board design Python script that creates an SVG from JSON input files, and then creates Gerber and Excellon files for manufacturing.
 
 ## Kicad file format description
