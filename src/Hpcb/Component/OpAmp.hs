@@ -7,6 +7,7 @@ import Hpcb.Data.Connection
 import Hpcb.Data.Circuit
 import Hpcb.Functions
 
+-- | LM358N op-amp
 lm358n :: String
           -> Circuit
 lm358n ref = soic_8 ref "LM358N" # names ref [

@@ -11,6 +11,7 @@ import Hpcb.Data.Layer
 import Hpcb.Functions
 import Data.Monoid
 
+-- | SOIC8 package
 soic_8 :: String      -- ^ Reference
           -> String   -- ^ Value
           -> Circuit

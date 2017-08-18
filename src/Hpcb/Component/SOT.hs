@@ -14,6 +14,7 @@ import Hpcb.Data.Layer
 import Hpcb.Functions
 import Data.Monoid
 
+-- | SOT-23 package
 sot_23 ::  String      -- ^ Reference
           -> String   -- ^ Value
           -> Circuit
@@ -40,7 +41,7 @@ sot_23 ref val = footprint ref "SOT-23" $
     <> pad 3 SMD Rect (V2 0.9 0.8) (newNet ref 3) # translate (V2 1 0)
   ) # layers [FCu, FPaste, FMask]
 
-
+-- | SOT-23-5 package
 sot_23_5 ::  String      -- ^ Reference
             -> String   -- ^ Value
             -> Circuit
@@ -66,6 +67,7 @@ sot_23_5 ref val = footprint ref "SOT-23-5" $
     <> pad 4 SMD Rect (V2 1.06 0.65) (newNet ref 4) # translate (V2 1.1 0.95)
     <> pad 5 SMD Rect (V2 1.06 0.65) (newNet ref 5) # translate (V2 1.1 (-0.95))
   ) # layers [FCu, FPaste, FMask]
+
 
 sot_223_n ::  Int         --  Number of pins (3 or 4)
               -> String   -- ^ Reference
@@ -99,11 +101,13 @@ sot_223_n n ref val = footprint ref "SOT-223" $
     )
   ) # layers [FCu, FPaste, FMask]
 
+-- |  SOT-223 package
 sot_223 ::  String
             -> String
             -> Circuit
 sot_223 = sot_223_n 4
 
+-- | SOT-223-3 package
 sot_223_3 :: String
             -> String
             -> Circuit

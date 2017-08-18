@@ -12,7 +12,7 @@ import Hpcb.Data.FpElement
 import Hpcb.Functions
 import Data.Monoid
 
-
+-- | QFP32 package
 qfp_32 :: String        -- ^ Reference
           -> String     -- ^ Value
           -> Circuit
@@ -42,8 +42,9 @@ qfp_32 ref val = footprint ref "TQFP-32" $
       ) # layer FSilkS # width 0.15
     padsLine nStart = mconcat [pad (nStart + i) SMD Rect (V2 1.6 0.55) (newNet ref (nStart + i)) # translate (V2 (-4.25) (-2.8+fromIntegral i*0.8)) | i <- [0..7]] # layers [FCu, FPaste, FMask]
 
-qfp_44 :: String
-          -> String
+-- | QFP44 package
+qfp_44 :: String        -- ^ Reference
+          -> String     -- ^ Value
           -> Circuit
 qfp_44 ref val = footprint ref "TQFP-44" $
   fpText "reference" ref defaultEffects # translate (V2 0 (-7.45)) # layer FSilkS

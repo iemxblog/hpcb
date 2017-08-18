@@ -13,7 +13,7 @@ import Hpcb.Data.Connection
 import Data.Monoid
 
 -- | QX733A20.00000B15M (farnell reference : 2508769)
-qx733A20 :: String
+qx733A20 :: String      -- ^ Reference
             -> Circuit
 qx733A20 ref = (footprint ref "QX733A20.00000B15M" $
     fpText "reference" ref defaultEffects # translate (V2 0 (-4.2)) # layer FSilkS

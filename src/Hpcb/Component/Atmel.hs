@@ -7,6 +7,8 @@ import Hpcb.Data.Connection
 import Hpcb.Data.Circuit
 import Hpcb.Functions
 
+
+-- | ATMEGA328P-AU
 atmega328p_au ::  String      -- ^ Reference
                   -> Circuit
 atmega328p_au ref =

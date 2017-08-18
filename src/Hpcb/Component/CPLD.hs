@@ -7,6 +7,8 @@ import Hpcb.Data.Circuit
 import Hpcb.Functions
 import Hpcb.Data.Connection
 
+
+-- | XC9572XL CPLD
 xc9572xl :: String      -- ^ Reference
             -> Circuit
 xc9572xl ref = qfp_44 ref "XC9572XL" # names ref [

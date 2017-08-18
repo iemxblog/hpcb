@@ -11,6 +11,8 @@ import Hpcb.Data.FpElement
 import Hpcb.Functions
 import Data.Monoid
 
+
+-- | Generic tactile switch
 tact_switch ::  String      -- ^ Reference
                 -> Circuit
 tact_switch ref = footprint ref "TACT_SWITCH" $

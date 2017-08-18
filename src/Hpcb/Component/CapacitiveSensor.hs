@@ -11,6 +11,7 @@ import Hpcb.Data.Layer
 import Hpcb.Functions
 import Data.Monoid
 
+-- | Circular capacitive sensor (a copper pad with solder mask on it, and a circle on the silkscreen)
 capacitiveSensor :: String        -- ^ Reference
                     -> Float      -- ^ Diameter on copper layer
                     -> Float      -- ^ Diameter on silk screen

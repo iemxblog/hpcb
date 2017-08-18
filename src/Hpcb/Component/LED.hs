@@ -12,6 +12,7 @@ import Hpcb.Data.Layer
 import Hpcb.Functions
 import Data.Monoid
 
+-- | LED 805 package (2012 metric)
 led_805 ::  String      -- ^ Reference
             -> String   -- ^ Value
             -> Circuit

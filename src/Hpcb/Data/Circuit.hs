@@ -38,11 +38,14 @@ instance Parameterized Circuit where
 
 -- Lenses
 
+-- | Lens for footprints in a circuit
 _footprints :: Lens' Circuit [Footprint]
 _footprints = lens getFootprints (\circuit footprints -> circuit {getFootprints = footprints})
 
+-- | Lens for graphics in a circuit
 _graphics :: Lens' Circuit [Graphic]
 _graphics = lens getGraphics (\circuit graphics -> circuit {getGraphics = graphics})
 
+-- | Lens for segments in a circuit
 _segments :: Lens' Circuit [Segment]
 _segments = lens getSegments (\circuit segments -> circuit {getSegments = segments})

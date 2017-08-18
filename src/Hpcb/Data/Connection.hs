@@ -154,13 +154,18 @@ connect f1 f2 c = c2
       (x:_) -> x
     c2 = foldr (\nn cir -> connectNets newNetName nn cir) c (nns1 ++ nns2)
 
-connectPinsToNets ::  String
-                      -> [String]
-                      -> Circuit
+
+-- | Connects pin number 'n' of the component to net number n in the list
+-- Function used by 'pinHeaderFromNets'
+connectPinsToNets ::  String        -- ^ Reference of the component
+                      -> [String]   -- ^ List of nets
+                      -> Circuit    -- ^ Circuit where the component is
                       -> Circuit
 connectPinsToNets ref xs c = foldr (\(x, i) cir -> connect (net x) (pin ref i) cir) c l
   where l = zip xs [1..]
 
+-- | Connects pin names to corresponding nets
+-- Function used in 'xc9572xl_breakout_board'
 connectNamesToNets :: String        -- ^ Reference of the Component
                       -> [String]   -- ^ List of pin names (and corresponding nets)
                       -> Circuit
