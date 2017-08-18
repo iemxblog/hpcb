@@ -183,9 +183,7 @@ Routing
 
 In the Kicad file format, a footprint has a location and an orientation. So when we apply a transformation to a component, we have to keep track of its orientation.
 
-The coordinate system used in Hpcb is inpired by homogeneous coordinates :
-
-Here are the coordinates of some footprint (a column vector) :
+The coordinate system used in Hpcb is inpired by homogeneous coordinates. Here are the coordinates of some footprint (a column vector) :
 
 ~~~~~
 (x)
@@ -194,7 +192,7 @@ Here are the coordinates of some footprint (a column vector) :
 (1)
 ~~~~~
 
-Here is how we make a translation :
+"x" and "y" are the coordinates of the footprint. "o" is its orientation. Here is how we make a translation :
 
 ~~~~~
 (x')      (1  0   0   tx)  (x)
@@ -217,7 +215,17 @@ Here is how we make a rotation :
 
 
 # Links
+
 ## Interesting projects made by other people
+
 ### Skidl
+
+SKiDL is a module that extends Python with the ability to design electronic circuits.
+[SKiDL](https://github.com/xesscorp/skidl)
+
 ### PCBmodE
+
+PCBmodE is a printed circuit board design Python script that creates an SVG from JSON input files, and then creates Gerber and Excellon files for manufacturing.
+[PCBmodE](pcbmode.com)
+
 ## Kicad file format description
