@@ -94,7 +94,7 @@ led = led_805 "D1" "RED" # connect (net "GND") (pinName "D1" "K")
 ~~~~~
 
 ### Example 3
-Create an Atemage328p named "U1", and connect all its VCC pins to net "VCC", and all its GND pins to net "GND".
+Create an Atemaga328p named "U1", and connect all its VCC pins to net "VCC", and all its GND pins to net "GND".
 
 ~~~~~
 mcu =
@@ -118,9 +118,106 @@ leds =
 
 ### Pitfalls
 
+#### Out of scope components
+
+~~~~~
+leds =
+  led_805 "D1" "RED"
+  <> led_805 "D2" "GREEN" # connect (pinName "D1" "A") (pinName "D2" "A")
+~~~~~
+
+This example will return an error saying that it cannot find component D1. It is normal because operator # has a higher precedence than <>,
+so "pinName" looks only in the circuit return by this function :
+
+~~~~~
+led_805 "D2" "GREEN"
+~~~~~
+
+And there is no component named "D1".
+
+#### Overwriting Nets
+
+In this circuit, pin 1 of resistor R1 won't be connected to pin "SDA" of the atmega328p_au. The reason is that the SDA net in component R1 is out of scope when we make the connection in component U1.
+
+~~~~~
+mcu =
+  atmega328p_au "U1"
+  # connect (net "SDA") (pinName "U1" "ADC4")
+  # connect (net "ADC4") (pinName "U1" "ADC4")
+
+
+r =
+  r805 "R1" "1k"
+  # connect (net "VCC") (pinName "R1" 1)
+  # connect (net "SDA") (pinName "R1" 2)
+
+circuit = mcu <> r
+~~~~~
+
+The correct way would be to do like this :
+
+~~~~~
+circuit = (
+  atmega328p_au "U1"
+  r805 "R1" "1k"
+  )
+  # connect (net "SDA") (pinName "U1" "ADC4")
+  # connect (net "ADC4") (pinName "U1" "ADC4")
+  # connect (net "VCC") (pinName "R1" 1)
+  # connect (net "SDA") (pinName "R1" 2)
+~~~~~
+
+
 
 
 # For contributors
 
+## TODO
+Documentation
+Tests
+New footprints
+Flipping components
+Routing
+
 ## Coordinate system
+
+In the Kicad file format, a footprint has a location and an orientation. So when we apply a transformation to a component, we have to keep track of its orientation.
+
+The coordinate system used in Hpcb is inpired by homogeneous coordinates :
+
+Here are the coordinates of some footprint (a column vector) :
+
+~~~~~
+(x)
+(y)
+(o)
+(1)
+~~~~~
+
+Here is how we make a translation :
+
+~~~~~
+(x')      (1  0   0   tx)  (x)
+(y')  =   (0  1   0   ty)  (y)
+(o')      (0  0   1   0 )  (o)
+(1 )      (0  0   0   1 )  (1)
+~~~~~
+
+Here is how we make a rotation :
+
+~~~~~
+(x')      (cos a  sin a   0   0)  (x)
+(y')  =   (-sin a cos a   0   0)  (y)
+(o')      (0      0       1   a)  (o)
+(1 )      (0      0       0   1)  (1)
+~~~~~
+
+
 ## How to make a new footprint
+
+
+# Links
+## Interesting projects made by other people
+### Skidl
+### PCBmodE
+## Kicad file format description
