@@ -1,5 +1,5 @@
 # HPCB
-Create a PCB programmatically instead of using a GUI
+Create a PCB programmatically (instead of using a GUI)
 (like OpenSCAD for 3d modelling)
 
 # Hello world !
@@ -214,6 +214,25 @@ Here is how we make a rotation :
 ## How to make a new footprint
 
 ## Instantiate a new component from an existing footprint
+
+Lets take an example : we will create a new component named lm358n from the existing footprint soic_8. We give the value "LM358N" to the component, and we just use the function "names" to assign names to pins, and that's all. A pin can have multiple names, as you can see for pin 4, which has 2 names.
+
+~~~~~
+lm358n :: String
+          -> Circuit
+lm358n ref = soic_8 ref "LM358N" # names ref [
+    (1, ["OUTA"]),
+    (2, ["-INA"]),
+    (3, ["+INA"]),
+    (4, ["GND", "V-"]),
+    (5, ["+INB"]),
+    (6, ["-INB"]),
+    (7, ["OUTB"]),
+    (8, ["V+"])
+  ]
+~~~~~
+
+And then we will be able to use "connect" and "pinName" functions to connect those pins.
 
 # Links
 
