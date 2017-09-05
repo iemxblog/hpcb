@@ -127,7 +127,7 @@ leds =
 ~~~~~
 
 This example will return an error saying that it cannot find component D1. It is normal because operator # has a higher precedence than <>,
-so "pinName" looks only in the circuit return by this function :
+so "pinName" looks only in the circuit returned by this function :
 
 ~~~~~
 led_805 "D2" "GREEN"
