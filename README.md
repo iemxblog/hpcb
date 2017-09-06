@@ -137,38 +137,24 @@ And there is no component named "D1".
 
 #### Overwriting Nets
 
-In this circuit, pin 1 of resistor R1 won't be connected to pin "SDA" of the atmega328p_au. The reason is that the SDA net in component R1 is out of scope when we make the connection in component U1.
+In this circuit, pin 1 of resistor R1 won't be connected to pin "SDA" of the atmega328p_au. The reason is that the SDA net associated with pin ADC4 of component U1 is overwritten on the following line.
 
 ~~~~~
 mcu =
   atmega328p_au "U1"
   # connect (net "SDA") (pinName "U1" "ADC4")
-  # connect (net "ADC4") (pinName "U1" "ADC4")
+  # connect (net "ADC4") (pinName "U1" "ADC4")  -- net SDA is overwritten by net ADC4
 
 
 r =
   r805 "R1" "1k"
-  # connect (net "VCC") (pinName "R1" 1)
-  # connect (net "SDA") (pinName "R1" 2)
+  # connect (net "VCC") (pin "R1" 1)
+  # connect (net "SDA") (pin "R1" 2)    -- This pin won't be connected to pin ADC4 of component U1, because its net has been overwritten
 
 circuit = mcu <> r
 ~~~~~
 
-The correct way would be to do like this :
-
-~~~~~
-circuit = (
-  atmega328p_au "U1"
-  r805 "R1" "1k"
-  )
-  # connect (net "SDA") (pinName "U1" "ADC4")
-  # connect (net "ADC4") (pinName "U1" "ADC4")
-  # connect (net "VCC") (pinName "R1" 1)
-  # connect (net "SDA") (pinName "R1" 2)
-~~~~~
-
-
-
+Should overwriting be forbidden in a future version ? Or should we find another solution to this problem, that will cause errors not seen by users ?
 
 # For contributors
 
