@@ -4,10 +4,10 @@ Create a PCB programmatically (instead of using a GUI)
 
 # Quick start : an LED, a resistor, and a pin header
 
-Install Haskell :
+Install Haskell and Kicad :
 
 ~~~~~
-$ sudo apt install haskell-platform
+$ sudo apt install haskell-platform kicad
 ~~~~~
 
 Create a new haskell project :
@@ -91,6 +91,11 @@ Then produce the board file like this :
 ~~~~~
 cabal build
 ./dist/build/led/led > led.kicad_pcb
+~~~~~
+
+Then open it with Kicad like this :
+
+~~~~~
 pcbnew led.kicad_pcb
 ~~~~~
 
