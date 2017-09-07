@@ -50,6 +50,8 @@ executable led
   default-language:    Haskell2010
 ~~~~~
 
+Install Hpcb like this (it will be installed in the sandbox) :
+
 ~~~~~
 cabal install --only-dependencies
 ~~~~~
@@ -195,7 +197,7 @@ r =
 circuit = mcu <> r
 ~~~~~
 
-Should overwriting be forbidden in a future version ? Or should we find another solution to this problem, that will cause errors not seen by users ?
+Should overwriting be forbidden in a future version ? Or should we find another solution to this problem, that will cause errors not seen by users ? If you want to give some feedback about this, send me an email at iemxblog@gmail.com.
 
 # For contributors
 
@@ -240,9 +242,69 @@ Here is how we make a rotation :
 
 ## How to make a new footprint
 
+Let's take an example. This is Kicad file format's representation of a resitor (805 package) :
+
+~~~~~
+  (module Resistors_SMD:R_0805 (layer F.Cu) (tedit 58AADA8F) (tstamp 59B14E88)
+    (at -6.35 2.54)
+    (descr "Resistor SMD 0805, reflow soldering, Vishay (see dcrcw.pdf)")
+    (tags "resistor 0805")
+    (attr smd)
+    (fp_text reference REF** (at 0 -1.65) (layer F.SilkS)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value R_0805 (at 0 1.75) (layer F.Fab)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text user %R (at 0 -1.65) (layer F.Fab)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_line (start -1 0.62) (end -1 -0.62) (layer F.Fab) (width 0.1))
+    (fp_line (start 1 0.62) (end -1 0.62) (layer F.Fab) (width 0.1))
+    (fp_line (start 1 -0.62) (end 1 0.62) (layer F.Fab) (width 0.1))
+    (fp_line (start -1 -0.62) (end 1 -0.62) (layer F.Fab) (width 0.1))
+    (fp_line (start 0.6 0.88) (end -0.6 0.88) (layer F.SilkS) (width 0.12))
+    (fp_line (start -0.6 -0.88) (end 0.6 -0.88) (layer F.SilkS) (width 0.12))
+    (fp_line (start -1.55 -0.9) (end 1.55 -0.9) (layer F.CrtYd) (width 0.05))
+    (fp_line (start -1.55 -0.9) (end -1.55 0.9) (layer F.CrtYd) (width 0.05))
+    (fp_line (start 1.55 0.9) (end 1.55 -0.9) (layer F.CrtYd) (width 0.05))
+    (fp_line (start 1.55 0.9) (end -1.55 0.9) (layer F.CrtYd) (width 0.05))
+    (pad 1 smd rect (at -0.95 0) (size 0.7 1.3) (layers F.Cu F.Paste F.Mask))
+    (pad 2 smd rect (at 0.95 0) (size 0.7 1.3) (layers F.Cu F.Paste F.Mask))
+    (model Resistors_SMD.3dshapes/R_0805.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
+  )
+
+~~~~~
+
+We just have to translate it using Hpcb functions, like fpText, fpRectangle, fpLine, pad, etc. And here is the result :
+
+~~~~~
+-- | SMD Resistor, 805 package (2012 metric)
+r805 :: String      -- ^ Reference
+        -> String   -- ^ Value
+        -> Circuit
+r805 ref val = footprint ref "R_805" $
+  fpText "reference" ref defaultEffects # translate (V2 0 (-1.65)) # layer FSilkS
+  <> fpText "value" val defaultEffects # translate (V2 0 1.65) # layer FFab
+  <> fpRectangle 2.0 1.25 # layer FFab # width 0.1
+  <> fpRectangle 3.2 2.0 # layer FCrtYd # width 0.05
+  <> (
+    fpLine (V2 0.6 0.875) (V2 (-0.6) 0.875)
+    <> fpLine (V2 (-0.6) (-0.875)) (V2 0.6 (-0.875))
+  ) # layer FSilkS # width 0.15
+  <> (
+    pad 1 SMD Rect (V2 0.7 1.3) (newNet ref 1) # translate (V2 (-0.95) 0)
+    <> pad 2 SMD Rect (V2 0.7 1.3) (newNet ref 2) # translate (V2 0.95 0)
+  ) # layers [FCu, FPaste, FMask]
+~~~~~
+
 ## Instantiate a new component from an existing footprint
 
-Lets take an example : we will create a new component named lm358n from the existing footprint soic_8. We give the value "LM358N" to the component, and we just use the function "names" to assign names to pins, and that's all. A pin can have multiple names, as you can see for pin 4, which has 2 names.
+Let's take an example : we will create a new component named lm358n from the existing footprint soic_8. We give the value "LM358N" to the component, and we just use the function "names" to assign names to pins, and that's all. A pin can have multiple names, as you can see for pin 4, which has 2 names.
 
 ~~~~~
 lm358n :: String

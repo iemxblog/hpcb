@@ -5,12 +5,15 @@ module Main (
 import Hpcb
 import Data.Monoid
 
-vline :: Float -> Circuit
+-- | Makes a vertical line on layers FCu and FMask
+vline ::    Float           -- ^ Length
+            -> Circuit
 vline l = (
   line (V2 0 0) (V2 0 (-l)) # layer FCu
   <> line (V2 0 0) (V2 0 (-l)) # layer FMask
   ) # width 0.15
 
+-- | Draws a tree
 tree :: Int           -- ^ Depth of the tree
         -> Float      -- ^ Length of the trunk
         -> Float      -- ^ Length of the branches
