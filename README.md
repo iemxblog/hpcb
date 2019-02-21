@@ -137,7 +137,7 @@ led = led_805 "D1" "RED" # connect (net "GND") (pinName "D1" "K")
 ~~~~~
 
 ### Example 3
-Create an Atemaga328p named "U1", and connect all its VCC pins to net "VCC", and all its GND pins to net "GND".
+Create an ATMega328p named "U1", and connect all its VCC pins to net "VCC", and all its GND pins to net "GND".
 
 ~~~~~
 mcu =
